@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRTN_UI", "SRTN_UI.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "..\TestConsole\TestConsole.csproj", "{83ADB750-92C0-4F43-A62D-42A3F58AE52D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STRN_Logic", "..\STRN_Logic\STRN_Logic.csproj", "{00171E45-6E31-4816-9B31-256531BFA4CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRTN_Logic", "..\STRN_Logic\SRTN_Logic.csproj", "{00171E45-6E31-4816-9B31-256531BFA4CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\STRN_Logic\STRN_Logic.csproj" />
+    <ProjectReference Include="..\STRN_Logic\SRTN_Logic.csproj" />
   </ItemGroup>
 
 </Project>
