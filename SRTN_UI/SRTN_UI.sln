@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRTN_UI", "SRTN_UI.csproj", "{455A378F-A1E0-4EFA-B041-BF0CF433FAFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "..\TestConsole\TestConsole.csproj", "{83ADB750-92C0-4F43-A62D-42A3F58AE52D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STRN_Logic", "..\STRN_Logic\STRN_Logic.csproj", "{00171E45-6E31-4816-9B31-256531BFA4CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{455A378F-A1E0-4EFA-B041-BF0CF433FAFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{455A378F-A1E0-4EFA-B041-BF0CF433FAFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{455A378F-A1E0-4EFA-B041-BF0CF433FAFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{455A378F-A1E0-4EFA-B041-BF0CF433FAFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83ADB750-92C0-4F43-A62D-42A3F58AE52D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83ADB750-92C0-4F43-A62D-42A3F58AE52D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83ADB750-92C0-4F43-A62D-42A3F58AE52D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83ADB750-92C0-4F43-A62D-42A3F58AE52D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00171E45-6E31-4816-9B31-256531BFA4CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00171E45-6E31-4816-9B31-256531BFA4CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00171E45-6E31-4816-9B31-256531BFA4CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00171E45-6E31-4816-9B31-256531BFA4CD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
