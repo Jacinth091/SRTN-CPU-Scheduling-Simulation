@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Forms\MainForm.cs">
-      <SubType>Form</SubType>
+    <Compile Update="Forms\DesignArea.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\UIPanel.cs">
+    <Compile Update="Forms\ProcessHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\ProcessRow.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

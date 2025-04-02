@@ -7,15 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Krypton.Toolkit;
 
 namespace SRTN_UI.Forms
 {
-    public partial class MainForm : KryptonForm
+    public partial class DesignArea : UserControl
     {
-        public MainForm()
+        public DesignArea()
         {
             InitializeComponent();
+        }
+
+        private void kryptonPanel4_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
