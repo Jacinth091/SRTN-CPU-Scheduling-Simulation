@@ -19,6 +19,7 @@ namespace SRTN_UI.Logic
         public double StartTime { get; set; }
         public double EndTime { get; set; }
         public bool IsCompleted { get; set; }
+        public bool IsPreempted { get; set; }
 
         public Process(int _processId, string _processName, double _burstTime, double _arrivalTime)
         {
@@ -33,6 +34,7 @@ namespace SRTN_UI.Logic
             StartTime = 0;
             EndTime = 0;
             IsCompleted = false;
+            IsPreempted = false;
         }
     }
 }

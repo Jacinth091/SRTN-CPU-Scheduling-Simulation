@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SRTN_UI.Logic;
 
 namespace SRTN_UI.Forms
 {
@@ -15,6 +16,18 @@ namespace SRTN_UI.Forms
         public TableItemRow()
         {
             InitializeComponent();
+        }
+
+        public TableItemRow(Process process)
+        {
+            InitializeComponent();
+            ProcessIdCol.Text = process.ProcessId.ToString();
+            OriginalBurstCol.Text = process.OriginalBurstTime.ToString();
+            ArrivalCol.Text = process.ArrivalTime.ToString();
+            CurrentBurstCol.Text = process.CurrentBurstTime.ToString();
+            WaitingCol.Text = process.WaitingTime.ToString();
+            TurnCol.Text = process.TurnAroundTime.ToString();
+            StatusCol.Text = process.IsCompleted ? "Completed" : "Running";
         }
 
     }

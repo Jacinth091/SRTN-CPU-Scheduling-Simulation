@@ -18,9 +18,10 @@ namespace SRTN_UI
             //IViewManager viewManager = new ViewManager();
 
             //viewManager.ShowMainView();
-            GanttChartView ganttChartView = GanttChartView.GetInstance();
-            ganttChartView.Show();
-            Application.Run();
+            //GanttChartView ganttChartView = GanttChartView.GetInstance();
+            //ganttChartView.Show();
+
+            Application.Run(new MainView());
         }
     }
 }

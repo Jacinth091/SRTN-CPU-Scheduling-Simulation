@@ -39,6 +39,7 @@ namespace SRTN_UI.Forms
                 //MessageBox.Show("Pressed");
                 ContinueEvent?.Invoke(this, EventArgs.Empty);
                 ShowProcessTableView(MainPanelLoader);
+                //ShowGanttChartView(MainPanelLoader, new List<Process>());
 
             };
             this.FormClosing += OnFormClosing;

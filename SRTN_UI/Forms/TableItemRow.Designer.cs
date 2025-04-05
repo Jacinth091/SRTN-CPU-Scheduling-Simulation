@@ -28,145 +28,163 @@
         /// </summary>
         private void InitializeComponent()
         {
-            TableHeader = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
-            kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
-            kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
-            kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
-            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
-            ProcessTitle = new Krypton.Toolkit.KryptonLabel();
-            ((System.ComponentModel.ISupportInitialize)TableHeader).BeginInit();
-            TableHeader.SuspendLayout();
+            TableRow = new Krypton.Toolkit.KryptonPanel();
+            StatusCol = new Krypton.Toolkit.KryptonLabel();
+            TurnCol = new Krypton.Toolkit.KryptonLabel();
+            WaitingCol = new Krypton.Toolkit.KryptonLabel();
+            CurrentBurstCol = new Krypton.Toolkit.KryptonLabel();
+            ArrivalCol = new Krypton.Toolkit.KryptonLabel();
+            OriginalBurstCol = new Krypton.Toolkit.KryptonLabel();
+            ProcessIdCol = new Krypton.Toolkit.KryptonLabel();
+            ((System.ComponentModel.ISupportInitialize)TableRow).BeginInit();
+            TableRow.SuspendLayout();
             SuspendLayout();
             // 
-            // TableHeader
+            // TableRow
             // 
-            TableHeader.Controls.Add(kryptonLabel5);
-            TableHeader.Controls.Add(kryptonLabel4);
-            TableHeader.Controls.Add(kryptonLabel3);
-            TableHeader.Controls.Add(kryptonLabel2);
-            TableHeader.Controls.Add(kryptonLabel1);
-            TableHeader.Controls.Add(ProcessTitle);
-            TableHeader.Dock = DockStyle.Top;
-            TableHeader.Location = new Point(0, 0);
-            TableHeader.Name = "TableHeader";
-            TableHeader.Size = new Size(1208, 73);
-            TableHeader.StateCommon.Color1 = Color.FromArgb(238, 238, 238);
-            TableHeader.StateCommon.Color2 = Color.FromArgb(238, 238, 238);
-            TableHeader.TabIndex = 1;
+            TableRow.Controls.Add(StatusCol);
+            TableRow.Controls.Add(TurnCol);
+            TableRow.Controls.Add(WaitingCol);
+            TableRow.Controls.Add(CurrentBurstCol);
+            TableRow.Controls.Add(ArrivalCol);
+            TableRow.Controls.Add(OriginalBurstCol);
+            TableRow.Controls.Add(ProcessIdCol);
+            TableRow.Dock = DockStyle.Top;
+            TableRow.Location = new Point(0, 0);
+            TableRow.Name = "TableRow";
+            TableRow.Size = new Size(841, 73);
+            TableRow.StateCommon.Color1 = Color.Transparent;
+            TableRow.StateCommon.Color2 = Color.Transparent;
+            TableRow.TabIndex = 1;
             // 
-            // kryptonLabel5
+            // StatusCol
             // 
-            kryptonLabel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            kryptonLabel5.Location = new Point(981, 17);
-            kryptonLabel5.Name = "kryptonLabel5";
-            kryptonLabel5.Size = new Size(202, 33);
-            kryptonLabel5.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            kryptonLabel5.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel5.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
-            kryptonLabel5.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel5.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel5.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel5.TabIndex = 9;
-            kryptonLabel5.Values.Text = "Turn Around TIme";
+            StatusCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            StatusCol.Location = new Point(699, 17);
+            StatusCol.Name = "StatusCol";
+            StatusCol.Size = new Size(102, 33);
+            StatusCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            StatusCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            StatusCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
+            StatusCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            StatusCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            StatusCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            StatusCol.TabIndex = 10;
+            StatusCol.Values.Text = "Running";
             // 
-            // kryptonLabel4
+            // TurnCol
             // 
-            kryptonLabel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            kryptonLabel4.Location = new Point(800, 17);
-            kryptonLabel4.Name = "kryptonLabel4";
-            kryptonLabel4.Size = new Size(154, 33);
-            kryptonLabel4.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            kryptonLabel4.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel4.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
-            kryptonLabel4.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel4.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel4.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel4.TabIndex = 8;
-            kryptonLabel4.Values.Text = "Waiting Time";
+            TurnCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            TurnCol.Location = new Point(596, 17);
+            TurnCol.Name = "TurnCol";
+            TurnCol.Size = new Size(46, 33);
+            TurnCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            TurnCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            TurnCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
+            TurnCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            TurnCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            TurnCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            TurnCol.TabIndex = 9;
+            TurnCol.Values.Text = "0.0";
             // 
-            // kryptonLabel3
+            // WaitingCol
             // 
-            kryptonLabel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            kryptonLabel3.Location = new Point(560, 17);
-            kryptonLabel3.Name = "kryptonLabel3";
-            kryptonLabel3.Size = new Size(213, 33);
-            kryptonLabel3.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            kryptonLabel3.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel3.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
-            kryptonLabel3.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel3.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel3.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel3.TabIndex = 7;
-            kryptonLabel3.Values.Text = "Current Burst TIme";
+            WaitingCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            WaitingCol.Location = new Point(486, 17);
+            WaitingCol.Name = "WaitingCol";
+            WaitingCol.Size = new Size(46, 33);
+            WaitingCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            WaitingCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            WaitingCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
+            WaitingCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            WaitingCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            WaitingCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            WaitingCol.TabIndex = 8;
+            WaitingCol.Values.Text = "0.0";
             // 
-            // kryptonLabel2
+            // CurrentBurstCol
             // 
-            kryptonLabel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            kryptonLabel2.Location = new Point(381, 17);
-            kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.Size = new Size(142, 33);
-            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel2.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
-            kryptonLabel2.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel2.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel2.TabIndex = 6;
-            kryptonLabel2.Values.Text = "Arrival Time";
+            CurrentBurstCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            CurrentBurstCol.Location = new Point(370, 17);
+            CurrentBurstCol.Name = "CurrentBurstCol";
+            CurrentBurstCol.Size = new Size(46, 33);
+            CurrentBurstCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            CurrentBurstCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            CurrentBurstCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
+            CurrentBurstCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            CurrentBurstCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            CurrentBurstCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            CurrentBurstCol.TabIndex = 7;
+            CurrentBurstCol.Values.Text = "0.0";
             // 
-            // kryptonLabel1
+            // ArrivalCol
             // 
-            kryptonLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            kryptonLabel1.Location = new Point(178, 17);
-            kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(174, 33);
-            kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            kryptonLabel1.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel1.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
-            kryptonLabel1.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel1.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel1.TabIndex = 5;
-            kryptonLabel1.Values.Text = "CPU Burst TIme";
+            ArrivalCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ArrivalCol.Location = new Point(261, 17);
+            ArrivalCol.Name = "ArrivalCol";
+            ArrivalCol.Size = new Size(46, 33);
+            ArrivalCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            ArrivalCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            ArrivalCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
+            ArrivalCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ArrivalCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ArrivalCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ArrivalCol.TabIndex = 6;
+            ArrivalCol.Values.Text = "0.0";
             // 
-            // ProcessTitle
+            // OriginalBurstCol
             // 
-            ProcessTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ProcessTitle.Location = new Point(31, 17);
-            ProcessTitle.Name = "ProcessTitle";
-            ProcessTitle.Size = new Size(121, 33);
-            ProcessTitle.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            ProcessTitle.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            ProcessTitle.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
-            ProcessTitle.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            ProcessTitle.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            ProcessTitle.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            ProcessTitle.TabIndex = 4;
-            ProcessTitle.Values.Text = "Process Id";
+            OriginalBurstCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            OriginalBurstCol.Location = new Point(156, 17);
+            OriginalBurstCol.Name = "OriginalBurstCol";
+            OriginalBurstCol.Size = new Size(46, 33);
+            OriginalBurstCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            OriginalBurstCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            OriginalBurstCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
+            OriginalBurstCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            OriginalBurstCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            OriginalBurstCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            OriginalBurstCol.TabIndex = 5;
+            OriginalBurstCol.Values.Text = "0.0";
+            // 
+            // ProcessIdCol
+            // 
+            ProcessIdCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ProcessIdCol.Location = new Point(49, 17);
+            ProcessIdCol.Name = "ProcessIdCol";
+            ProcessIdCol.Size = new Size(46, 33);
+            ProcessIdCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            ProcessIdCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            ProcessIdCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
+            ProcessIdCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ProcessIdCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ProcessIdCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ProcessIdCol.TabIndex = 4;
+            ProcessIdCol.Values.Text = "0.0";
             // 
             // TableItemRow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(48, 56, 65);
-            Controls.Add(TableHeader);
+            Controls.Add(TableRow);
             Name = "TableItemRow";
-            Size = new Size(1208, 73);
-            ((System.ComponentModel.ISupportInitialize)TableHeader).EndInit();
-            TableHeader.ResumeLayout(false);
-            TableHeader.PerformLayout();
+            Size = new Size(841, 73);
+            ((System.ComponentModel.ISupportInitialize)TableRow).EndInit();
+            TableRow.ResumeLayout(false);
+            TableRow.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Krypton.Toolkit.KryptonPanel TableHeader;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel5;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private Krypton.Toolkit.KryptonLabel ProcessTitle;
+        private Krypton.Toolkit.KryptonPanel TableRow;
+        private Krypton.Toolkit.KryptonLabel TurnCol;
+        private Krypton.Toolkit.KryptonLabel WaitingCol;
+        private Krypton.Toolkit.KryptonLabel CurrentBurstCol;
+        private Krypton.Toolkit.KryptonLabel ArrivalCol;
+        private Krypton.Toolkit.KryptonLabel OriginalBurstCol;
+        private Krypton.Toolkit.KryptonLabel ProcessIdCol;
+        private Krypton.Toolkit.KryptonLabel StatusCol;
     }
 }

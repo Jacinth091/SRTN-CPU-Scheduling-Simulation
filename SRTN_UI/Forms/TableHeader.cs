@@ -10,10 +10,9 @@ using System.Windows.Forms;
 
 namespace SRTN_UI.Forms
 {
-    public partial class TableView : UserControl
+    public partial class TableHeader : UserControl
     {
-        public FlowLayoutPanel _tableContainer { get => _tableContainer; }
-        public TableView()
+        public TableHeader()
         {
             InitializeComponent();
         }

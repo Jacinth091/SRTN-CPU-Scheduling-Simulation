@@ -17,6 +17,9 @@
     <Compile Update="Forms\ProcessTableView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\TableHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\TableItemRow.cs">
       <SubType>UserControl</SubType>
     </Compile>
