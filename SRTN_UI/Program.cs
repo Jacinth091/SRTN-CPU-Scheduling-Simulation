@@ -13,12 +13,14 @@ namespace SRTN_UI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-             
+
 
             //IViewManager viewManager = new ViewManager();
 
             //viewManager.ShowMainView();
-            Application.Run(new MainView());
+            GanttChartView ganttChartView = GanttChartView.GetInstance();
+            ganttChartView.Show();
+            Application.Run();
         }
     }
 }

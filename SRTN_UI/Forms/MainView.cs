@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SRTN_UI.Forms;
+using SRTN_UI.Logic;
 using Krypton.Toolkit;
+
 
 namespace SRTN_UI.Forms
 {
@@ -75,15 +77,29 @@ namespace SRTN_UI.Forms
 
         public void ShowProcessTableView(KryptonPanel panelContainer)
         {
-            //IPatientRecordsView patientRecordsView = PatientRecordsView.GetInstance(panelContainer);
-            //IPatientRecordsRepository patientRecordsRepository = new PatientRecordsQuery(_dbManager);
-            //IPatientRecordsPresenter patientRecordsPresenter = new PatientRecordsPresenter(patientRecordsView, patientRecordsRepository);
-            //patientRecordsView.Presenter = patientRecordsPresenter;
             ProcessTableView processTable = ProcessTableView.GetInstance(panelContainer);
 
             panelContainer.Controls.Clear();
             panelContainer.Controls.Add((Control)processTable);
             ((Control)processTable).Dock = DockStyle.Fill;
+
+
+            processTable.ProcessDataReady += (processData) =>
+            {
+                MessageBox.Show("Process data is ready");
+                ShowGanttChartView(panelContainer, processData);
+            };
         }
+
+
+        public void ShowGanttChartView(KryptonPanel panelContainer, List<Process> processedData)
+        {
+            GanttChartView ganttChartView = GanttChartView.GetInstance(panelContainer);
+            ganttChartView.SetProcessData(processedData);
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add((Control)ganttChartView);
+            ((Control)ganttChartView).Dock = DockStyle.Fill;
+        }
+
     }
 }

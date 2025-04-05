@@ -21,5 +21,15 @@ namespace SRTN_UI.Forms
         {
 
         }
+
+        private void DesignArea_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BurstTimeText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

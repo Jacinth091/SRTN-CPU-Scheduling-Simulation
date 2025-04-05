@@ -57,8 +57,10 @@
             ArrivalTimeText.AlwaysActive = false;
             ArrivalTimeText.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             ArrivalTimeText.CueHint.Color1 = Color.DimGray;
-            ArrivalTimeText.CueHint.Font = new Font("Poppins", 12F);
-            ArrivalTimeText.CueHint.TextV = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            ArrivalTimeText.CueHint.CueHintText = "Enter arrival time";
+            ArrivalTimeText.CueHint.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ArrivalTimeText.CueHint.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ArrivalTimeText.CueHint.TextV = Krypton.Toolkit.PaletteRelativeAlign.Inherit;
             ArrivalTimeText.Cursor = Cursors.IBeam;
             ArrivalTimeText.Location = new Point(678, 18);
             ArrivalTimeText.MaxLength = 10;
@@ -74,17 +76,21 @@
             ArrivalTimeText.StateCommon.Content.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ArrivalTimeText.StateCommon.Content.Padding = new Padding(10, 1, 10, 1);
             ArrivalTimeText.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ArrivalTimeText.StateDisabled.Content.Padding = new Padding(10, 1, 10, 1);
             ArrivalTimeText.TabIndex = 8;
             ArrivalTimeText.TextAlign = HorizontalAlignment.Center;
             ArrivalTimeText.WordWrap = false;
+            ArrivalTimeText.TextChanged += ArrivalTimeText_TextChanged;
             // 
             // BurstTimeText
             // 
             BurstTimeText.AlwaysActive = false;
             BurstTimeText.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             BurstTimeText.CueHint.Color1 = Color.DimGray;
-            BurstTimeText.CueHint.Font = new Font("Poppins", 12F);
-            BurstTimeText.CueHint.TextV = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            BurstTimeText.CueHint.CueHintText = "Enter burst time";
+            BurstTimeText.CueHint.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BurstTimeText.CueHint.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            BurstTimeText.CueHint.TextV = Krypton.Toolkit.PaletteRelativeAlign.Inherit;
             BurstTimeText.Cursor = Cursors.IBeam;
             BurstTimeText.Location = new Point(294, 18);
             BurstTimeText.MaxLength = 10;
@@ -100,6 +106,7 @@
             BurstTimeText.StateCommon.Content.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             BurstTimeText.StateCommon.Content.Padding = new Padding(10, 1, 10, 1);
             BurstTimeText.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            BurstTimeText.StateDisabled.Content.Padding = new Padding(10, 1, 10, 1);
             BurstTimeText.TabIndex = 6;
             BurstTimeText.TextAlign = HorizontalAlignment.Center;
             BurstTimeText.WordWrap = false;
@@ -141,8 +148,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(HeaderContainer);
-            MaximumSize = new Size(1060, 80);
-            MinimumSize = new Size(1060, 80);
             Name = "ProcessRow";
             Size = new Size(1060, 80);
             ((System.ComponentModel.ISupportInitialize)HeaderContainer).EndInit();

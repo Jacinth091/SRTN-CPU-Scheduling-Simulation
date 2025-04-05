@@ -16,4 +16,10 @@
     <ProjectReference Include="..\STRN_Logic\SRTN_Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Forms\GanttCharttView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

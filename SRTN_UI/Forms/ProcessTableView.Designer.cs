@@ -30,7 +30,7 @@
         {
             MainContainer = new Krypton.Toolkit.KryptonPanel();
             InputContainer = new Krypton.Toolkit.KryptonPanel();
-            CancelBtn = new Krypton.Toolkit.KryptonButton();
+            ProceedBtn = new Krypton.Toolkit.KryptonButton();
             Numeric = new Krypton.Toolkit.KryptonNumericUpDown();
             GenerateBtn = new Krypton.Toolkit.KryptonButton();
             kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
@@ -53,60 +53,61 @@
             // 
             // InputContainer
             // 
-            InputContainer.Controls.Add(CancelBtn);
+            InputContainer.Controls.Add(ProceedBtn);
             InputContainer.Controls.Add(Numeric);
             InputContainer.Controls.Add(GenerateBtn);
             InputContainer.Controls.Add(kryptonLabel3);
-            InputContainer.Location = new Point(500, 350);
+            InputContainer.Location = new Point(-25, 350);
             InputContainer.Name = "InputContainer";
             InputContainer.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.PanelAlternate;
-            InputContainer.Size = new Size(480, 159);
+            InputContainer.Size = new Size(1486, 159);
             InputContainer.StateCommon.Color1 = Color.Transparent;
             InputContainer.StateCommon.Color2 = Color.Transparent;
             InputContainer.TabIndex = 1;
             // 
-            // CancelBtn
+            // ProceedBtn
             // 
-            CancelBtn.Location = new Point(270, 99);
-            CancelBtn.Name = "CancelBtn";
-            CancelBtn.OverrideDefault.Back.Color1 = Color.White;
-            CancelBtn.OverrideDefault.Back.Color2 = Color.White;
-            CancelBtn.OverrideDefault.Border.Rounding = 10F;
-            CancelBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            CancelBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(215, 35, 35);
-            CancelBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold);
-            CancelBtn.Size = new Size(160, 45);
-            CancelBtn.StateCommon.Back.Color1 = Color.White;
-            CancelBtn.StateCommon.Back.Color2 = Color.White;
-            CancelBtn.StateCommon.Border.Color1 = Color.FromArgb(215, 35, 35);
-            CancelBtn.StateCommon.Border.Color2 = Color.FromArgb(215, 35, 35);
-            CancelBtn.StateCommon.Border.Rounding = 10F;
-            CancelBtn.StateCommon.Border.Width = 2;
-            CancelBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            CancelBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(215, 35, 35);
-            CancelBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold);
-            CancelBtn.StatePressed.Back.Color1 = Color.FromArgb(235, 80, 80);
-            CancelBtn.StatePressed.Back.Color2 = Color.FromArgb(235, 80, 80);
-            CancelBtn.StatePressed.Border.Color1 = Color.FromArgb(180, 25, 25);
-            CancelBtn.StatePressed.Border.Color2 = Color.FromArgb(180, 25, 25);
-            CancelBtn.StatePressed.Border.Rounding = 10F;
-            CancelBtn.StatePressed.Content.ShortText.Color1 = Color.White;
-            CancelBtn.StatePressed.Content.ShortText.Color2 = Color.White;
-            CancelBtn.StateTracking.Back.Color1 = Color.FromArgb(245, 245, 245);
-            CancelBtn.StateTracking.Back.Color2 = Color.FromArgb(245, 245, 245);
-            CancelBtn.StateTracking.Border.Color1 = Color.FromArgb(215, 35, 35);
-            CancelBtn.StateTracking.Border.Color2 = Color.FromArgb(215, 35, 35);
-            CancelBtn.StateTracking.Border.Rounding = 10F;
-            CancelBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(215, 35, 35);
-            CancelBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(215, 35, 35);
-            CancelBtn.TabIndex = 6;
-            CancelBtn.Values.DropDownArrowColor = Color.Empty;
-            CancelBtn.Values.Text = "Cancel";
+            ProceedBtn.Location = new Point(795, 87);
+            ProceedBtn.Name = "ProceedBtn";
+            ProceedBtn.OverrideDefault.Back.Color1 = Color.FromArgb(6, 208, 1);
+            ProceedBtn.OverrideDefault.Back.Color2 = Color.FromArgb(6, 208, 1);
+            ProceedBtn.OverrideDefault.Border.Color1 = Color.White;
+            ProceedBtn.OverrideDefault.Border.Color2 = Color.White;
+            ProceedBtn.OverrideDefault.Border.Rounding = 10F;
+            ProceedBtn.OverrideDefault.Border.Width = 2;
+            ProceedBtn.OverrideDefault.Content.ShortText.Color1 = Color.White;
+            ProceedBtn.OverrideDefault.Content.ShortText.Color2 = Color.White;
+            ProceedBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold);
+            ProceedBtn.Size = new Size(160, 45);
+            ProceedBtn.StateCommon.Back.Color1 = Color.FromArgb(6, 208, 1);
+            ProceedBtn.StateCommon.Back.Color2 = Color.FromArgb(6, 208, 1);
+            ProceedBtn.StateCommon.Border.Color1 = Color.White;
+            ProceedBtn.StateCommon.Border.Color2 = Color.White;
+            ProceedBtn.StateCommon.Border.Rounding = 10F;
+            ProceedBtn.StateCommon.Border.Width = 2;
+            ProceedBtn.StateCommon.Content.ShortText.Color1 = Color.White;
+            ProceedBtn.StateCommon.Content.ShortText.Color2 = Color.White;
+            ProceedBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold);
+            ProceedBtn.StateDisabled.Back.Color1 = Color.Silver;
+            ProceedBtn.StateDisabled.Back.Color2 = Color.Silver;
+            ProceedBtn.StatePressed.Back.Color1 = Color.FromArgb(5, 180, 0);
+            ProceedBtn.StatePressed.Back.Color2 = Color.FromArgb(5, 180, 0);
+            ProceedBtn.StatePressed.Border.Color1 = Color.White;
+            ProceedBtn.StatePressed.Border.Color2 = Color.White;
+            ProceedBtn.StatePressed.Content.ShortText.Color1 = Color.WhiteSmoke;
+            ProceedBtn.StateTracking.Back.Color1 = Color.FromArgb(20, 230, 15);
+            ProceedBtn.StateTracking.Back.Color2 = Color.FromArgb(20, 230, 15);
+            ProceedBtn.StateTracking.Border.Color1 = Color.White;
+            ProceedBtn.StateTracking.Border.Color2 = Color.White;
+            ProceedBtn.StateTracking.Content.ShortText.Color1 = Color.White;
+            ProceedBtn.TabIndex = 6;
+            ProceedBtn.Values.DropDownArrowColor = Color.Empty;
+            ProceedBtn.Values.Text = "Proceed";
             // 
             // Numeric
             // 
             Numeric.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-            Numeric.Location = new Point(341, 35);
+            Numeric.Location = new Point(866, 24);
             Numeric.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             Numeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             Numeric.Name = "Numeric";
@@ -125,7 +126,7 @@
             // 
             // GenerateBtn
             // 
-            GenerateBtn.Location = new Point(47, 99);
+            GenerateBtn.Location = new Point(572, 87);
             GenerateBtn.Name = "GenerateBtn";
             GenerateBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
             GenerateBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
@@ -163,7 +164,7 @@
             // 
             // kryptonLabel3
             // 
-            kryptonLabel3.Location = new Point(34, 35);
+            kryptonLabel3.Location = new Point(559, 27);
             kryptonLabel3.Name = "kryptonLabel3";
             kryptonLabel3.Size = new Size(282, 37);
             kryptonLabel3.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
@@ -219,6 +220,6 @@
         private Krypton.Toolkit.KryptonNumericUpDown Numeric;
         private Krypton.Toolkit.KryptonButton GenerateBtn;
         private Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private Krypton.Toolkit.KryptonButton CancelBtn;
+        private Krypton.Toolkit.KryptonButton ProceedBtn;
     }
 }

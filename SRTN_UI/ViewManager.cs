@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SRTN_UI.Forms;
+using SRTN_UI.Logic;
 
 namespace SRTN_UI
 {
@@ -32,5 +33,7 @@ namespace SRTN_UI
             panelContainer.Controls.Add((Control)processTable);
             ((Control)processTable).Dock = DockStyle.Fill;
         }
+
+
     }
 }

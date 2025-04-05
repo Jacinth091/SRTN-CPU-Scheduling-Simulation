@@ -5,10 +5,22 @@
     <Compile Update="Forms\DesignArea.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Forms\MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\ProcessHeader.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Forms\ProcessRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\ProcessTableView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TableItemRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\TableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

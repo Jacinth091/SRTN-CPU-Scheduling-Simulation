@@ -41,15 +41,14 @@ namespace SRTN_UI.Forms
             kryptonPanel3 = new KryptonPanel();
             ProcessTableTitle = new KryptonLabel();
             kryptonPanel4 = new KryptonPanel();
-            ProcessTable = new KryptonDataGridView();
             kryptonPanel1 = new KryptonPanel();
             GenerateBtn = new KryptonButton();
             usernameText = new KryptonTextBox();
             kryptonLabel3 = new KryptonLabel();
             Column1 = new DataGridViewTextBoxColumn();
-            Process_Id = new KryptonDataGridViewTextBoxColumn();
-            Arrival_Time = new KryptonDataGridViewTextBoxColumn();
-            Burst_Time = new KryptonDataGridViewTextBoxColumn();
+            kryptonPanel5 = new KryptonPanel();
+            BurstTimeText = new KryptonTextBox();
+            ArrivalTimeText = new KryptonTextBox();
             ((System.ComponentModel.ISupportInitialize)MainTitlePanel).BeginInit();
             MainTitlePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
@@ -61,10 +60,10 @@ namespace SRTN_UI.Forms
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
             kryptonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
-            kryptonPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ProcessTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).BeginInit();
             kryptonPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel5).BeginInit();
+            kryptonPanel5.SuspendLayout();
             SuspendLayout();
             // 
             // MainTitlePanel
@@ -198,7 +197,6 @@ namespace SRTN_UI.Forms
             // kryptonPanel4
             // 
             kryptonPanel4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            kryptonPanel4.Controls.Add(ProcessTable);
             kryptonPanel4.Location = new Point(160, 60);
             kryptonPanel4.MaximumSize = new Size(790, 465);
             kryptonPanel4.MinimumSize = new Size(790, 465);
@@ -206,61 +204,6 @@ namespace SRTN_UI.Forms
             kryptonPanel4.Padding = new Padding(10);
             kryptonPanel4.Size = new Size(790, 465);
             kryptonPanel4.TabIndex = 0;
-            // 
-            // ProcessTable
-            // 
-            ProcessTable.AllowUserToAddRows = false;
-            ProcessTable.AllowUserToDeleteRows = false;
-            ProcessTable.AllowUserToResizeColumns = false;
-            ProcessTable.AllowUserToResizeRows = false;
-            ProcessTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            ProcessTable.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            ProcessTable.BorderStyle = BorderStyle.None;
-            ProcessTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ProcessTable.Columns.AddRange(new DataGridViewColumn[] { Process_Id, Arrival_Time, Burst_Time });
-            ProcessTable.GridStyles.Style = DataGridViewStyle.Mixed;
-            ProcessTable.GridStyles.StyleColumn = GridStyle.Sheet;
-            ProcessTable.GridStyles.StyleDataCells = GridStyle.Sheet;
-            ProcessTable.GridStyles.StyleRow = GridStyle.Sheet;
-            ProcessTable.Location = new Point(10, 10);
-            ProcessTable.MaximumSize = new Size(1067, 472);
-            ProcessTable.Name = "ProcessTable";
-            ProcessTable.RowHeadersVisible = false;
-            ProcessTable.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            ProcessTable.RowTemplate.Height = 40;
-            ProcessTable.ScrollBars = ScrollBars.Vertical;
-            ProcessTable.Size = new Size(767, 46);
-            ProcessTable.StateCommon.Background.Color1 = Color.FromArgb(252, 252, 252);
-            ProcessTable.StateCommon.Background.Color2 = Color.WhiteSmoke;
-            ProcessTable.StateCommon.Background.ColorAngle = -50F;
-            ProcessTable.StateCommon.Background.ColorStyle = PaletteColorStyle.Linear25;
-            ProcessTable.StateCommon.BackStyle = PaletteBackStyle.GridBackgroundList;
-            ProcessTable.StateCommon.DataCell.Back.Color1 = Color.Transparent;
-            ProcessTable.StateCommon.DataCell.Back.Color2 = Color.Transparent;
-            ProcessTable.StateCommon.DataCell.Border.Color1 = Color.Transparent;
-            ProcessTable.StateCommon.DataCell.Border.Color2 = Color.Transparent;
-            ProcessTable.StateCommon.DataCell.Border.Draw = InheritBool.True;
-            ProcessTable.StateCommon.DataCell.Border.DrawBorders = PaletteDrawBorders.Bottom;
-            ProcessTable.StateCommon.DataCell.Border.Width = 1;
-            ProcessTable.StateCommon.DataCell.Content.Color1 = Color.FromArgb(4, 70, 87);
-            ProcessTable.StateCommon.DataCell.Content.Color2 = Color.FromArgb(4, 70, 87);
-            ProcessTable.StateCommon.DataCell.Content.Font = new Font("Poppins", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ProcessTable.StateCommon.DataCell.Content.Padding = new Padding(2);
-            ProcessTable.StateCommon.HeaderColumn.Back.Color1 = Color.FromArgb(4, 70, 87);
-            ProcessTable.StateCommon.HeaderColumn.Back.Color2 = Color.FromArgb(4, 70, 87);
-            ProcessTable.StateCommon.HeaderColumn.Border.Color1 = Color.Transparent;
-            ProcessTable.StateCommon.HeaderColumn.Border.Color2 = Color.Transparent;
-            ProcessTable.StateCommon.HeaderColumn.Border.Draw = InheritBool.False;
-            ProcessTable.StateCommon.HeaderColumn.Border.Width = 0;
-            ProcessTable.StateCommon.HeaderColumn.Content.Color1 = Color.FromArgb(251, 252, 252);
-            ProcessTable.StateCommon.HeaderColumn.Content.Color2 = Color.FromArgb(251, 252, 252);
-            ProcessTable.StateCommon.HeaderColumn.Content.Font = new Font("Poppins Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ProcessTable.StateCommon.HeaderColumn.Content.Padding = new Padding(5);
-            ProcessTable.StatePressed.HeaderColumn.Back.Color1 = Color.Transparent;
-            ProcessTable.StatePressed.HeaderColumn.Back.Color2 = Color.Transparent;
-            ProcessTable.StatePressed.HeaderColumn.Content.Color1 = Color.FromArgb(4, 70, 87);
-            ProcessTable.StatePressed.HeaderColumn.Content.Color2 = Color.FromArgb(4, 70, 87);
-            ProcessTable.TabIndex = 4;
             // 
             // kryptonPanel1
             // 
@@ -356,40 +299,81 @@ namespace SRTN_UI.Forms
             Column1.HeaderText = "Column1";
             Column1.Name = "Column1";
             // 
-            // Process_Id
+            // kryptonPanel5
             // 
-            Process_Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            Process_Id.Frozen = true;
-            Process_Id.HeaderText = "Process ID";
-            Process_Id.MinimumWidth = 100;
-            Process_Id.Name = "Process_Id";
-            Process_Id.ReadOnly = true;
-            Process_Id.Resizable = DataGridViewTriState.False;
-            Process_Id.SortMode = DataGridViewColumnSortMode.NotSortable;
-            Process_Id.Width = 140;
+            kryptonPanel5.Controls.Add(ArrivalTimeText);
+            kryptonPanel5.Controls.Add(BurstTimeText);
+            kryptonPanel5.Location = new Point(205, 1496);
+            kryptonPanel5.Name = "kryptonPanel5";
+            kryptonPanel5.Size = new Size(1060, 80);
+            kryptonPanel5.TabIndex = 7;
             // 
-            // Arrival_Time
+            // BurstTimeText
             // 
-            Arrival_Time.HeaderText = "Arrival Time";
-            Arrival_Time.Name = "Arrival_Time";
-            Arrival_Time.ReadOnly = true;
-            Arrival_Time.SortMode = DataGridViewColumnSortMode.NotSortable;
+            BurstTimeText.AlwaysActive = false;
+            BurstTimeText.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            BurstTimeText.CueHint.Color1 = Color.DimGray;
+            BurstTimeText.CueHint.CueHintText = "0 msec";
+            BurstTimeText.CueHint.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BurstTimeText.CueHint.TextH = PaletteRelativeAlign.Center;
+            BurstTimeText.CueHint.TextV = PaletteRelativeAlign.Inherit;
+            BurstTimeText.Cursor = Cursors.IBeam;
+            BurstTimeText.Location = new Point(294, 18);
+            BurstTimeText.MaxLength = 10;
+            BurstTimeText.Multiline = true;
+            BurstTimeText.Name = "BurstTimeText";
+            BurstTimeText.Size = new Size(314, 45);
+            BurstTimeText.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
+            BurstTimeText.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224);
+            BurstTimeText.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224);
+            BurstTimeText.StateCommon.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
+            BurstTimeText.StateCommon.Border.Rounding = 5F;
+            BurstTimeText.StateCommon.Content.Color1 = Color.FromArgb(48, 56, 45);
+            BurstTimeText.StateCommon.Content.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BurstTimeText.StateCommon.Content.Padding = new Padding(10, 1, 10, 1);
+            BurstTimeText.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
+            BurstTimeText.TabIndex = 7;
+            BurstTimeText.TextAlign = HorizontalAlignment.Center;
+            BurstTimeText.WordWrap = false;
             // 
-            // Burst_Time
+            // ArrivalTimeText
             // 
-            Burst_Time.HeaderText = "Burst Time";
-            Burst_Time.Name = "Burst_Time";
-            Burst_Time.ReadOnly = true;
-            Burst_Time.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ArrivalTimeText.AlwaysActive = false;
+            ArrivalTimeText.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            ArrivalTimeText.CueHint.Color1 = Color.DimGray;
+            ArrivalTimeText.CueHint.CueHintText = "0 msec";
+            ArrivalTimeText.CueHint.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ArrivalTimeText.CueHint.TextH = PaletteRelativeAlign.Center;
+            ArrivalTimeText.CueHint.TextV = PaletteRelativeAlign.Inherit;
+            ArrivalTimeText.Cursor = Cursors.IBeam;
+            ArrivalTimeText.Location = new Point(678, 18);
+            ArrivalTimeText.MaxLength = 10;
+            ArrivalTimeText.Multiline = true;
+            ArrivalTimeText.Name = "ArrivalTimeText";
+            ArrivalTimeText.Size = new Size(314, 45);
+            ArrivalTimeText.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
+            ArrivalTimeText.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224);
+            ArrivalTimeText.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224);
+            ArrivalTimeText.StateCommon.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
+            ArrivalTimeText.StateCommon.Border.Rounding = 5F;
+            ArrivalTimeText.StateCommon.Content.Color1 = Color.FromArgb(48, 56, 45);
+            ArrivalTimeText.StateCommon.Content.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ArrivalTimeText.StateCommon.Content.Padding = new Padding(10, 1, 10, 1);
+            ArrivalTimeText.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
+            ArrivalTimeText.TabIndex = 9;
+            ArrivalTimeText.TextAlign = HorizontalAlignment.Center;
+            ArrivalTimeText.WordWrap = false;
             // 
             // DesignArea
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(kryptonPanel5);
             Controls.Add(InputPanel);
             Controls.Add(MainTitlePanel);
             Name = "DesignArea";
             Size = new Size(2000, 2000);
+            Load += DesignArea_Load;
             ((System.ComponentModel.ISupportInitialize)MainTitlePanel).EndInit();
             MainTitlePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
@@ -404,11 +388,12 @@ namespace SRTN_UI.Forms
             kryptonPanel3.ResumeLayout(false);
             kryptonPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
-            kryptonPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ProcessTable).EndInit();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel1).EndInit();
             kryptonPanel1.ResumeLayout(false);
             kryptonPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)kryptonPanel5).EndInit();
+            kryptonPanel5.ResumeLayout(false);
+            kryptonPanel5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -427,12 +412,11 @@ namespace SRTN_UI.Forms
         private Krypton.Toolkit.KryptonTextBox usernameText;
         private Krypton.Toolkit.KryptonButton GenerateBtn;
         private Krypton.Toolkit.KryptonPanel kryptonPanel3;
-        private Krypton.Toolkit.KryptonDataGridView ProcessTable;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
         private Krypton.Toolkit.KryptonLabel ProcessTableTitle;
         private DataGridViewTextBoxColumn Column1;
-        private KryptonDataGridViewTextBoxColumn Process_Id;
-        private KryptonDataGridViewTextBoxColumn Arrival_Time;
-        private KryptonDataGridViewTextBoxColumn Burst_Time;
+        private KryptonPanel kryptonPanel5;
+        private KryptonTextBox BurstTimeText;
+        private KryptonTextBox ArrivalTimeText;
     }
 }
