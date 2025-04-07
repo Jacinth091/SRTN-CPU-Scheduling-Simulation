@@ -20,6 +20,13 @@ namespace SRTN_UI.Forms
         private FlowLayoutPanel _trial;
         private TableItemRow[] _tableRow;
 
+        private Action GanttChartReady;
+
+        private const int MaxVisibleRows = 5;
+        private const int RowHeight = 50;
+        private const int RowSpacing = 20;
+        private const int BaseContainerHeight = 60; 
+
         public GanttChartView()
         {
             InitializeComponent();
@@ -35,6 +42,7 @@ namespace SRTN_UI.Forms
                 InitializeTableContainer();
                 //await Task.Delay(5000);
                 await InitializeTableView();
+                await Task.Delay(1000);
                 //List<Process> dummyData = new List<Process>();
                 //dummyData.Add(new Process(1, "Process 1", 5, 0));
                 //dummyData.Add(new Process(2, "Process 2", 3, 1));
@@ -42,7 +50,14 @@ namespace SRTN_UI.Forms
                 //dummyData.Add(new Process(4, "Process 4", 4, 3));
                 //dummyData.Add(new Process(5, "Process 5", 1, 4));
                 InitializeTableRows(_processedData);
+                await Task.Delay(1000);
+                GanttChartReady?.Invoke();
+            };
 
+            GanttChartReady += async () =>
+            {
+                await Task.Delay(1000);
+                InitializeGanttChart();
             };
         }
 
@@ -50,40 +65,51 @@ namespace SRTN_UI.Forms
         {
             _tableRow = new TableItemRow[processData.Count];
 
+            // Calculate the maximum height (for 5 rows)
+            int maxHeight = BaseContainerHeight + (MaxVisibleRows * (RowHeight));
+
+            // Set initial container size
+            if (processData.Count <= MaxVisibleRows)
+            {
+                _tableContainer.Size = new Size(_tableContainer.Width,
+                    BaseContainerHeight + (processData.Count * (RowHeight + RowSpacing)));
+                _tableContainer.AutoScroll = true;
+            }
+            else
+            {
+                _tableContainer.Size = new Size(_tableContainer.Width, maxHeight);
+                _tableContainer.AutoScroll = false;
+            }
+
             for (int i = 0; i < processData.Count; i++)
             {
                 _tableRow[i] = new TableItemRow(processData[i])
                 {
-                    //Dock = DockStyle.Top,
-                    Size = new Size(processData.Count <= 4 ? _tableContainer.Width - 13: _tableContainer.Width - 25, 73),
-                    BackColor = Color.Red
+                    Size = new Size(processData.Count <= 5 ? _tableContainer.Width - 10 : _tableContainer.Width - 22,
+                                  RowHeight),
+                    BackColor = Color.Red,
                 };
 
-                //_tableView._tableContainer.Controls.Add(_tableRow[i]);
                 _tableRowContainer.Controls.Add(_tableRow[i]);
-                //_tableRow[i].BringToFront();
-                await Task.Delay(1000).ConfigureAwait(true); // Return to UI context
+                if (processData.Count <= MaxVisibleRows)
+                {
+                    _tableContainer.Size = new Size(_tableContainer.Width,
+                        BaseContainerHeight + ((i + 1) * (RowHeight + RowSpacing)));
+                }
+
+                await Task.Delay(500).ConfigureAwait(true);
             }
 
+            await AnimatePanelX(_tableContainer, _tableContainer.Location.X, 12, 400).ConfigureAwait(true);
+            await AnimatePanelY(_tableContainer, _tableContainer.Location.Y, 12, 400).ConfigureAwait(true);
         }
-
         private async Task InitializeTableView()
         {
-            //_tableView = new TableView()
-            //{
-            //    Dock = DockStyle.Fill,
-            //    Height = 40,
-            //    BackColor = Color.FromArgb(48, 56, 65),
-
-            //};
-            //_tableContainer.Controls.Add(_tableView);
-            //_tableView.BringToFront();
-
             _tableContainer.Controls.Clear();
             _tableHeader = new TableHeader()
             {
                 Dock = DockStyle.Top,
-                Height = 80,
+                Size = new Size(705, 60),
                 BackColor = Color.Transparent
             };
 
@@ -113,14 +139,16 @@ namespace SRTN_UI.Forms
             _tableContainer = new KryptonPanel()
             {
                 Name = "TableContainer",
-                Size = new Size(840, 400),
+                Size = new Size(705, BaseContainerHeight),
 
-                BackColor = Color.FromArgb(48, 56, 65),
+                //BackColor = Color.FromArgb(48, 56, 65),
                 
                 StateCommon =
                 {
-                    Color1 = Color.FromArgb(48, 56, 65),
-                    Color2 = Color.FromArgb(48, 56, 65),
+                    //Color1 = Color.FromArgb(48, 56, 65),
+                    Color1 = Color.White,
+                    //Color2 = Color.FromArgb(48, 56, 65),
+                    Color2 = Color.White,
                     ColorStyle = PaletteColorStyle.Linear,
                     ColorAngle = 90f
                 }
@@ -129,7 +157,9 @@ namespace SRTN_UI.Forms
             Controls.Add(_tableContainer);
             _tableContainer.BringToFront();
 
-            await AnimatePanelSlideInAsync(_tableContainer);
+            int startY = (this.ClientSize.Height + _tableContainer.Height);
+            int endY = (this.ClientSize.Height - 500) - (500  / 2);
+            await AnimatePanelY(_tableContainer, startY, endY);
 
         }
         private void CenterTableContainer(KryptonPanel panelToCenter)
@@ -141,19 +171,17 @@ namespace SRTN_UI.Forms
                 (ClientSize.Height - panelToCenter.Height) / 2
             );
         }
-        private async Task AnimatePanelSlideInAsync(KryptonPanel panel, int durationMs = 500)
+        private async Task AnimatePanelY(KryptonPanel panel, int startY, int endY,int durationMs = 500)
         {
             if (panel.InvokeRequired)
             {
-                panel.Invoke(new Action(async () => await AnimatePanelSlideInAsync(panel, durationMs)));
+                panel.Invoke(new Action(async () => await AnimatePanelY(panel, startY,endY, durationMs)));
                 return;
             }
 
-            int startY = (this.ClientSize.Height + panel.Height);
-            int endY = (this.ClientSize.Height - panel.Height) - (panel.Height / 2);
             //panel.Location = new Point((this.ClientSize.Width - panel.Width), startY);
-            panel.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
-            panel.StateCommon.Color2 = Color.FromArgb(48, 56, 65);
+            //panel.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
+            //panel.StateCommon.Color2 = Color.FromArgb(48, 56, 65);
             panel.Visible = true;
 
             int steps = 60;
@@ -163,11 +191,63 @@ namespace SRTN_UI.Forms
             {
                 double progress = EaseOutQuad(i / (double)steps);
                 int newY = startY + (int)((endY - startY) * progress);
-                panel.Top = newY;
+                panel.Location = new Point(panel.Location.X,newY);
                 await Task.Delay(delayPerStep);
             }
         }
 
+        private async Task AnimatePanelX(KryptonPanel panel, int starX, int endX, int durationMs = 500)
+        {
+            if (panel.InvokeRequired)
+            {
+                panel.Invoke(new Action(async () => await AnimatePanelX(panel, starX, endX, durationMs)));
+                return;
+            }
+            //panel.Location = new Point((this.ClientSize.Width - panel.Width), startY);
+            //panel.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
+            //panel.StateCommon.Color2 = Color.FromArgb(48, 56, 65);
+            panel.Visible = true;
+
+            int steps = 60;
+            int delayPerStep = durationMs / steps;
+
+            for (int i = 0; i <= steps; i++)
+            {
+                double progress = EaseOutQuad(i / (double)steps);
+                int newX = starX + (int)((endX- starX) * progress);
+                panel.Location = new Point( newX, panel.Location.Y);
+                await Task.Delay(delayPerStep);
+            }
+        }
+
+
+        public void InitializeGanttChart() 
+        {
+            var ganttChart = new GanttChart
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.White,
+                //PanelStyle = PaletteBackStyle.PanelClient
+            };
+            
+            //// Add sample processes
+            //ganttChart.AddBar("P1", Color.Red, 0, 3.5f);
+            //ganttChart.AddBar("P2", Color.Blue, 3.5f, 2f);
+            //ganttChart.AddBar("P3", Color.Green, 5.5f, 4f);
+            //ganttChart.AddBar("P1", Color.Red, 0, 3.5f);
+            //ganttChart.AddBar("P2", Color.Blue, 3.5f, 2f);
+            //ganttChart.AddBar("P3", Color.Green, 5.5f, 4f);
+            //ganttChart.AddBar("P1", Color.Red, 0, 3.5f);
+            //ganttChart.AddBar("P2", Color.Blue, 3.5f, 2f);
+            //ganttChart.AddBar("P3", Color.Green, 5.5f, 4f);
+
+            foreach(Process proc in _processedData)
+            {
+                ganttChart.AddBar(proc.ProcessId.ToString(), Color.Red, proc.ArrivalTime, proc.OriginalBurstTime);
+            }
+
+            ChartContainer.Controls.Add(ganttChart);
+        }
 
 
 

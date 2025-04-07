@@ -29,11 +29,15 @@
         private void InitializeComponent()
         {
             MainContainer = new Krypton.Toolkit.KryptonPanel();
+            ChartContainer = new Krypton.Toolkit.KryptonPanel();
             ((System.ComponentModel.ISupportInitialize)MainContainer).BeginInit();
+            MainContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ChartContainer).BeginInit();
             SuspendLayout();
             // 
             // MainContainer
             // 
+            MainContainer.Controls.Add(ChartContainer);
             MainContainer.Dock = DockStyle.Fill;
             MainContainer.Location = new Point(0, 0);
             MainContainer.Name = "MainContainer";
@@ -41,6 +45,15 @@
             MainContainer.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
             MainContainer.StateCommon.Color2 = Color.FromArgb(48, 56, 65);
             MainContainer.TabIndex = 0;
+            // 
+            // ChartContainer
+            // 
+            ChartContainer.Dock = DockStyle.Bottom;
+            ChartContainer.Location = new Point(0, 450);
+            ChartContainer.Name = "ChartContainer";
+            ChartContainer.Size = new Size(1486, 405);
+            ChartContainer.StateCommon.Color1 = Color.Transparent;
+            ChartContainer.TabIndex = 0;
             // 
             // GanttChartView
             // 
@@ -72,11 +85,14 @@
             Text = "ProcessTableView";
             TransparencyKey = Color.Transparent;
             ((System.ComponentModel.ISupportInitialize)MainContainer).EndInit();
+            MainContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ChartContainer).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Krypton.Toolkit.KryptonPanel MainContainer;
+        private Krypton.Toolkit.KryptonPanel ChartContainer;
     }
 }

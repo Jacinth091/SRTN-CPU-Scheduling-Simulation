@@ -25,10 +25,9 @@ namespace SRTN_UI.Forms
             OriginalBurstCol.Text = process.OriginalBurstTime.ToString();
             ArrivalCol.Text = process.ArrivalTime.ToString();
             CurrentBurstCol.Text = process.CurrentBurstTime.ToString();
-            WaitingCol.Text = process.WaitingTime.ToString();
-            TurnCol.Text = process.TurnAroundTime.ToString();
-            StatusCol.Text = process.IsCompleted ? "Completed" : "Running";
+            //WaitingCol.Text = process.WaitingTime.ToString();
+            //TurnCol.Text = process.TurnAroundTime.ToString();
+            StatusCol.Text = process.Status.ToString();
         }
-
     }
 }

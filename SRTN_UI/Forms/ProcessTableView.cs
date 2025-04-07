@@ -484,7 +484,7 @@ namespace SRTN_UI.Forms
             }
         }
 
-        private void HandleArrivalTimeNavigation(int currentIndex)
+        private async void HandleArrivalTimeNavigation(int currentIndex)
         {
             if (string.IsNullOrWhiteSpace(_tableRowTextBoxes[currentIndex, 1].Text))
             {
@@ -500,22 +500,21 @@ namespace SRTN_UI.Forms
             {
                 _tableRowTextBoxes[currentIndex, 1].StateCommon.Back.Color1 = Color.LightGreen;
 
-                Task.Delay(300).ContinueWith(_ =>
+                await Task.Delay(300); // Simpler async/await instead of ContinueWith
+
+                this.Invoke(() =>
                 {
-                    this.Invoke((MethodInvoker)(() =>
+                    ActiveControl = null;
+
+                    foreach (var textBox in _tableRowTextBoxes)
                     {
-                        this.ActiveControl = null;
+                        textBox.Enabled = true;
+                        if (textBox == _tableRowTextBoxes[currentIndex, 1])
+                            textBox.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
+                    }
 
-                        for (int i = 0; i < _processCount; i++)
-                        {
-                            _tableRowTextBoxes[i, 0].Enabled = true;
-                            _tableRowTextBoxes[i, 1].Enabled = true;
-                            _tableRowTextBoxes[i, 1].StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
-                        }
-
-                        CheckAllTextBoxesFilled();
-                        ProceedBtn.Focus();
-                    }));
+                    CheckAllTextBoxesFilled();
+                    ProceedBtn.Focus();
                 });
             }
         }
