@@ -44,8 +44,7 @@
             ProcessIdCol.Location = new Point(54, 9);
             ProcessIdCol.Name = "ProcessIdCol";
             ProcessIdCol.Size = new Size(46, 33);
-            ProcessIdCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            ProcessIdCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            ProcessIdCol.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
             ProcessIdCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
             ProcessIdCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             ProcessIdCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -59,8 +58,7 @@
             OriginalBurstCol.Location = new Point(172, 9);
             OriginalBurstCol.Name = "OriginalBurstCol";
             OriginalBurstCol.Size = new Size(46, 33);
-            OriginalBurstCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            OriginalBurstCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            OriginalBurstCol.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
             OriginalBurstCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
             OriginalBurstCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             OriginalBurstCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -74,8 +72,7 @@
             ArrivalCol.Location = new Point(294, 9);
             ArrivalCol.Name = "ArrivalCol";
             ArrivalCol.Size = new Size(46, 33);
-            ArrivalCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            ArrivalCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            ArrivalCol.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
             ArrivalCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
             ArrivalCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             ArrivalCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -89,8 +86,7 @@
             CurrentBurstCol.Location = new Point(438, 9);
             CurrentBurstCol.Name = "CurrentBurstCol";
             CurrentBurstCol.Size = new Size(46, 33);
-            CurrentBurstCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            CurrentBurstCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            CurrentBurstCol.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
             CurrentBurstCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
             CurrentBurstCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             CurrentBurstCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -104,8 +100,7 @@
             StatusCol.Location = new Point(566, 9);
             StatusCol.Name = "StatusCol";
             StatusCol.Size = new Size(97, 33);
-            StatusCol.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            StatusCol.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            StatusCol.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
             StatusCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
             StatusCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             StatusCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -124,8 +119,8 @@
             TableRow.Location = new Point(0, 0);
             TableRow.Name = "TableRow";
             TableRow.Size = new Size(705, 50);
-            TableRow.StateCommon.Color1 = Color.Transparent;
-            TableRow.StateCommon.Color2 = Color.Transparent;
+            TableRow.StateCommon.Color1 = Color.FromArgb(238, 238, 238);
+            TableRow.StateCommon.Color2 = Color.FromArgb(238, 238, 238);
             TableRow.TabIndex = 1;
             // 
             // TableItemRow

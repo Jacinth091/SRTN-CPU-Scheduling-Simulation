@@ -8,6 +8,7 @@ namespace SRTN_UI
 {
     public enum ProcessStatus
     {
+        Ready,
         Waiting,
         Running,
         Suspended,

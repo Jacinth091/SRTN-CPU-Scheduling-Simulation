@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             MainContainer = new Krypton.Toolkit.KryptonPanel();
-            ChartContainer = new Krypton.Toolkit.KryptonPanel();
+            _ganttChartContainer = new Krypton.Toolkit.KryptonPanel();
             ((System.ComponentModel.ISupportInitialize)MainContainer).BeginInit();
             MainContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ChartContainer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)_ganttChartContainer).BeginInit();
             SuspendLayout();
             // 
             // MainContainer
             // 
-            MainContainer.Controls.Add(ChartContainer);
+            MainContainer.Controls.Add(_ganttChartContainer);
             MainContainer.Dock = DockStyle.Fill;
             MainContainer.Location = new Point(0, 0);
             MainContainer.Name = "MainContainer";
@@ -46,14 +46,16 @@
             MainContainer.StateCommon.Color2 = Color.FromArgb(48, 56, 65);
             MainContainer.TabIndex = 0;
             // 
-            // ChartContainer
+            // _ganttChartContainer
             // 
-            ChartContainer.Dock = DockStyle.Bottom;
-            ChartContainer.Location = new Point(0, 450);
-            ChartContainer.Name = "ChartContainer";
-            ChartContainer.Size = new Size(1486, 405);
-            ChartContainer.StateCommon.Color1 = Color.Transparent;
-            ChartContainer.TabIndex = 0;
+            _ganttChartContainer.Location = new Point(0, 407);
+            _ganttChartContainer.Name = "_ganttChartContainer";
+            _ganttChartContainer.Padding = new Padding(20);
+            _ganttChartContainer.Size = new Size(1486, 448);
+            _ganttChartContainer.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
+            _ganttChartContainer.StateCommon.Color2 = Color.FromArgb(238, 238, 238);
+            _ganttChartContainer.TabIndex = 0;
+            _ganttChartContainer.Visible = false;
             // 
             // GanttChartView
             // 
@@ -86,13 +88,13 @@
             TransparencyKey = Color.Transparent;
             ((System.ComponentModel.ISupportInitialize)MainContainer).EndInit();
             MainContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ChartContainer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)_ganttChartContainer).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Krypton.Toolkit.KryptonPanel MainContainer;
-        private Krypton.Toolkit.KryptonPanel ChartContainer;
+        private Krypton.Toolkit.KryptonPanel _ganttChartContainer;
     }
 }

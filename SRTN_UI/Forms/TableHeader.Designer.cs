@@ -49,8 +49,7 @@
             kryptonPanel1.Location = new Point(0, 0);
             kryptonPanel1.Name = "kryptonPanel1";
             kryptonPanel1.Size = new Size(705, 60);
-            kryptonPanel1.StateCommon.Color1 = Color.FromArgb(238, 238, 238);
-            kryptonPanel1.StateCommon.Color2 = Color.FromArgb(238, 238, 238);
+            kryptonPanel1.StateCommon.Color1 = Color.FromArgb(215, 35, 35);
             kryptonPanel1.TabIndex = 1;
             // 
             // kryptonLabel6
@@ -59,7 +58,7 @@
             kryptonLabel6.Location = new Point(580, 15);
             kryptonLabel6.Name = "kryptonLabel6";
             kryptonLabel6.Size = new Size(67, 27);
-            kryptonLabel6.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
+            kryptonLabel6.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             kryptonLabel6.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
             kryptonLabel6.StateCommon.ShortText.Font = new Font("Poppins", 12F, FontStyle.Bold);
             kryptonLabel6.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -74,7 +73,7 @@
             kryptonLabel3.Location = new Point(402, 4);
             kryptonLabel3.Name = "kryptonLabel3";
             kryptonLabel3.Size = new Size(104, 52);
-            kryptonLabel3.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
+            kryptonLabel3.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             kryptonLabel3.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
             kryptonLabel3.StateCommon.ShortText.Font = new Font("Poppins", 12F, FontStyle.Bold);
             kryptonLabel3.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -89,7 +88,7 @@
             kryptonLabel2.Location = new Point(271, 4);
             kryptonLabel2.Name = "kryptonLabel2";
             kryptonLabel2.Size = new Size(69, 52);
-            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
+            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Poppins", 12F, FontStyle.Bold);
             kryptonLabel2.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -104,7 +103,7 @@
             kryptonLabel1.Location = new Point(155, 4);
             kryptonLabel1.Name = "kryptonLabel1";
             kryptonLabel1.Size = new Size(57, 52);
-            kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
+            kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             kryptonLabel1.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
             kryptonLabel1.StateCommon.ShortText.Font = new Font("Poppins", 12F, FontStyle.Bold);
             kryptonLabel1.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -119,7 +118,7 @@
             ProcessTitle.Location = new Point(32, 4);
             ProcessTitle.Name = "ProcessTitle";
             ProcessTitle.Size = new Size(78, 52);
-            ProcessTitle.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
+            ProcessTitle.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             ProcessTitle.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
             ProcessTitle.StateCommon.ShortText.Font = new Font("Poppins", 12F, FontStyle.Bold);
             ProcessTitle.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
