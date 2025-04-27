@@ -11,22 +11,23 @@ using SRTN_UI.Logic;
 
 namespace SRTN_UI.Forms
 {
-    public partial class TableItemRow : UserControl
+    public partial class ResultItemRow : UserControl
     {
-        public TableItemRow()
+        public ResultItemRow()
         {
             InitializeComponent();
         }
 
-        public TableItemRow(Process process)
+        public ResultItemRow(Process process)
         {
             InitializeComponent();
             ProcessIdCol.Text = process.ProcessId.ToString();
             OriginalBurstCol.Text = process.OriginalBurstTime.ToString();
             ArrivalCol.Text = process.ArrivalTime.ToString();
             //CurrentBurstCol.Text = process.CurrentBurstTime.ToString();
-            //WaitingCol.Text = process.WaitingTime.ToString();
-            //TurnCol.Text = process.TurnAroundTime.ToString();
+            CompletionTimeCol.Text = process.CompletionTime.ToString();
+            WaitingTimeCol.Text = process.WaitingTime.ToString();
+            TurnAroundTimeCol.Text = process.TurnAroundTime.ToString();
             //StatusCol.Text = process.Status.ToString();
         }
     }

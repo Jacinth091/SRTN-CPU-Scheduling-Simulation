@@ -20,6 +20,8 @@ namespace SRTN_UI.Logic
         public double EndTime { get; set; }
         public ProcessStatus Status { get; set; }
 
+        public Color AssignedColor { get; set; } = Color.Empty;
+
         public Process(int _processId, string _processName, double _burstTime, double _arrivalTime)
         {
             ProcessId = _processId;
@@ -32,7 +34,7 @@ namespace SRTN_UI.Logic
             CompletionTime = 0;
             StartTime = 0;
             EndTime = 0;
-            Status = ProcessStatus.Waiting;
+            Status = ProcessStatus.New;
         }
     }
 }

@@ -64,9 +64,8 @@
             ArrivalTimeText.Cursor = Cursors.IBeam;
             ArrivalTimeText.Location = new Point(678, 18);
             ArrivalTimeText.MaxLength = 10;
-            ArrivalTimeText.Multiline = true;
             ArrivalTimeText.Name = "ArrivalTimeText";
-            ArrivalTimeText.Size = new Size(314, 45);
+            ArrivalTimeText.Size = new Size(314, 40);
             ArrivalTimeText.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
             ArrivalTimeText.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224);
             ArrivalTimeText.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224);
@@ -94,9 +93,8 @@
             BurstTimeText.Cursor = Cursors.IBeam;
             BurstTimeText.Location = new Point(294, 18);
             BurstTimeText.MaxLength = 10;
-            BurstTimeText.Multiline = true;
             BurstTimeText.Name = "BurstTimeText";
-            BurstTimeText.Size = new Size(314, 45);
+            BurstTimeText.Size = new Size(314, 40);
             BurstTimeText.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
             BurstTimeText.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224);
             BurstTimeText.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224);

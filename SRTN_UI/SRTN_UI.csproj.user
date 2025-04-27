@@ -26,5 +26,8 @@
     <Compile Update="Forms\TableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Forms\Trial.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

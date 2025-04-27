@@ -9,12 +9,14 @@ namespace HelloWorld
         {
             // List Of Processes - Dili pani siya mao gyud for testing purposes lang
             // Para lang ma store ang mga processes sa list
-            List<Process> processes = new List<Process>();
-            processes.Add(new Process(1, "P1", 8.6, 14.0));
-            processes.Add(new Process(2, "P2", 4.0, 8.5));
-            processes.Add(new Process(3, "P3", 12.5, 0));
-            processes.Add(new Process(4, "P4", 4.9, 0));
-            processes.Add(new Process(5, "P5", 6.7, 9.3));
+            List<Process> processes = new List<Process>()
+            {
+                new Process(1, "Process 1", 5, 0),
+                new Process(2, "Process 2", 3, 1),
+                new Process(3, "Process 3", 2, 2),
+                new Process(4, "Process 4", 4, 3),
+                new Process(5, "Process 5", 1, 4)
+            };
 
 
             // Kani siya kay mo sort sa mga processes according sa arrival time

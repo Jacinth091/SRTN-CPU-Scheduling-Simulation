@@ -20,6 +20,12 @@
     <Compile Update="Forms\GanttCharttView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ResultHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\ResultItemRow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
