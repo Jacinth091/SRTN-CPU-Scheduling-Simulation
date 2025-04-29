@@ -108,7 +108,7 @@
             // 
             Numeric.Increment = new decimal(new int[] { 1, 0, 0, 0 });
             Numeric.Location = new Point(866, 24);
-            Numeric.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
+            Numeric.Maximum = new decimal(new int[] { 6, 0, 0, 0 });
             Numeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             Numeric.Name = "Numeric";
             Numeric.Size = new Size(89, 39);

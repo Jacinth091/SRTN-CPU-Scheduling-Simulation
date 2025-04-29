@@ -14,7 +14,7 @@ namespace SRTN_UI.Forms
         private const int NUMBER_OF_COLUMNS = 3;
         private const int TABLE_CONTAINER_WIDTH = 1072;
         private const int TABLE_CONTAINER_HEIGHT = 621;
-        private const int MAX_INPUT_VALUE = 15;
+        private const int MAX_INPUT_VALUE =20;
         private const int MIN_INPUT_VALUE = 0;
         private const string TIME_SUFFIX = " msec";
 
@@ -347,25 +347,14 @@ namespace SRTN_UI.Forms
             textBox.Leave += (s, e) =>
             {
                 string cleanText = CleanTimeText(textBox.Text);
-                if(!string.IsNullOrWhiteSpace(cleanText))
+                if (!string.IsNullOrWhiteSpace(cleanText))
                 {
-                    if (!double.TryParse(cleanText, out _))
+                    if (!ValidateInput(cleanText, isBurstTime ? "burst time" : "arrival time", isBurstTime))
                     {
-                        MessageBox.Show($"Please enter a valid {(isBurstTime ? "burst time" : "arrival time")}");
                         textBox.Clear();
                         return;
                     }
-                    if (double.TryParse(cleanText, out double value))
-                    {
-                        if (value < MIN_INPUT_VALUE || value > MAX_INPUT_VALUE)
-                        {
-                            MessageBox.Show($"Input range is within ({MIN_INPUT_VALUE} - {MAX_INPUT_VALUE}), try again!");
-                            textBox.Clear();
-                            return;
-                        }
-                    }
                 }
-
                 CheckAllTextBoxesFilled();
                 FormatTimeTextBox(textBox);
             };
@@ -394,7 +383,7 @@ namespace SRTN_UI.Forms
         {
             string cleanText = CleanTimeText(textBox.Text);
 
-            if (!ValidateInput(cleanText, isBurstTime ? "burst time" : "arrival time"))
+            if (!ValidateInput(cleanText, isBurstTime ? "burst time" : "arrival time", isBurstTime))
             {
                 textBox.Clear();
                 return;
@@ -415,19 +404,29 @@ namespace SRTN_UI.Forms
             CheckAllTextBoxesFilled();
         }
 
-        private bool ValidateInput(string text, string fieldName)
+        private bool ValidateInput(string text, string fieldName, bool isBurstTime)
         {
-            if (!double.TryParse(text, out _) || string.IsNullOrWhiteSpace(text))
+            if (!double.TryParse(text, out double value) || string.IsNullOrWhiteSpace(text))
             {
                 MessageBox.Show($"Please enter a valid {fieldName}");
                 return false;
             }
 
-            if (double.TryParse(text, out double value))
+            if (isBurstTime)
             {
+                // Burst time validation (2-20)
+                if (value < MIN_INPUT_VALUE + 2 || value > MAX_INPUT_VALUE)
+                {
+                    MessageBox.Show($"Burst time must be between 2 and 20 msec");
+                    return false;
+                }
+            }
+            else
+            {
+                // Arrival time validation (0-20)
                 if (value < MIN_INPUT_VALUE || value > MAX_INPUT_VALUE)
                 {
-                    MessageBox.Show($"Input range is within ({MIN_INPUT_VALUE} - {MAX_INPUT_VALUE}), try again!");
+                    MessageBox.Show($"Arrival time must be between 0 and 20 msec");
                     return false;
                 }
             }

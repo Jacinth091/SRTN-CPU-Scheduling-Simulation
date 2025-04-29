@@ -107,7 +107,7 @@ namespace SRTN_UI.Forms
                 InitializeResultTableContainer();
                 await InitializeResultTableView();
                 await Task.Delay(1000);
-                InitializeResultTableRows(completedProcesses ?? _dummyData);
+                //InitializeResultTableRows(completedProcesses ?? _dummyData);
 
             };
         }
@@ -406,32 +406,33 @@ namespace SRTN_UI.Forms
 
         public async void StartSRTNScheduling(List<Process> processData)
         {
-            // Initialize processes
             List<Process> processes = new List<Process>(processData ?? _dummyData);
-            //List<Process> completedProcesses = new List<Process>();
             List<ProcessBlock> processBlocks = new List<ProcessBlock>();
+            //List<Process> completedProcesses = new List<Process>();
 
-            int colorCounter = 0;   
+            int colorCounter = 0;
             double currentTime = 0;
+            double timeIncrement = 0.1;
+            double smallTolerance = 0.0001;
+            double maxAllowedTime = 10.0;
+            double maxProcessCompletionTime = 0;
+            double idleStartTime = -1;
 
             Process currentProcess = null;
             ProcessBlock currentBlock = null;
             Process previousProcess = null;
-            double timeIncrement = 0.1;
-            double smallTolerance = 0.0001;
-            double maxAllowedTime = 10.0;
-            double maxProcessCompletionTime = 0; // Initialize the max completion time
-            double idleStartTime = -1;
 
-            // Helper function to round to 2 decimal places
             double RoundTime(double time) => Math.Round(time, 2);
 
-            // Reset processes to their original state
+            // Reset processes
             foreach (var p in processes)
             {
                 p.CurrentBurstTime = p.OriginalBurstTime;
                 p.Status = ProcessStatus.New;
+                p.PreemptionPairs = new();
+                p.FirstStartTime = null;
             }
+
             foreach (var process in processes)
             {
                 if (process.AssignedColor == Color.Empty)
@@ -439,15 +440,16 @@ namespace SRTN_UI.Forms
                     process.AssignedColor = _processColors[colorCounter++ % _processColors.Length];
                 }
             }
+
             while (completedProcesses.Count < processes.Count)
             {
-                // Step 1: Update processes that have arrived
+                // Step 1: Update ready processes
                 foreach (var p in processes.Where(p => RoundTime(p.ArrivalTime) <= RoundTime(currentTime) && p.Status == ProcessStatus.New))
                 {
                     p.Status = ProcessStatus.Ready;
                 }
 
-                // Step 2: Get ready processes ordered by shortest remaining time
+                // Step 2: Choose shortest remaining time process
                 var readyProcesses = processes
                     .Where(p => p.Status == ProcessStatus.Ready || p.Status == ProcessStatus.Running)
                     .OrderBy(p => p.CurrentBurstTime)
@@ -459,7 +461,7 @@ namespace SRTN_UI.Forms
                 {
                     var selectedProcess = readyProcesses.First();
 
-                    // Step 3: If different process, close the previous block
+                    // Step 3: Preemption logic
                     if (previousProcess == null || previousProcess.ProcessId != selectedProcess.ProcessId)
                     {
                         if (currentBlock != null)
@@ -468,7 +470,20 @@ namespace SRTN_UI.Forms
                             processBlocks.Add(currentBlock);
                         }
 
-                        // Start a new block
+                        // Handle preemption of previous
+                        if (previousProcess != null && previousProcess.ProcessId != selectedProcess.ProcessId && previousProcess.Status == ProcessStatus.Running)
+                        {
+                            previousProcess.Status = ProcessStatus.Ready;
+                            previousProcess.PreemptionPairs.Add((RoundTime(currentTime), -1));
+                        }
+
+                        // Handle resume of current
+                        if (selectedProcess.PreemptionPairs.Count > 0 && selectedProcess.PreemptionPairs[^1].ResumeTime == -1)
+                        {
+                            var last = selectedProcess.PreemptionPairs[^1];
+                            selectedProcess.PreemptionPairs[^1] = (last.PreemptTime, RoundTime(currentTime));
+                        }
+
                         currentBlock = new ProcessBlock(
                             selectedProcess.ProcessId,
                             RoundTime(currentTime),
@@ -479,11 +494,15 @@ namespace SRTN_UI.Forms
                     }
                     else
                     {
-                        // Step 4: Continue the current block
                         if (currentBlock != null)
                         {
                             currentBlock.EndTime = RoundTime(currentTime + timeIncrement);
                         }
+                    }
+
+                    if (selectedProcess.FirstStartTime == null)
+                    {
+                        selectedProcess.FirstStartTime = RoundTime(currentTime);
                     }
 
                     selectedProcess.Status = ProcessStatus.Running;
@@ -494,7 +513,14 @@ namespace SRTN_UI.Forms
                         selectedProcess.Status = ProcessStatus.Terminated;
                         selectedProcess.CompletionTime = RoundTime(currentTime + timeIncrement);
                         selectedProcess.TurnAroundTime = RoundTime(selectedProcess.CompletionTime - selectedProcess.ArrivalTime);
-                        selectedProcess.WaitingTime = RoundTime(selectedProcess.TurnAroundTime - selectedProcess.OriginalBurstTime);
+
+                        // Compute accurate waiting time
+                        double waitingTime = (selectedProcess.FirstStartTime ?? selectedProcess.ArrivalTime) - selectedProcess.ArrivalTime;
+                        foreach (var (preempt, resume) in selectedProcess.PreemptionPairs)
+                        {
+                            if (resume > preempt) waitingTime += resume - preempt;
+                        }
+                        selectedProcess.WaitingTime = RoundTime(waitingTime);
 
                         completedProcesses.Add(selectedProcess);
 
@@ -504,13 +530,15 @@ namespace SRTN_UI.Forms
                             processBlocks.Add(currentBlock);
                             currentBlock = null;
                         }
+
+                        maxProcessCompletionTime = Math.Max(maxProcessCompletionTime, selectedProcess.CompletionTime);
                     }
 
                     previousProcess = selectedProcess;
                 }
                 else
                 {
-                    // No process ready → idle block
+                    // No ready process — Idle time
                     if (currentBlock == null || currentBlock.ProcessId != -1)
                     {
                         if (currentBlock != null)
@@ -531,12 +559,9 @@ namespace SRTN_UI.Forms
                     }
                 }
 
-                // Step 5: advance time
                 currentTime = RoundTime(currentTime + timeIncrement);
             }
 
-
-            // Finalize any remaining idle time if needed
             if (idleStartTime != -1 && RoundTime(idleStartTime) < RoundTime(currentTime))
             {
                 processBlocks.Add(new ProcessBlock(-1,
@@ -546,12 +571,11 @@ namespace SRTN_UI.Forms
                     Color.LightGray));
             }
 
-            // Render the Gantt chart after the scheduling is complete
             MessageBox.Show($"Max Process Completion Time : {RoundTime(maxProcessCompletionTime)} vs Max Allowed Time: {maxAllowedTime}");
             RenderGanttChart(processBlocks, RoundTime(currentTime), RoundTime(maxProcessCompletionTime) > maxAllowedTime);
             await Task.Delay(500);
-            ResultsDisplay?.Invoke(); 
         }
+
 
 
         private void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
@@ -694,6 +718,12 @@ namespace SRTN_UI.Forms
 
             _timeLineContainer.Height = rowHeight + timelineHeight;
             _timeLineContainer.Refresh();
+
+            ResultsDisplay?.Invoke();
+            var orderedCompletedProc = completedProcesses.OrderBy(p => p.ProcessId).ToList();
+            InitializeResultTableRows(orderedCompletedProc);
+            DisplayAverageStats(completedProcesses);
+
             MessageBox.Show($"Turn Around Time: {_UserProcessData.First().TurnAroundTime}");
             //MessageBox.Show(chart, "Gantt Chart Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -705,10 +735,80 @@ namespace SRTN_UI.Forms
             double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
             return luminance > 0.5 ? Color.Black : Color.White;
         }
-        public async void DiaplayAverageStats() 
+
+
+        public async void DisplayAverageStats(List<Process> _completed)
         {
-        
+            if (_completed == null || _completed.Count == 0)
+            {
+                MessageBox.Show("No completed processes to display stats.");
+                return;
+            }
+
+            double totalWaitingTime = 0;
+            double totalTurnAroundTime = 0;
+            double totalCompletionTime = 0;
+
+            foreach (var process in _completed)
+            {
+                // Assuming your process already has these correct values:
+                totalWaitingTime += process.WaitingTime;
+                totalTurnAroundTime += process.TurnAroundTime;
+                totalCompletionTime += process.CompletionTime;
+            }
+
+            double averageWaitingTime = totalWaitingTime / _completed.Count;
+            double averageTurnAroundTime = totalTurnAroundTime / _completed.Count;
+            double averageCompletionTime = totalCompletionTime / _completed.Count;
+
+            KryptonPanel statsPanelContainer = new KryptonPanel()
+            {
+                Size = new Size(700, 50),
+                StateCommon =
+        {
+            Color1 = Color.White,
+            Color2 = Color.White,
+            ColorStyle = PaletteColorStyle.Linear,
+            ColorAngle = 90f
+        },
+                Dock = DockStyle.Bottom
+            };
+
+            Label waitingTimeLabel = new Label
+            {
+                Text = $"Average Waiting Time: {averageWaitingTime:0.00}",
+                Location = new Point(20, 15),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10f, FontStyle.Bold)
+            };
+
+            Label turnAroundTimeLabel = new Label
+            {
+                Text = $"Average Turnaround Time: {averageTurnAroundTime:0.00}",
+                Location = new Point(250, 15),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10f, FontStyle.Bold)
+            };
+
+            Label completionTimeLabel = new Label
+            {
+                Text = $"Average Completion Time: {averageCompletionTime:0.00}",
+                Location = new Point(500, 15),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 10f, FontStyle.Bold)
+            };
+
+            statsPanelContainer.Controls.Add(waitingTimeLabel);
+            statsPanelContainer.Controls.Add(turnAroundTimeLabel);
+            statsPanelContainer.Controls.Add(completionTimeLabel);
+
+            _timeLineContainer.Controls.Add(statsPanelContainer);
+            _timeLineContainer.Height += statsPanelContainer.Height;
+
+            _timeLineContainer.Refresh();
         }
+
+
         #endregion
 
         #region Animation Helpers
