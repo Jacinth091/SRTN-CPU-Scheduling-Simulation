@@ -45,8 +45,10 @@
             MainContainer.Controls.Add(InputContainer);
             MainContainer.Dock = DockStyle.Fill;
             MainContainer.Location = new Point(0, 0);
+            MainContainer.MaximumSize = new Size(1506, 882);
+            MainContainer.MinimumSize = new Size(1506, 882);
             MainContainer.Name = "MainContainer";
-            MainContainer.Size = new Size(1486, 855);
+            MainContainer.Size = new Size(1506, 882);
             MainContainer.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
             MainContainer.StateCommon.Color2 = Color.FromArgb(48, 56, 65);
             MainContainer.TabIndex = 0;
@@ -108,7 +110,7 @@
             // 
             Numeric.Increment = new decimal(new int[] { 1, 0, 0, 0 });
             Numeric.Location = new Point(866, 24);
-            Numeric.Maximum = new decimal(new int[] { 6, 0, 0, 0 });
+            Numeric.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
             Numeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             Numeric.Name = "Numeric";
             Numeric.Size = new Size(89, 39);
@@ -183,8 +185,6 @@
             ClientSize = new Size(1486, 855);
             Controls.Add(MainContainer);
             FormBorderStyle = FormBorderStyle.None;
-            MaximumSize = new Size(1486, 855);
-            MinimumSize = new Size(1486, 855);
             Name = "ProcessTableView";
             StartPosition = FormStartPosition.CenterScreen;
             StateCommon.Back.Color1 = Color.Transparent;

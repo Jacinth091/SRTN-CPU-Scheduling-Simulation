@@ -19,10 +19,13 @@ namespace SRTN_UI.Forms
         public event EventHandler ContinueEvent;
         public event EventHandler ProceedEvent;
         public event EventHandler StartEvent;
+        public event EventHandler InfoEvent;
+        public event EventHandler AboutEvent;
+        public event EventHandler GoBackEvent;
         private KryptonPanel _currentPanel;
         private KryptonForm _currentForm;
 
-
+        public KryptonPanel MainScreen => MainScreenPanel;
 
 
         public MainView()
@@ -33,9 +36,10 @@ namespace SRTN_UI.Forms
             ShowPanel(MainTitlePanel);
         }
 
-        public void InitializeEvents() 
+        public void InitializeEvents()
         {
-            ContinueBtn.Click += (s, e) => {
+            ContinueBtn.Click += (s, e) =>
+            {
                 //MessageBox.Show("Pressed");
                 ContinueEvent?.Invoke(this, EventArgs.Empty);
                 ShowProcessTableView(MainPanelLoader);
@@ -44,13 +48,11 @@ namespace SRTN_UI.Forms
             };
             this.FormClosing += OnFormClosing;
 
-            //GenerateBtn.Click += (s, e) =>
-            //{
-            //    ProceedEvent?.Invoke(this, EventArgs.Empty);
-            //    ShowPanel(MainTitlePanel);
-
-            //};
-
+            AboutBtn.Click += (s, e) =>
+            {
+                AboutEvent?.Invoke(this, EventArgs.Empty);
+                //ShowPanel(AboutPanel);
+            };
 
 
         }
@@ -89,18 +91,40 @@ namespace SRTN_UI.Forms
             {
                 MessageBox.Show("Process data is ready");
                 ShowGanttChartView(panelContainer, processData);
+                processTable.Dispose();
             };
         }
-
 
         public void ShowGanttChartView(KryptonPanel panelContainer, List<Process> processedData)
         {
             GanttChartView ganttChartView = GanttChartView.GetInstance(panelContainer);
             ganttChartView.SetProcessData(processedData);
+            ganttChartView.SetMainView(this); // 👈 Pass reference here
             panelContainer.Controls.Clear();
-            panelContainer.Controls.Add((Control)ganttChartView);
-            ((Control)ganttChartView).Dock = DockStyle.Fill;
+            panelContainer.Controls.Add(ganttChartView);
+            ganttChartView.Dock = DockStyle.Fill;
+        }
+        public void ShowAboutView(KryptonPanel panelContainer)
+        {
+            //AboutView aboutView = AboutView.GetInstance(panelContainer);
+            //panelContainer.Controls.Clear();
+            //panelContainer.Controls.Add((Control)aboutView);
+            //((Control)aboutView).Dock = DockStyle.Fill;
+        }
+        public void ShowInfoView(KryptonPanel panelContainer)
+        {
+            //InfoView infoView = InfoView.GetInstance(panelContainer);
+            //panelContainer.Controls.Clear();
+            //panelContainer.Controls.Add((Control)infoView);
+            //((Control)infoView).Dock = DockStyle.Fill;
+        }
+        public void ShowMainView() { 
+
         }
 
+        private void kryptonPanel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

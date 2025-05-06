@@ -23,10 +23,19 @@ namespace SRTN_UI.Forms
 
         // Singleton instance
         public static GanttChartView Instance;
+        private MainView _mainView;
 
         // Data
         private List<Process> _UserProcessData;
         private List<Process> completedProcesses;
+        private List<ProcessBlock> processBlocks;
+
+
+        private double currentTime = 0;
+        private double maxAllowedTime = 5;
+        private double maxProcessCompletionTime = 0;
+        private bool _isResultsDisplayed = false;
+
         private readonly List<Process> _dummyData = new List<Process>
         {
             //new Process(1, "Process 1", 5, 0),
@@ -42,17 +51,19 @@ namespace SRTN_UI.Forms
         };
 
         private readonly Color[] _processColors =
-    {
-            Color.FromArgb(255, 0, 128),   // Hot Pink
-            Color.FromArgb(0, 255, 255),   // Cyan
-            Color.FromArgb(255, 255, 0),   // Yellow
-            Color.FromArgb(0, 255, 0),     // Green
-            Color.FromArgb(255, 128, 0),   // Orange
-            Color.FromArgb(128, 0, 255),   // Purple
-            Color.FromArgb(255, 0, 0)      // Red
+        {
+            Color.FromArgb(93, 173, 226),   // Soft Blue
+            Color.FromArgb(88, 214, 141),   // Mint Green
+            Color.FromArgb(245, 176, 65),   // Soft Orange
+            Color.FromArgb(165, 105, 189),  // Soft Purple
+            Color.FromArgb(231, 76, 60),    // Coral Red
+            Color.FromArgb(52, 152, 219),   // Sky Blue
+            Color.FromArgb(46, 204, 113),   // Emerald Green
+            Color.FromArgb(241, 196, 15),   // Sunflower Yellow
+            Color.FromArgb(26, 188, 156),   // Teal
+            Color.FromArgb(149, 165, 166)   // Grayish Silver
         };
 
-        private Scheduler scheduler;
         //private List<ExecutionSegment> _executionTimeline;
         //_resultTableContainer
         private KryptonPanel _tableContainer;
@@ -65,6 +76,8 @@ namespace SRTN_UI.Forms
         private FlowLayoutPanel _resultItemRowContainer;
         private ResultItemRow[] _resultItemRow;
 
+        private KryptonPanel _averageResultContainer;
+        private ResultsDisplay _averageResultsDisplay;
         //private KryptonPanel _ganttChartContainer;
         //private KryptonPanel _ganttChartPanel;
         //private KryptonPanel _timeLineContainer;
@@ -79,9 +92,11 @@ namespace SRTN_UI.Forms
         public GanttChartView()
         {
             InitializeComponent();
-            scheduler = new Scheduler();
             completedProcesses = new List<Process>();
-            //_executionTimeline = new List<ExecutionSegment>();
+            processBlocks = new List<ProcessBlock>();
+            currentTime = 0;
+            ReplayBtn.Enabled = false;
+            ComputeBtn.Enabled = false;
             this.Load += async (s, e) => await InitializeEvents();
         }
 
@@ -99,17 +114,64 @@ namespace SRTN_UI.Forms
             {
                 InitializeGanttChartContainer(_UserProcessData ?? _dummyData);
 
-                //InitializeTimeline();
-
             };
             ResultsDisplay += async () =>
             {
+                if (_isResultsDisplayed) return;
+
                 InitializeResultTableContainer();
                 await InitializeResultTableView();
                 await Task.Delay(1000);
-                //InitializeResultTableRows(completedProcesses ?? _dummyData);
+                var completedSortedList = completedProcesses
+                    .OrderBy(p => p.ProcessId).ToList();
+                InitializeResultTableRows(completedSortedList ?? _dummyData);
+                await Task.Delay(1000);
+                InitializeAverageResultsContainer();
+                DisplayAverageStats(completedSortedList);
+                await Task.Delay(1000);
 
             };
+            ReplayBtn.Click += async (s,e) =>
+            {
+                _timeLineContainer.Controls.Clear();
+                await Task.Delay(1000);
+                RenderGanttChart(processBlocks, currentTime, maxProcessCompletionTime > maxAllowedTime);
+                ReplayBtn.Enabled = false;
+                await Task.Delay(1000);
+
+            };
+            ComputeBtn.Click += async (s, e) =>
+            {
+                var completedSortedList = completedProcesses
+                    .OrderBy(p => p.ProcessId).ToList();
+
+                if (completedSortedList == null || completedSortedList.Count == 0)
+                {
+                    MessageBox.Show("No processes to compute.");
+                    return;
+                }
+
+                ShowComputationDetails(completedSortedList); // Shows detailed math
+                //DisplayAverageStats(completed);    // Shows final values
+            };
+            HomeBtn.Click += (s, e) =>
+            {
+                if (_mainView != null)
+                {
+                    var result = MessageBox.Show("Are you sure you want to Home?",
+                        "Gantt Chart Table", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        _mainView.ShowPanel(_mainView.MainScreen); // 👈 Go back to main screen
+                        this.Dispose();
+                    }
+                }
+            };
+        }
+
+        public void SetMainView(MainView mainView)
+        {
+            _mainView = mainView;
         }
 
         #endregion
@@ -163,7 +225,11 @@ namespace SRTN_UI.Forms
                 await Task.Delay(500).ConfigureAwait(true);
             }
 
-            await AnimatePanelToPosition(_tableContainer, 12, 400);
+            int endX = 61;
+            int endY = 12; 
+            await AnimatePanelX(_tableContainer, _tableContainer.Location.X, endX, 500);
+            await AnimatePanelY(_tableContainer, _tableContainer.Location.Y, endY, 500);
+            //await AnimatePanelToPosition(_tableContainer, 12, 400);
             GanttChartReady?.Invoke();
         }
 
@@ -365,20 +431,54 @@ namespace SRTN_UI.Forms
                 }
             };
 
-            // Position the panel just outside the right side of the form
-            _resultTableContainer.Location = new Point(this.ClientSize.Width, 0); // Initial position outside the form (right side)
+            _resultTableContainer.Location = new Point(this.ClientSize.Width, 0); 
 
-            // Add the panel to the form's controls
             Controls.Add(_resultTableContainer);
             _resultTableContainer.BringToFront();
 
-            // Define the destination position for the panel
-            int destinationX = this.ClientSize.Width - _resultTableContainer.Width - 100; // Adjust based on your desired margin
-            int destinationY =_resultTableContainer.Height-51;  // You can modify the vertical position as needed
+            int destinationX = this.ClientSize.Width - _resultTableContainer.Width - 61;
+            int destinationY = _resultTableContainer.Height - 50; 
 
             // Animate the panel's X and Y positions (from right to the destination)
-            await AnimatePanelX(_resultTableContainer, _resultTableContainer.Location.X, destinationX, 500); // Adjust duration as needed
-            await AnimatePanelY(_resultTableContainer, _resultTableContainer.Location.Y, destinationY, 500); // Adjust duration as needed
+            await AnimatePanelX(_resultTableContainer, _resultTableContainer.Location.X, destinationX, 500); 
+            await AnimatePanelY(_resultTableContainer, _resultTableContainer.Location.Y, destinationY, 500); 
+
+        }
+
+        public async void InitializeAverageResultsContainer()
+        {
+            _averageResultContainer = new KryptonPanel()
+            {
+                //1454, 143
+                Name = "Average Result Display",
+                Size = new Size(1376, 100),  // Size of the panel
+                StateCommon =
+                {
+                    Color1 = Color.White,
+                    Color2 = Color.White,
+                    ColorStyle = PaletteColorStyle.Linear,
+                    ColorAngle = 90f
+                }
+            };
+
+           _averageResultContainer.Location = new Point(this.ClientSize.Width, 432);
+
+            Controls.Add(_averageResultContainer);
+            _averageResultContainer.BringToFront();
+            //62, 443
+            //int destinationX = this.ClientSize.Width - _resultTableContainer.Width - 100;
+            //int destinationY = _resultTableContainer.Height - 50;
+            //40, 459
+            //19, 459
+            //53, 43
+            ////164, 432
+            ///62, 457
+            int destinationX = 61;
+            int destinationY = 470;
+            // Animate the panel's X and Y positions (from right to the destination)
+
+            await AnimatePanelX(_averageResultContainer, _averageResultContainer.Location.X, destinationX, 500);
+            await AnimatePanelY(_averageResultContainer, _averageResultContainer.Location.Y, destinationY, 500);
         }
 
 
@@ -386,13 +486,13 @@ namespace SRTN_UI.Forms
         {
 
             _ganttChartContainer.BringToFront();
-
-            await AnimatePanelY(_ganttChartContainer, this.ClientSize.Height + _ganttChartContainer.Height, 407);
-
+            //3, 608
+            await AnimatePanelY(_ganttChartContainer, this.ClientSize.Height + _ganttChartContainer.Height, 608);
+            _ganttChartContainer.BringToFront();
             InitializeChartElements(_UserProcessData ?? _dummyData);
         }
 
-        private async void InitializeChartElements(List<Process> processData) 
+        private async void InitializeChartElements(List<Process> processData)
         {
             _timeLineContainer.BringToFront();
 
@@ -403,53 +503,36 @@ namespace SRTN_UI.Forms
 
             _timeLineContainer.Refresh();
         }
-
+        // Logic
         public async void StartSRTNScheduling(List<Process> processData)
         {
             List<Process> processes = new List<Process>(processData ?? _dummyData);
-            List<ProcessBlock> processBlocks = new List<ProcessBlock>();
-            //List<Process> completedProcesses = new List<Process>();
-
+            processBlocks = new List<ProcessBlock>();
+            double timeIncrement = 0.1, smallTolerance = 0.0001;
+            currentTime = 0;
+            maxProcessCompletionTime = 0;
             int colorCounter = 0;
-            double currentTime = 0;
-            double timeIncrement = 0.1;
-            double smallTolerance = 0.0001;
-            double maxAllowedTime = 10.0;
-            double maxProcessCompletionTime = 0;
-            double idleStartTime = -1;
 
-            Process currentProcess = null;
+            Process currentProcess = null, previousProcess = null;
             ProcessBlock currentBlock = null;
-            Process previousProcess = null;
 
-            double RoundTime(double time) => Math.Round(time, 2);
-
-            // Reset processes
             foreach (var p in processes)
             {
                 p.CurrentBurstTime = p.OriginalBurstTime;
                 p.Status = ProcessStatus.New;
                 p.PreemptionPairs = new();
                 p.FirstStartTime = null;
-            }
-
-            foreach (var process in processes)
-            {
-                if (process.AssignedColor == Color.Empty)
-                {
-                    process.AssignedColor = _processColors[colorCounter++ % _processColors.Length];
-                }
+                if (p.AssignedColor == Color.Empty)
+                    p.AssignedColor = _processColors[colorCounter++ % _processColors.Length];
             }
 
             while (completedProcesses.Count < processes.Count)
             {
-                // Step 1: Update ready processes
-                foreach (var p in processes.Where(p => RoundTime(p.ArrivalTime) <= RoundTime(currentTime) && p.Status == ProcessStatus.New))
-                {
+                // Mark ready processes
+                foreach (var p in processes.Where(p => Math.Round(p.ArrivalTime, 2) <= Math.Round(currentTime, 2) && p.Status == ProcessStatus.New))
                     p.Status = ProcessStatus.Ready;
-                }
 
-                // Step 2: Choose shortest remaining time process
+                // Select process with shortest remaining time
                 var readyProcesses = processes
                     .Where(p => p.Status == ProcessStatus.Ready || p.Status == ProcessStatus.Running)
                     .OrderBy(p => p.CurrentBurstTime)
@@ -459,139 +542,239 @@ namespace SRTN_UI.Forms
 
                 if (readyProcesses.Any())
                 {
-                    var selectedProcess = readyProcesses.First();
+                    var selected = readyProcesses.First();
 
-                    // Step 3: Preemption logic
-                    if (previousProcess == null || previousProcess.ProcessId != selectedProcess.ProcessId)
+                    // Process switching logic
+                    if (previousProcess?.ProcessId != selected.ProcessId)
                     {
                         if (currentBlock != null)
                         {
-                            currentBlock.EndTime = RoundTime(currentTime);
+                            currentBlock.EndTime = Math.Round(currentTime, 2);
                             processBlocks.Add(currentBlock);
                         }
 
-                        // Handle preemption of previous
-                        if (previousProcess != null && previousProcess.ProcessId != selectedProcess.ProcessId && previousProcess.Status == ProcessStatus.Running)
+                        if (previousProcess?.Status == ProcessStatus.Running)
                         {
                             previousProcess.Status = ProcessStatus.Ready;
-                            previousProcess.PreemptionPairs.Add((RoundTime(currentTime), -1));
+                            previousProcess.PreemptionPairs.Add((Math.Round(currentTime, 2), -1));
                         }
 
-                        // Handle resume of current
-                        if (selectedProcess.PreemptionPairs.Count > 0 && selectedProcess.PreemptionPairs[^1].ResumeTime == -1)
+                        if (selected.PreemptionPairs.LastOrDefault().ResumeTime == -1)
                         {
-                            var last = selectedProcess.PreemptionPairs[^1];
-                            selectedProcess.PreemptionPairs[^1] = (last.PreemptTime, RoundTime(currentTime));
+                            var last = selected.PreemptionPairs[^1];
+                            selected.PreemptionPairs[^1] = (last.PreemptTime, Math.Round(currentTime, 2));
                         }
 
-                        currentBlock = new ProcessBlock(
-                            selectedProcess.ProcessId,
-                            RoundTime(currentTime),
-                            RoundTime(currentTime + timeIncrement),
-                            selectedProcess.ProcessName,
-                            selectedProcess.AssignedColor
-                        );
+                        currentBlock = new ProcessBlock(selected.ProcessId, Math.Round(currentTime, 2),
+                            Math.Round(currentTime + timeIncrement, 2), selected.ProcessName, selected.AssignedColor);
                     }
                     else
                     {
-                        if (currentBlock != null)
-                        {
-                            currentBlock.EndTime = RoundTime(currentTime + timeIncrement);
-                        }
+                        currentBlock.EndTime = Math.Round(currentTime + timeIncrement, 2);
                     }
 
-                    if (selectedProcess.FirstStartTime == null)
+                    if (selected.FirstStartTime == null)
+                        selected.FirstStartTime = Math.Round(currentTime, 2);
+
+                    selected.Status = ProcessStatus.Running;
+                    selected.CurrentBurstTime -= timeIncrement;
+
+                    if (selected.CurrentBurstTime <= smallTolerance)
                     {
-                        selectedProcess.FirstStartTime = RoundTime(currentTime);
-                    }
+                        selected.Status = ProcessStatus.Terminated;
+                        selected.CompletionTime = Math.Round(currentTime + timeIncrement, 2);
+                        selected.TurnAroundTime = Math.Round(selected.CompletionTime - selected.ArrivalTime, 2);
 
-                    selectedProcess.Status = ProcessStatus.Running;
-                    selectedProcess.CurrentBurstTime -= timeIncrement;
+                        // Compute waiting time
+                        double waiting = (selected.FirstStartTime ?? selected.ArrivalTime) - selected.ArrivalTime;
+                        waiting += selected.PreemptionPairs
+                            .Where(p => p.ResumeTime > p.PreemptTime)
+                            .Sum(p => p.ResumeTime - p.PreemptTime);
+                        selected.WaitingTime = Math.Round(waiting, 2);
 
-                    if (selectedProcess.CurrentBurstTime <= smallTolerance)
-                    {
-                        selectedProcess.Status = ProcessStatus.Terminated;
-                        selectedProcess.CompletionTime = RoundTime(currentTime + timeIncrement);
-                        selectedProcess.TurnAroundTime = RoundTime(selectedProcess.CompletionTime - selectedProcess.ArrivalTime);
-
-                        // Compute accurate waiting time
-                        double waitingTime = (selectedProcess.FirstStartTime ?? selectedProcess.ArrivalTime) - selectedProcess.ArrivalTime;
-                        foreach (var (preempt, resume) in selectedProcess.PreemptionPairs)
-                        {
-                            if (resume > preempt) waitingTime += resume - preempt;
-                        }
-                        selectedProcess.WaitingTime = RoundTime(waitingTime);
-
-                        completedProcesses.Add(selectedProcess);
+                        completedProcesses.Add(selected);
 
                         if (currentBlock != null)
                         {
-                            currentBlock.EndTime = RoundTime(currentTime + timeIncrement);
+                            currentBlock.EndTime = Math.Round(currentTime + timeIncrement, 2);
                             processBlocks.Add(currentBlock);
                             currentBlock = null;
                         }
 
-                        maxProcessCompletionTime = Math.Max(maxProcessCompletionTime, selectedProcess.CompletionTime);
+                        maxProcessCompletionTime = Math.Max(maxProcessCompletionTime, selected.CompletionTime);
                     }
 
-                    previousProcess = selectedProcess;
+                    previousProcess = selected;
                 }
                 else
                 {
-                    // No ready process — Idle time
+                    // IDLE block
                     if (currentBlock == null || currentBlock.ProcessId != -1)
                     {
                         if (currentBlock != null)
                         {
-                            currentBlock.EndTime = RoundTime(currentTime);
+                            currentBlock.EndTime = Math.Round(currentTime, 2);
                             processBlocks.Add(currentBlock);
                         }
 
-                        currentBlock = new ProcessBlock(-1,
-                            RoundTime(currentTime),
-                            RoundTime(currentTime + timeIncrement),
-                            "Idle",
-                            Color.LightGray);
+                        currentBlock = new ProcessBlock(-1, Math.Round(currentTime, 2),
+                            Math.Round(currentTime + timeIncrement, 2), "Idle", Color.LightGray);
                     }
                     else
                     {
-                        currentBlock.EndTime = RoundTime(currentTime + timeIncrement);
+                        currentBlock.EndTime = Math.Round(currentTime + timeIncrement, 2);
                     }
                 }
 
-                currentTime = RoundTime(currentTime + timeIncrement);
+                currentTime = Math.Round(currentTime + timeIncrement, 2);
             }
 
-            if (idleStartTime != -1 && RoundTime(idleStartTime) < RoundTime(currentTime))
-            {
-                processBlocks.Add(new ProcessBlock(-1,
-                    RoundTime(idleStartTime),
-                    RoundTime(currentTime),
-                    "Idle",
-                    Color.LightGray));
-            }
+            //MessageBox.Show($"Max Process Completion Time : {Math.Round(maxProcessCompletionTime, 2)} vs Max Allowed Time: {maxAllowedTime}");
+            RenderGanttChart(processBlocks, currentTime, maxProcessCompletionTime > maxAllowedTime);
+            await Task.Delay(1000);
 
-            MessageBox.Show($"Max Process Completion Time : {RoundTime(maxProcessCompletionTime)} vs Max Allowed Time: {maxAllowedTime}");
-            RenderGanttChart(processBlocks, RoundTime(currentTime), RoundTime(maxProcessCompletionTime) > maxAllowedTime);
-            await Task.Delay(500);
         }
 
+        //private async void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
+        //{
+        //    _timeLineContainer.Controls.Clear();
+        //    _timeLineContainer.AutoScroll = true;
 
+        //    if (processBlocks == null || processBlocks.Count == 0) return;
 
-        private void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
+        //    // Constants
+        //    int containerWidth = _timeLineContainer.Width - 50; // Account for margins
+        //    int minVisibleWidth = 30;     // Minimum width for process blocks (px)
+        //    int maxVisibleWidth = 200;    // Maximum width for process blocks (px)
+        //    int minIdleBlockWidth = 30;   // Minimum width for idle blocks (px)
+
+        //    // Calculate scale factor
+        //    double scaleFactor = containerWidth / Math.Max(totalTime, 1);
+        //    if (shouldShrink) scaleFactor *= 0.7; // Shrink if needed
+
+        //    int rowHeight = 70, timelineHeight = 50, margin = 11;
+
+        //    // Create panels
+        //    var ganttRowPanel = new Panel
+        //    {
+        //        Height = rowHeight,
+        //        Dock = DockStyle.Top,
+        //        BackColor = Color.FromArgb(238, 238, 238),
+        //        Padding = new Padding(0, 0, 0, margin),
+        //    };
+
+        //    var timelinePanel = new Panel
+        //    {
+        //        Height = timelineHeight,
+        //        Dock = DockStyle.Top,
+        //        BackColor = Color.FromArgb(238, 238, 238),
+        //    };
+
+        //    _timeLineContainer.Controls.Add(timelinePanel);
+        //    _timeLineContainer.Controls.Add(ganttRowPanel);
+
+        //    var timelineLabelTimes = new HashSet<double>();
+
+        //    foreach (var block in processBlocks)
+        //    {
+        //        double duration = block.EndTime - block.StartTime;
+        //        int rawWidth = (int)(duration * scaleFactor);
+
+        //        // Apply size constraints
+        //        int blockWidth = block.ProcessId == -1
+        //            ? Math.Max(minIdleBlockWidth, rawWidth)  // Idle block
+        //            : Math.Clamp(rawWidth, minVisibleWidth, maxVisibleWidth); // Process block
+
+        //        if (blockWidth <= 0) continue;
+
+        //        // Render block
+        //        var blockPanel = new Panel
+        //        {
+        //            BackColor = block.ProcessColor,
+        //            Location = new Point((int)(block.StartTime * scaleFactor) + 20, margin),
+        //            Size = new Size(blockWidth, rowHeight - 2 * margin),
+        //            Anchor = AnchorStyles.Left | AnchorStyles.Top,
+        //            BorderStyle = BorderStyle.FixedSingle
+        //        };
+
+        //        var label = new Label
+        //        {
+        //            Text = block.ProcessName,
+        //            ForeColor = GetContrastColor(block.ProcessColor),
+        //            TextAlign = ContentAlignment.MiddleCenter,
+        //            Dock = DockStyle.Fill,
+        //            Font = new Font("Poppins", 10, FontStyle.Bold)
+        //        };
+
+        //        blockPanel.Controls.Add(label);
+        //        ganttRowPanel.Controls.Add(blockPanel);
+
+        //        // Add timeline markers
+        //        foreach (var time in new[] { block.StartTime, block.EndTime })
+        //        {
+        //            if (timelineLabelTimes.Contains(time)) continue;
+
+        //            timelineLabelTimes.Add(time);
+        //            int x = (int)(time * scaleFactor) + 20;
+
+        //            var line = new Panel
+        //            {
+        //                BackColor = Color.Black,
+        //                Location = new Point(x, 0),
+        //                Size = new Size(1, 15),
+        //                Anchor = AnchorStyles.Top | AnchorStyles.Left
+        //            };
+        //            timelinePanel.Controls.Add(line);
+
+        //            var timeLabel = new Label
+        //            {
+        //                Text = time.ToString("0.0"),
+        //                Location = new Point(x - 5, line.Height + 10),
+        //                AutoSize = true,
+        //                Font = new Font("Poppins", 10, FontStyle.Bold)
+        //            };
+        //            timelinePanel.Controls.Add(timeLabel);
+        //        }
+
+        //        _timeLineContainer.Refresh();
+        //        await Task.Delay(1500); // Animation delay (optional)
+        //    }
+
+        //    ResultsDisplay?.Invoke();
+        //    _isResultsDisplayed = true;
+        //    ReplayBtn.Enabled = true;
+        //}
+
+        private async void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
         {
             _timeLineContainer.Controls.Clear();
             _timeLineContainer.AutoScroll = true;
 
-            if (processBlocks == null || processBlocks.Count == 0)
-                return;
+            if (processBlocks == null || processBlocks.Count == 0) return;
+
+            // Constants
+            //int containerWidth = 1454;
+            //int maxBlockWidthPerTimeUnit = 25;  // Max width per 1ms
+            //int minBlockWidthPerTimeUnit = 15;  // Min width per 1ms
+            //int minVisibleWidth = 15;           // Absolute minimum width for any block
+            //int minIdleBlockWidth = 15;        // Minimum width for idle blocks
+
+            //// Calculate scale factor dynamically
+            //double scaleFactor = containerWidth / Math.Max(totalTime, 1);
+            //if (shouldShrink) scaleFactor *= 0.6;
+            // Per-block constraints
+            //int minVisibleWidth = 20;
+            //int maxVisibleWidth = 20;
+
+            // Clamp scale factor to enforce min/max block sizes
+            //scaleFactor = Math.Clamp(scaleFactor, minBlockWidthPerTimeUnit, maxBlockWidthPerTimeUnit);
 
             int containerWidth = _timeLineContainer.Width - 50;
-            int maxBlockWidthPerTimeUnit = 40;
+            int maxBlockWidthPerTimeUnit = 25;
             int minBlockWidthPerTimeUnit = 20;
-            int minIdleBlockWidth = 25; // Minimum width for idle blocks to ensure visibility
+            int minIdleBlockWidth = 30; // Minimum width for idle blocks to ensure visibility
+            int minVisibleWidth = 30;           // Absolute minimum width for any block
 
-            // Adjust scale factor based on whether we should shrink
             double scaleFactor = containerWidth / Math.Max(totalTime, 1);
             if (shouldShrink)
             {
@@ -599,134 +782,245 @@ namespace SRTN_UI.Forms
                 scaleFactor *= 0.7; // Example: Shrink by half if exceeding limit
             }
 
-            scaleFactor = Math.Min(scaleFactor, maxBlockWidthPerTimeUnit);
-            scaleFactor = Math.Max(scaleFactor, minBlockWidthPerTimeUnit);
+            //scaleFactor = Math.Min(scaleFactor, maxBlockWidthPerTimeUnit);
+            //scaleFactor = Math.Max(scaleFactor, minBlockWidthPerTimeUnit);
 
-            int rowHeight = 70;
-            int timelineHeight = 50;
-            int margin = 10;
+            int rowHeight = 70, timelineHeight = 50, margin = 11;
 
+            // Create panels for Gantt row and timeline
             var ganttRowPanel = new Panel
             {
                 Height = rowHeight,
                 Dock = DockStyle.Top,
                 BackColor = Color.FromArgb(238, 238, 238),
-                Padding = new Padding(0, 0, 0, margin)
+                Padding = new Padding(0, 0, 0, margin),
             };
 
             var timelinePanel = new Panel
             {
                 Height = timelineHeight,
                 Dock = DockStyle.Top,
-                BackColor = Color.FromArgb(238, 238, 238)
+                BackColor = Color.FromArgb(238, 238, 238),
             };
 
             _timeLineContainer.Controls.Add(timelinePanel);
             _timeLineContainer.Controls.Add(ganttRowPanel);
 
-            HashSet<double> timelineLabelTimes = new HashSet<double>();
-            int counter = 0;
+            var timelineLabelTimes = new HashSet<double>();
+
             foreach (var block in processBlocks)
             {
-                //chart += block.ProcessName + " " + block.StartTime + " " + block.EndTime + "\n";
-                int blockWidth = (int)((block.EndTime - block.StartTime) * scaleFactor);
+                // Calculate block width with scaling
+                //int blockWidth = (int)((block.EndTime - block.StartTime) * scaleFactor);
 
-                // For Idle blocks, ensure a minimum width for visibility
+                //// For Idle blocks, ensure a minimum width for visibility
+                //if (block.ProcessId == -1)
+                //{
+                //    blockWidth = Math.Max(minIdleBlockWidth, (int)((block.EndTime - block.StartTime) * scaleFactor));
+                //}
+                //else
+                //{
+                //    //blockWidth = Math.Max(minIdleBlockWidth, (int)((block.EndTime - block.StartTime) * scaleFactor));
+                //}
+
+                double duration = block.EndTime - block.StartTime;
+                int rawWidth = (int)(duration * scaleFactor);
+
+                // Calculate raw width
+                //int rawWidth = (int)((block.EndTime - block.StartTime) * scaleFactor);
+
+                // Apply constraints
+                int blockWidth;
                 if (block.ProcessId == -1)
                 {
-                    blockWidth = Math.Max(minIdleBlockWidth, (int)((block.EndTime - block.StartTime) * scaleFactor));
+                    // Idle block: enforce minimum width only
+                    blockWidth = Math.Max(minIdleBlockWidth, rawWidth);
+                }
+                else
+                {
+                    blockWidth = Math.Max(minVisibleWidth, rawWidth); // First, ensure minimum
                 }
 
                 if (blockWidth <= 0) continue;
 
-
-
-                var blockPanel = new Panel
+                // === Render process block ===
+                Panel blockPanel = new Panel
                 {
                     BackColor = block.ProcessColor,
-                    Location = new Point((int)(block.StartTime * scaleFactor) + 20, margin), // <--- update here
+                    Location = new Point((int)(block.StartTime * scaleFactor) + 20, margin),
                     Size = new Size(blockWidth, rowHeight - 2 * margin),
                     Anchor = AnchorStyles.Left | AnchorStyles.Top,
                     BorderStyle = BorderStyle.FixedSingle
                 };
 
-                if(counter ==0)
+                Label label = new Label
                 {
-                    blockPanel.Location = new Point((int)(block.StartTime * scaleFactor) + 20, margin);
-                }
+                    Text = block.ProcessName,
+                    ForeColor = GetContrastColor(block.ProcessColor),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Poppins", 10, FontStyle.Bold)
+                };
 
-                if (block.ProcessId != -1)
-                {
-                    var label = new Label
-                    {
-                        Text = block.ProcessName,
-                        ForeColor = GetContrastColor(block.ProcessColor),
-                        TextAlign = ContentAlignment.MiddleCenter,
-                        Dock = DockStyle.Fill,
-                        Font = new Font("Poppins", 8, FontStyle.Bold)
-                    };
-                    blockPanel.Controls.Add(label);
-                }
-                else
-                {
-                    var label = new Label
-                    {
-                        Text = block.ProcessName,
-                        ForeColor = GetContrastColor(block.ProcessColor),
-                        TextAlign = ContentAlignment.MiddleCenter,
-                        Dock = DockStyle.Fill,
-                        Font = new Font("Poppins",8, FontStyle.Bold)
-                    };
-                    blockPanel.Controls.Add(label);
-                }
-
-                timelineLabelTimes.Add(block.StartTime);
-                timelineLabelTimes.Add(block.EndTime);
-
+                blockPanel.Controls.Add(label);
                 ganttRowPanel.Controls.Add(blockPanel);
-                counter++;
-            }
-            counter = 0;
-            foreach (var time in timelineLabelTimes.OrderBy(t => t))
-            {
-                // Create the line (this stays the same)
-                var line = new Panel
-                {
-                    BackColor = Color.Black,
-                    Location = new Point((int)(time * scaleFactor)+ 20, 0), // Line positioned at 0 (top)
-                    Size = new Size(1, 15),
-                    Anchor = AnchorStyles.Top | AnchorStyles.Left
-                };
-                timelinePanel.Controls.Add(line);
+                ganttRowPanel.Refresh();
 
-                // Create the label and position it below the line (adjust the Y value)
-                var timeLabel = new Label
+                // === Add timeline markers ===
+                foreach (var time in new[] { block.StartTime, block.EndTime })
                 {
-                    Text = time.ToString("0.0"),
-                    Location = new Point((int)(time * scaleFactor) + 20 - 5, line.Height + 10), // Adjust Y position to be below the line
-                    AutoSize = true,
-                    Font = new Font("Segoe UI", 8f)
-                };
+                    if (timelineLabelTimes.Contains(time)) continue;
 
-                if (counter == 0)
-                {
-                    timeLabel.Location = new Point((int)(time * scaleFactor)+15, line.Height + 10); // Adjust Y position to be below the line
+                    timelineLabelTimes.Add(time);
+                    int x = (int)(time * scaleFactor) + 20;
+
+                    var line = new Panel
+                    {
+                        BackColor = Color.Black,
+                        Location = new Point(x, 0),
+                        Size = new Size(1, 15),
+                        Anchor = AnchorStyles.Top | AnchorStyles.Left
+                    };
+                    timelinePanel.Controls.Add(line);
+
+                    var timeLabel = new Label
+                    {
+                        Text = time.ToString("0.0"),
+                        Location = new Point(x - 5, line.Height + 10),
+                        AutoSize = true,
+                        Font = new Font("Poppins", 10, FontStyle.Bold)
+                    };
+                    timelinePanel.Controls.Add(timeLabel);
                 }
-                timelinePanel.Controls.Add(timeLabel);
-                counter++;
-            }
 
-            _timeLineContainer.Height = rowHeight + timelineHeight;
-            _timeLineContainer.Refresh();
+                _timeLineContainer.Refresh();
+                await Task.Delay(1500); // Optional: Animation delay
+            }
 
             ResultsDisplay?.Invoke();
-            var orderedCompletedProc = completedProcesses.OrderBy(p => p.ProcessId).ToList();
-            InitializeResultTableRows(orderedCompletedProc);
-            DisplayAverageStats(completedProcesses);
-
-            MessageBox.Show($"Turn Around Time: {_UserProcessData.First().TurnAroundTime}");
-            //MessageBox.Show(chart, "Gantt Chart Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _isResultsDisplayed = true;
+            ReplayBtn.Enabled = true;
         }
+
+
+        //private async void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
+        //{
+        //    _timeLineContainer.Controls.Clear();
+        //    _timeLineContainer.AutoScroll = true;
+
+        //    if (processBlocks == null || processBlocks.Count == 0) return;
+
+        //    int containerWidth = 1454;
+        //    int maxBlockWidthPerTimeUnit = 15;
+        //    int minBlockWidthPerTimeUnit = 10;
+        //    int minIdleBlockWidth = 10;
+
+        //    double scaleFactor = containerWidth / Math.Max(totalTime, 1);
+        //    if (shouldShrink) scaleFactor *= 0.6;
+
+        //    scaleFactor = Math.Clamp(scaleFactor, minBlockWidthPerTimeUnit, maxBlockWidthPerTimeUnit);
+
+        //    int rowHeight = 80, timelineHeight = 60, margin = 11;
+
+        //    var ganttRowPanel = new Panel
+        //    {
+        //        Height = rowHeight,
+        //        Dock = DockStyle.Top,
+        //        BackColor = Color.FromArgb(238, 238, 238),
+        //        Padding = new Padding(0,0, 0, margin),
+        //    };
+
+        //    var timelinePanel = new Panel
+        //    {
+        //        Height = timelineHeight,
+        //        Dock = DockStyle.Top,
+        //        BackColor = Color.FromArgb(238, 238, 238),
+
+        //    };
+
+        //    _timeLineContainer.Controls.Add(timelinePanel);
+        //    _timeLineContainer.Controls.Add(ganttRowPanel);
+
+        //    var timelineLabelTimes = new HashSet<double>();
+
+        //    foreach (var block in processBlocks)
+        //    {
+        //        int blockWidth = (int)((block.EndTime - block.StartTime) * scaleFactor);    
+        //        int minVisibleWidth = 10;
+
+        //        if (block.ProcessId == -1)
+        //        {
+        //            blockWidth = Math.Max(minIdleBlockWidth, blockWidth);
+        //        }
+        //        else
+        //        {
+        //            blockWidth = Math.Max(minVisibleWidth, blockWidth);
+        //        }
+
+        //        if (blockWidth <= 0) continue;
+
+        //        // === Render process block ===
+        //        var blockPanel = new Panel
+        //        {
+        //            BackColor = block.ProcessColor,
+        //            Location = new Point((int)(block.StartTime * scaleFactor) + 20, margin),
+        //            Size = new Size(blockWidth, rowHeight - 2 * margin),
+        //            Anchor = AnchorStyles.Left | AnchorStyles.Top,
+        //            BorderStyle = BorderStyle.FixedSingle
+        //        };
+
+        //        var label = new Label
+        //        {
+        //            Text = block.ProcessName,
+        //            ForeColor = GetContrastColor(block.ProcessColor),
+        //            TextAlign = ContentAlignment.MiddleCenter,
+        //            Dock = DockStyle.Fill,
+        //            Font = new Font("Poppins", 10, FontStyle.Bold)
+        //        };
+
+        //        blockPanel.Controls.Add(label);
+        //        ganttRowPanel.Controls.Add(blockPanel);
+        //        ganttRowPanel.Refresh();
+
+        //        // === Add timeline markers for this block's start and end ===
+        //        foreach (var time in new[] { block.StartTime, block.EndTime })
+        //        {
+        //            if (timelineLabelTimes.Contains(time)) continue;
+
+        //            timelineLabelTimes.Add(time);
+        //            int x = (int)(time * scaleFactor) + 20;
+
+        //            var line = new Panel
+        //            {
+        //                BackColor = Color.Black,
+        //                Location = new Point(x, 0),
+        //                Size = new Size(1, 15),
+        //                Anchor = AnchorStyles.Top | AnchorStyles.Left
+        //            };
+        //            timelinePanel.Controls.Add(line);
+
+        //            var timeLabel = new Label
+        //            {
+        //                Text = time.ToString("0.0"),
+        //                Location = new Point(x - 5, line.Height + 10),
+        //                AutoSize = true,
+        //                Font = new Font("Poppins", 10, FontStyle.Bold)
+        //            };
+        //            timelinePanel.Controls.Add(timeLabel);
+
+        //            timelinePanel.Refresh();
+        //        }
+
+        //        _timeLineContainer.Refresh();
+        //        await Task.Delay(2000);
+        //    }
+
+        //    //_timeLineContainer.Height = rowHeight + timelineHeight;
+        //    ResultsDisplay?.Invoke();
+        //    _isResultsDisplayed = true;
+        //    ReplayBtn.Enabled = true;
+        //}
+
 
 
         private Color GetContrastColor(Color color)
@@ -739,6 +1033,8 @@ namespace SRTN_UI.Forms
 
         public async void DisplayAverageStats(List<Process> _completed)
         {
+
+
             if (_completed == null || _completed.Count == 0)
             {
                 MessageBox.Show("No completed processes to display stats.");
@@ -757,57 +1053,71 @@ namespace SRTN_UI.Forms
                 totalCompletionTime += process.CompletionTime;
             }
 
-            double averageWaitingTime = totalWaitingTime / _completed.Count;
-            double averageTurnAroundTime = totalTurnAroundTime / _completed.Count;
-            double averageCompletionTime = totalCompletionTime / _completed.Count;
+            double averageWaitingTime = Math.Round(totalWaitingTime / _completed.Count,2);
+            double averageTurnAroundTime = Math.Round(totalTurnAroundTime / _completed.Count,2);
+            double averageCompletionTime = Math.Round(totalCompletionTime / _completed.Count, 2);
 
-            KryptonPanel statsPanelContainer = new KryptonPanel()
-            {
-                Size = new Size(700, 50),
-                StateCommon =
-        {
-            Color1 = Color.White,
-            Color2 = Color.White,
-            ColorStyle = PaletteColorStyle.Linear,
-            ColorAngle = 90f
-        },
-                Dock = DockStyle.Bottom
-            };
-
-            Label waitingTimeLabel = new Label
-            {
-                Text = $"Average Waiting Time: {averageWaitingTime:0.00}",
-                Location = new Point(20, 15),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10f, FontStyle.Bold)
-            };
-
-            Label turnAroundTimeLabel = new Label
-            {
-                Text = $"Average Turnaround Time: {averageTurnAroundTime:0.00}",
-                Location = new Point(250, 15),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10f, FontStyle.Bold)
-            };
-
-            Label completionTimeLabel = new Label
-            {
-                Text = $"Average Completion Time: {averageCompletionTime:0.00}",
-                Location = new Point(500, 15),
-                AutoSize = true,
-                Font = new Font("Segoe UI", 10f, FontStyle.Bold)
-            };
-
-            statsPanelContainer.Controls.Add(waitingTimeLabel);
-            statsPanelContainer.Controls.Add(turnAroundTimeLabel);
-            statsPanelContainer.Controls.Add(completionTimeLabel);
-
-            _timeLineContainer.Controls.Add(statsPanelContainer);
-            _timeLineContainer.Height += statsPanelContainer.Height;
-
-            _timeLineContainer.Refresh();
+            _averageResultsDisplay = new ResultsDisplay(averageWaitingTime, averageCompletionTime, averageTurnAroundTime);
+            _averageResultContainer.Controls.Add(_averageResultsDisplay);
+            _averageResultsDisplay.BringToFront();
+            ComputeBtn.Enabled = true;
+ 
         }
 
+        public void ShowComputationDetails(List<Process> _completed)
+        {
+            if (_completed == null || _completed.Count == 0)
+            {
+                MessageBox.Show("No completed processes to compute details.");
+                return;
+            }
+
+            string waitingTimeExp = "";
+            string turnAroundTimeExp = "";
+            string completionTimeExp = "";
+
+            double totalWaitingTime = 0;
+            double totalTurnAroundTime = 0;
+            double totalCompletionTime = 0;
+
+            for (int i = 0; i < _completed.Count; i++)
+            {
+                var p = _completed[i];
+
+                waitingTimeExp += p.WaitingTime.ToString();
+                turnAroundTimeExp += p.TurnAroundTime.ToString();
+                completionTimeExp += p.CompletionTime.ToString();
+
+                if (i != _completed.Count - 1)
+                {
+                    waitingTimeExp += " + ";
+                    turnAroundTimeExp += " + ";
+                    completionTimeExp += " + ";
+                }
+
+                totalWaitingTime += p.WaitingTime;
+                totalTurnAroundTime += p.TurnAroundTime;
+                totalCompletionTime += p.CompletionTime;
+            }
+
+            double avgWT = Math.Round(totalWaitingTime / _completed.Count, 2);
+            double avgTAT = Math.Round(totalTurnAroundTime / _completed.Count, 2);
+            double avgCT = Math.Round(totalCompletionTime / _completed.Count, 2);
+
+            string avgWaitStr = $"= ({waitingTimeExp}) / {_completed.Count} = {avgWT} + {" msec."}\n\n";
+            string avgTATStr = $" = ({turnAroundTimeExp}) / {_completed.Count} = {avgTAT} + {" msec."}\n\n";
+            string avgCTStr = $" = ({completionTimeExp}) / {_completed.Count} = {avgCT} + {" msec."}";
+            //$"Average Turnaround Time = ({turnAroundTimeExp}) / {_completed.Count} = {avgTAT}\n\n" +
+            //    $"Average Completion Time = ({completionTimeExp}) / {_completed.Count} = {avgCT}";
+
+            ComputationForm compForm = new ComputationForm();
+            compForm.SetData(avgWaitStr, avgCTStr, avgTATStr);
+            //detailsForm.Controls.Add(displayBox);
+            compForm.ShowDialog();
+        }
+
+
+        // Logic
 
         #endregion
 
@@ -917,6 +1227,11 @@ namespace SRTN_UI.Forms
         }
 
         #endregion
+
+        private void _timeLineContainer_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 }

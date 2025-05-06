@@ -11,21 +11,20 @@ using SRTN_UI.Logic;
 
 namespace SRTN_UI.Forms
 {
-    public partial class ResultItemRow : UserControl
+    public partial class ResultsDisplay : UserControl
     {
-        public ResultItemRow()
+        public ResultsDisplay()
         {
             InitializeComponent();
         }
-
-        public ResultItemRow(Process process)
+        public ResultsDisplay(double waiting, double completion, double turnAround)
         {
             InitializeComponent();
-            ProcessIdCol.Text = "P" + process.ProcessId.ToString();
-            CompletionTimeCol.Text = process.CompletionTime.ToString() + " msec.";
-            WaitingTimeCol.Text = process.WaitingTime.ToString() + " msec.";
-            TurnAroundTimeCol.Text = process.TurnAroundTime.ToString() + " msec.";
+            WaitingTime.Text = waiting.ToString() + " msec.";
+            CompletionTime.Text = completion.ToString() + " msec.";
+            TurnAroundTime.Text = turnAround.ToString() + " msec.";
             //StatusCol.Text = process.Status.ToString();
         }
+
     }
 }

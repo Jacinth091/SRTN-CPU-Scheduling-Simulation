@@ -31,12 +31,6 @@ namespace SRTN_UI.Forms
         private void InitializeComponent()
         {
             MainTitlePanel = new KryptonPanel();
-            kryptonPanel2 = new KryptonPanel();
-            ContinueBtn = new KryptonButton();
-            kryptonLabel2 = new KryptonLabel();
-            kryptonLabel1 = new KryptonLabel();
-            TitleCont = new KryptonPanel();
-            TitleLabel = new KryptonLabel();
             InputPanel = new KryptonPanel();
             kryptonPanel3 = new KryptonPanel();
             ProcessTableTitle = new KryptonLabel();
@@ -47,14 +41,14 @@ namespace SRTN_UI.Forms
             kryptonLabel3 = new KryptonLabel();
             Column1 = new DataGridViewTextBoxColumn();
             kryptonPanel5 = new KryptonPanel();
-            BurstTimeText = new KryptonTextBox();
             ArrivalTimeText = new KryptonTextBox();
+            BurstTimeText = new KryptonTextBox();
+            InfoPanel = new KryptonPanel();
+            AboutBtn = new KryptonButton();
+            InfoBtn = new KryptonButton();
+            ContinueBtn = new KryptonButton();
             ((System.ComponentModel.ISupportInitialize)MainTitlePanel).BeginInit();
             MainTitlePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).BeginInit();
-            kryptonPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)TitleCont).BeginInit();
-            TitleCont.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)InputPanel).BeginInit();
             InputPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).BeginInit();
@@ -64,100 +58,25 @@ namespace SRTN_UI.Forms
             kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel5).BeginInit();
             kryptonPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)InfoPanel).BeginInit();
+            InfoPanel.SuspendLayout();
             SuspendLayout();
             // 
             // MainTitlePanel
             // 
-            MainTitlePanel.Controls.Add(kryptonPanel2);
-            MainTitlePanel.Controls.Add(TitleCont);
+            MainTitlePanel.Controls.Add(InfoPanel);
             MainTitlePanel.Location = new Point(43, 36);
             MainTitlePanel.Name = "MainTitlePanel";
-            MainTitlePanel.Size = new Size(857, 639);
+            MainTitlePanel.Size = new Size(1486, 910);
             MainTitlePanel.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
             MainTitlePanel.StateCommon.Color2 = Color.FromArgb(48, 56, 65);
             MainTitlePanel.TabIndex = 0;
-            // 
-            // kryptonPanel2
-            // 
-            kryptonPanel2.Controls.Add(ContinueBtn);
-            kryptonPanel2.Controls.Add(kryptonLabel2);
-            kryptonPanel2.Controls.Add(kryptonLabel1);
-            kryptonPanel2.Dock = DockStyle.Fill;
-            kryptonPanel2.Location = new Point(0, 170);
-            kryptonPanel2.Name = "kryptonPanel2";
-            kryptonPanel2.Size = new Size(857, 469);
-            kryptonPanel2.StateCommon.Color1 = Color.Transparent;
-            kryptonPanel2.StateCommon.Color2 = Color.Transparent;
-            kryptonPanel2.TabIndex = 1;
-            // 
-            // ContinueBtn
-            // 
-            ContinueBtn.Location = new Point(327, 359);
-            ContinueBtn.Name = "ContinueBtn";
-            ContinueBtn.Size = new Size(228, 54);
-            ContinueBtn.TabIndex = 3;
-            ContinueBtn.Values.DropDownArrowColor = Color.Empty;
-            ContinueBtn.Values.Text = "Continue";
-            // 
-            // kryptonLabel2
-            // 
-            kryptonLabel2.Location = new Point(98, 136);
-            kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.Size = new Size(304, 175);
-            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel2.StateCommon.ShortText.Font = new Font("Poppins", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel2.StateCommon.ShortText.MultiLineH = PaletteRelativeAlign.Near;
-            kryptonLabel2.StateCommon.ShortText.TextH = PaletteRelativeAlign.Center;
-            kryptonLabel2.StateCommon.ShortText.TextV = PaletteRelativeAlign.Center;
-            kryptonLabel2.TabIndex = 2;
-            kryptonLabel2.Values.Text = "Members:\r\nBarral, Jacinth Cedric C.\r\nTorrepalma, Alber\r\nNuguid, Ronjay\r\nOtadoy, ";
-            // 
-            // kryptonLabel1
-            // 
-            kryptonLabel1.Location = new Point(98, 22);
-            kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(297, 37);
-            kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            kryptonLabel1.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel1.StateCommon.ShortText.Font = new Font("Poppins", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel1.StateCommon.ShortText.MultiLineH = PaletteRelativeAlign.Center;
-            kryptonLabel1.StateCommon.ShortText.TextH = PaletteRelativeAlign.Center;
-            kryptonLabel1.StateCommon.ShortText.TextV = PaletteRelativeAlign.Center;
-            kryptonLabel1.TabIndex = 1;
-            kryptonLabel1.Values.Text = "Developed By:  Group 10";
-            // 
-            // TitleCont
-            // 
-            TitleCont.Controls.Add(TitleLabel);
-            TitleCont.Dock = DockStyle.Top;
-            TitleCont.Location = new Point(0, 0);
-            TitleCont.Name = "TitleCont";
-            TitleCont.Size = new Size(857, 170);
-            TitleCont.StateCommon.Color1 = Color.Transparent;
-            TitleCont.StateCommon.Color2 = Color.Transparent;
-            TitleCont.TabIndex = 0;
-            // 
-            // TitleLabel
-            // 
-            TitleLabel.Dock = DockStyle.Fill;
-            TitleLabel.Location = new Point(0, 0);
-            TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(857, 170);
-            TitleLabel.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            TitleLabel.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            TitleLabel.StateCommon.ShortText.Font = new Font("Poppins", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TitleLabel.StateCommon.ShortText.MultiLineH = PaletteRelativeAlign.Center;
-            TitleLabel.StateCommon.ShortText.TextH = PaletteRelativeAlign.Center;
-            TitleLabel.StateCommon.ShortText.TextV = PaletteRelativeAlign.Center;
-            TitleLabel.TabIndex = 0;
-            TitleLabel.Values.Text = "Simulation Program For\r\nShortest Remaining Time Next \r\nCPU Scheduling Algorithm";
             // 
             // InputPanel
             // 
             InputPanel.Controls.Add(kryptonPanel3);
             InputPanel.Controls.Add(kryptonPanel1);
-            InputPanel.Location = new Point(43, 717);
+            InputPanel.Location = new Point(25, 1021);
             InputPanel.Name = "InputPanel";
             InputPanel.Size = new Size(1086, 655);
             InputPanel.StateCommon.Color1 = Color.FromArgb(48, 56, 65);
@@ -303,38 +222,10 @@ namespace SRTN_UI.Forms
             // 
             kryptonPanel5.Controls.Add(ArrivalTimeText);
             kryptonPanel5.Controls.Add(BurstTimeText);
-            kryptonPanel5.Location = new Point(205, 1496);
+            kryptonPanel5.Location = new Point(203, 1831);
             kryptonPanel5.Name = "kryptonPanel5";
             kryptonPanel5.Size = new Size(1060, 80);
             kryptonPanel5.TabIndex = 7;
-            // 
-            // BurstTimeText
-            // 
-            BurstTimeText.AlwaysActive = false;
-            BurstTimeText.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            BurstTimeText.CueHint.Color1 = Color.DimGray;
-            BurstTimeText.CueHint.CueHintText = "0 msec";
-            BurstTimeText.CueHint.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BurstTimeText.CueHint.TextH = PaletteRelativeAlign.Center;
-            BurstTimeText.CueHint.TextV = PaletteRelativeAlign.Inherit;
-            BurstTimeText.Cursor = Cursors.IBeam;
-            BurstTimeText.Location = new Point(294, 18);
-            BurstTimeText.MaxLength = 10;
-            BurstTimeText.Multiline = true;
-            BurstTimeText.Name = "BurstTimeText";
-            BurstTimeText.Size = new Size(314, 45);
-            BurstTimeText.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
-            BurstTimeText.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224);
-            BurstTimeText.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224);
-            BurstTimeText.StateCommon.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
-            BurstTimeText.StateCommon.Border.Rounding = 5F;
-            BurstTimeText.StateCommon.Content.Color1 = Color.FromArgb(48, 56, 45);
-            BurstTimeText.StateCommon.Content.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BurstTimeText.StateCommon.Content.Padding = new Padding(10, 1, 10, 1);
-            BurstTimeText.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
-            BurstTimeText.TabIndex = 7;
-            BurstTimeText.TextAlign = HorizontalAlignment.Center;
-            BurstTimeText.WordWrap = false;
             // 
             // ArrivalTimeText
             // 
@@ -364,6 +255,163 @@ namespace SRTN_UI.Forms
             ArrivalTimeText.TextAlign = HorizontalAlignment.Center;
             ArrivalTimeText.WordWrap = false;
             // 
+            // BurstTimeText
+            // 
+            BurstTimeText.AlwaysActive = false;
+            BurstTimeText.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            BurstTimeText.CueHint.Color1 = Color.DimGray;
+            BurstTimeText.CueHint.CueHintText = "0 msec";
+            BurstTimeText.CueHint.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BurstTimeText.CueHint.TextH = PaletteRelativeAlign.Center;
+            BurstTimeText.CueHint.TextV = PaletteRelativeAlign.Inherit;
+            BurstTimeText.Cursor = Cursors.IBeam;
+            BurstTimeText.Location = new Point(294, 18);
+            BurstTimeText.MaxLength = 10;
+            BurstTimeText.Multiline = true;
+            BurstTimeText.Name = "BurstTimeText";
+            BurstTimeText.Size = new Size(314, 45);
+            BurstTimeText.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
+            BurstTimeText.StateCommon.Border.Color1 = Color.FromArgb(224, 224, 224);
+            BurstTimeText.StateCommon.Border.Color2 = Color.FromArgb(224, 224, 224);
+            BurstTimeText.StateCommon.Border.GraphicsHint = PaletteGraphicsHint.AntiAlias;
+            BurstTimeText.StateCommon.Border.Rounding = 5F;
+            BurstTimeText.StateCommon.Content.Color1 = Color.FromArgb(48, 56, 45);
+            BurstTimeText.StateCommon.Content.Font = new Font("Poppins", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BurstTimeText.StateCommon.Content.Padding = new Padding(10, 1, 10, 1);
+            BurstTimeText.StateCommon.Content.TextH = PaletteRelativeAlign.Center;
+            BurstTimeText.TabIndex = 7;
+            BurstTimeText.TextAlign = HorizontalAlignment.Center;
+            BurstTimeText.WordWrap = false;
+            // 
+            // InfoPanel
+            // 
+            InfoPanel.Controls.Add(AboutBtn);
+            InfoPanel.Controls.Add(InfoBtn);
+            InfoPanel.Controls.Add(ContinueBtn);
+            InfoPanel.Location = new Point(29, 42);
+            InfoPanel.Name = "InfoPanel";
+            InfoPanel.Size = new Size(1294, 660);
+            InfoPanel.StateCommon.Color1 = Color.Transparent;
+            InfoPanel.StateCommon.Color2 = Color.Transparent;
+            InfoPanel.TabIndex = 6;
+            // 
+            // AboutBtn
+            // 
+            AboutBtn.Anchor = AnchorStyles.None;
+            AboutBtn.Location = new Point(1392, 953);
+            AboutBtn.Name = "AboutBtn";
+            AboutBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
+            AboutBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
+            AboutBtn.OverrideDefault.Border.Rounding = 10F;
+            AboutBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
+            AboutBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
+            AboutBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AboutBtn.Size = new Size(127, 100);
+            AboutBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
+            AboutBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
+            AboutBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
+            AboutBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 73, 87);
+            AboutBtn.StateCommon.Border.Rounding = 10F;
+            AboutBtn.StateCommon.Border.Width = 2;
+            AboutBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
+            AboutBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
+            AboutBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AboutBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 200, 200);
+            AboutBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 200, 200);
+            AboutBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 50, 70);
+            AboutBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 50, 70);
+            AboutBtn.StatePressed.Border.Rounding = 10F;
+            AboutBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(40, 80, 100);
+            AboutBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(40, 80, 100);
+            AboutBtn.StateTracking.Back.Color1 = Color.FromArgb(230, 230, 230);
+            AboutBtn.StateTracking.Back.Color2 = Color.FromArgb(230, 230, 230);
+            AboutBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 100, 120);
+            AboutBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 100, 120);
+            AboutBtn.StateTracking.Border.Rounding = 10F;
+            AboutBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(80, 120, 140);
+            AboutBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(80, 120, 140);
+            AboutBtn.TabIndex = 9;
+            AboutBtn.Values.DropDownArrowColor = Color.Empty;
+            AboutBtn.Values.Text = "About";
+            // 
+            // InfoBtn
+            // 
+            InfoBtn.Anchor = AnchorStyles.None;
+            InfoBtn.Location = new Point(1126, 953);
+            InfoBtn.Name = "InfoBtn";
+            InfoBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
+            InfoBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
+            InfoBtn.OverrideDefault.Border.Rounding = 10F;
+            InfoBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
+            InfoBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
+            InfoBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            InfoBtn.Size = new Size(127, 100);
+            InfoBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
+            InfoBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
+            InfoBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
+            InfoBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 73, 87);
+            InfoBtn.StateCommon.Border.Rounding = 10F;
+            InfoBtn.StateCommon.Border.Width = 2;
+            InfoBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
+            InfoBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
+            InfoBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            InfoBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 200, 200);
+            InfoBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 200, 200);
+            InfoBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 50, 70);
+            InfoBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 50, 70);
+            InfoBtn.StatePressed.Border.Rounding = 10F;
+            InfoBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(40, 80, 100);
+            InfoBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(40, 80, 100);
+            InfoBtn.StateTracking.Back.Color1 = Color.FromArgb(230, 230, 230);
+            InfoBtn.StateTracking.Back.Color2 = Color.FromArgb(230, 230, 230);
+            InfoBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 100, 120);
+            InfoBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 100, 120);
+            InfoBtn.StateTracking.Border.Rounding = 10F;
+            InfoBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(80, 120, 140);
+            InfoBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(80, 120, 140);
+            InfoBtn.TabIndex = 8;
+            InfoBtn.Values.DropDownArrowColor = Color.Empty;
+            InfoBtn.Values.Text = "Info";
+            // 
+            // ContinueBtn
+            // 
+            ContinueBtn.Anchor = AnchorStyles.None;
+            ContinueBtn.Location = new Point(1259, 953);
+            ContinueBtn.Name = "ContinueBtn";
+            ContinueBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
+            ContinueBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
+            ContinueBtn.OverrideDefault.Border.Rounding = 10F;
+            ContinueBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
+            ContinueBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
+            ContinueBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ContinueBtn.Size = new Size(127, 100);
+            ContinueBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
+            ContinueBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
+            ContinueBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
+            ContinueBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 73, 87);
+            ContinueBtn.StateCommon.Border.Rounding = 10F;
+            ContinueBtn.StateCommon.Border.Width = 2;
+            ContinueBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
+            ContinueBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
+            ContinueBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ContinueBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 200, 200);
+            ContinueBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 200, 200);
+            ContinueBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 50, 70);
+            ContinueBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 50, 70);
+            ContinueBtn.StatePressed.Border.Rounding = 10F;
+            ContinueBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(40, 80, 100);
+            ContinueBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(40, 80, 100);
+            ContinueBtn.StateTracking.Back.Color1 = Color.FromArgb(230, 230, 230);
+            ContinueBtn.StateTracking.Back.Color2 = Color.FromArgb(230, 230, 230);
+            ContinueBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 100, 120);
+            ContinueBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 100, 120);
+            ContinueBtn.StateTracking.Border.Rounding = 10F;
+            ContinueBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(80, 120, 140);
+            ContinueBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(80, 120, 140);
+            ContinueBtn.TabIndex = 3;
+            ContinueBtn.Values.DropDownArrowColor = Color.Empty;
+            ContinueBtn.Values.Text = "Play";
+            // 
             // DesignArea
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -376,12 +424,6 @@ namespace SRTN_UI.Forms
             Load += DesignArea_Load;
             ((System.ComponentModel.ISupportInitialize)MainTitlePanel).EndInit();
             MainTitlePanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)kryptonPanel2).EndInit();
-            kryptonPanel2.ResumeLayout(false);
-            kryptonPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)TitleCont).EndInit();
-            TitleCont.ResumeLayout(false);
-            TitleCont.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)InputPanel).EndInit();
             InputPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)kryptonPanel3).EndInit();
@@ -394,18 +436,14 @@ namespace SRTN_UI.Forms
             ((System.ComponentModel.ISupportInitialize)kryptonPanel5).EndInit();
             kryptonPanel5.ResumeLayout(false);
             kryptonPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)InfoPanel).EndInit();
+            InfoPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Krypton.Toolkit.KryptonPanel MainTitlePanel;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel2;
-        private Krypton.Toolkit.KryptonPanel TitleCont;
-        private Krypton.Toolkit.KryptonLabel TitleLabel;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private Krypton.Toolkit.KryptonButton ContinueBtn;
         private Krypton.Toolkit.KryptonPanel InputPanel;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel3;
@@ -418,5 +456,9 @@ namespace SRTN_UI.Forms
         private KryptonPanel kryptonPanel5;
         private KryptonTextBox BurstTimeText;
         private KryptonTextBox ArrivalTimeText;
+        private KryptonPanel InfoPanel;
+        private KryptonButton AboutBtn;
+        private KryptonButton InfoBtn;
+        private KryptonButton ContinueBtn;
     }
 }

@@ -21,9 +21,9 @@ namespace SRTN_UI.Forms
         public TableItemRow(Process process)
         {
             InitializeComponent();
-            ProcessIdCol.Text = process.ProcessId.ToString();
-            OriginalBurstCol.Text = process.OriginalBurstTime.ToString();
-            ArrivalCol.Text = process.ArrivalTime.ToString();
+            ProcessIdCol.Text = "P"+process.ProcessId.ToString();
+            OriginalBurstCol.Text = process.OriginalBurstTime.ToString() + " msec.";
+            ArrivalCol.Text = process.ArrivalTime.ToString() + " msec.";
             //CurrentBurstCol.Text = process.CurrentBurstTime.ToString();
             //WaitingCol.Text = process.WaitingTime.ToString();
             //TurnCol.Text = process.TurnAroundTime.ToString();

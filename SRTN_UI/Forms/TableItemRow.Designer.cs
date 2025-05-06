@@ -53,30 +53,30 @@
             // OriginalBurstCol
             // 
             OriginalBurstCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            OriginalBurstCol.Location = new Point(199, 16);
+            OriginalBurstCol.Location = new Point(176, 16);
             OriginalBurstCol.Name = "OriginalBurstCol";
-            OriginalBurstCol.Size = new Size(46, 33);
+            OriginalBurstCol.Size = new Size(114, 33);
             OriginalBurstCol.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
             OriginalBurstCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
             OriginalBurstCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             OriginalBurstCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             OriginalBurstCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
             OriginalBurstCol.TabIndex = 5;
-            OriginalBurstCol.Values.Text = "0.0 ";
+            OriginalBurstCol.Values.Text = "0.0 msec.";
             // 
             // ArrivalCol
             // 
             ArrivalCol.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ArrivalCol.Location = new Point(347, 16);
+            ArrivalCol.Location = new Point(322, 16);
             ArrivalCol.Name = "ArrivalCol";
-            ArrivalCol.Size = new Size(46, 33);
+            ArrivalCol.Size = new Size(114, 33);
             ArrivalCol.StateCommon.ShortText.Color1 = Color.FromArgb(215, 35, 35);
             ArrivalCol.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold);
             ArrivalCol.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             ArrivalCol.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             ArrivalCol.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
             ArrivalCol.TabIndex = 6;
-            ArrivalCol.Values.Text = "0.0";
+            ArrivalCol.Values.Text = "0.0 msec.";
             // 
             // TableRow
             // 

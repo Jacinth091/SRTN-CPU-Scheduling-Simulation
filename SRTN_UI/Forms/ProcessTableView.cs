@@ -14,9 +14,11 @@ namespace SRTN_UI.Forms
         private const int NUMBER_OF_COLUMNS = 3;
         private const int TABLE_CONTAINER_WIDTH = 1072;
         private const int TABLE_CONTAINER_HEIGHT = 621;
-        private const int MAX_INPUT_VALUE =20;
+        private const int MAX_INPUT_VALUE = 15;
         private const int MIN_INPUT_VALUE = 0;
         private const string TIME_SUFFIX = " msec";
+
+        private bool _isProcessExecuted = false;
 
         public static ProcessTableView Instance;
 
@@ -64,13 +66,19 @@ namespace SRTN_UI.Forms
 
             ProceedBtn.Click += (s, e) =>
             {
+                //if (_isProcessExecuted) return;
                 var processList = GetProcessData();
                 var result = MessageBox.Show("Are you sure you want to proceed?",
                     "Review Table", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
+                //_isProcessExecuted = false;
+                ProceedBtn.Enabled = false; // Optional: disable the button
                 if (result == DialogResult.Yes)
                 {
                     ProcessDataReady?.Invoke(processList);
+                }
+                else
+                {
+                    ProceedBtn.Enabled = true;
                 }
             };
         }
@@ -414,19 +422,19 @@ namespace SRTN_UI.Forms
 
             if (isBurstTime)
             {
-                // Burst time validation (2-20)
+                // Burst time validation (2-15)
                 if (value < MIN_INPUT_VALUE + 2 || value > MAX_INPUT_VALUE)
                 {
-                    MessageBox.Show($"Burst time must be between 2 and 20 msec");
+                    MessageBox.Show($"Burst time must be between {MIN_INPUT_VALUE + 2} and {MAX_INPUT_VALUE} msec");
                     return false;
                 }
             }
             else
             {
-                // Arrival time validation (0-20)
-                if (value < MIN_INPUT_VALUE || value > MAX_INPUT_VALUE)
+                // Arrival time validation (0-15)
+                if (value < MIN_INPUT_VALUE || value > MAX_INPUT_VALUE || value < 0)
                 {
-                    MessageBox.Show($"Arrival time must be between 0 and 20 msec");
+                    MessageBox.Show($"Arrival time must be between {MIN_INPUT_VALUE} and {MAX_INPUT_VALUE} msec");
                     return false;
                 }
             }
@@ -513,7 +521,11 @@ namespace SRTN_UI.Forms
                     }
 
                     CheckAllTextBoxesFilled();
+                    if (!_isProcessExecuted) 
+                    {
+                    }
                     ProceedBtn.Focus();
+
                 });
             }
         }
