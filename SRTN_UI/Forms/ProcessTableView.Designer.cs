@@ -30,6 +30,9 @@
         {
             MainContainer = new Krypton.Toolkit.KryptonPanel();
             InputContainer = new Krypton.Toolkit.KryptonPanel();
+            kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
+            kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
+            kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             ProceedBtn = new Krypton.Toolkit.KryptonButton();
             Numeric = new Krypton.Toolkit.KryptonNumericUpDown();
             GenerateBtn = new Krypton.Toolkit.KryptonButton();
@@ -55,6 +58,9 @@
             // 
             // InputContainer
             // 
+            InputContainer.Controls.Add(kryptonLabel4);
+            InputContainer.Controls.Add(kryptonLabel2);
+            InputContainer.Controls.Add(kryptonLabel1);
             InputContainer.Controls.Add(ProceedBtn);
             InputContainer.Controls.Add(Numeric);
             InputContainer.Controls.Add(GenerateBtn);
@@ -66,6 +72,48 @@
             InputContainer.StateCommon.Color1 = Color.Transparent;
             InputContainer.StateCommon.Color2 = Color.Transparent;
             InputContainer.TabIndex = 1;
+            // 
+            // kryptonLabel4
+            // 
+            kryptonLabel4.Location = new Point(1235, 4);
+            kryptonLabel4.Name = "kryptonLabel4";
+            kryptonLabel4.Size = new Size(218, 155);
+            kryptonLabel4.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            kryptonLabel4.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            kryptonLabel4.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel4.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel4.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel4.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel4.TabIndex = 9;
+            kryptonLabel4.Values.Text = "Note: \r\nArrival Time \r\n(Integers & Decimal)\r\nMinimum = 0\r\nMaximum = 15";
+            // 
+            // kryptonLabel2
+            // 
+            kryptonLabel2.Location = new Point(1011, 4);
+            kryptonLabel2.Name = "kryptonLabel2";
+            kryptonLabel2.Size = new Size(218, 155);
+            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            kryptonLabel2.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel2.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel2.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel2.TabIndex = 8;
+            kryptonLabel2.Values.Text = "Note: \r\nBurst Time \r\n(Integers & Decimal)\r\nMinimum = 2\r\nMaximum = 15";
+            // 
+            // kryptonLabel1
+            // 
+            kryptonLabel1.Location = new Point(296, 19);
+            kryptonLabel1.Name = "kryptonLabel1";
+            kryptonLabel1.Size = new Size(158, 125);
+            kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            kryptonLabel1.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            kryptonLabel1.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel1.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel1.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel1.TabIndex = 7;
+            kryptonLabel1.Values.Text = "Note: \r\nProcesses\r\nMinimum = 2\r\nMaximum = 5";
             // 
             // ProceedBtn
             // 
@@ -109,17 +157,17 @@
             // Numeric
             // 
             Numeric.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-            Numeric.Location = new Point(866, 24);
+            Numeric.Location = new Point(882, 19);
             Numeric.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
             Numeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             Numeric.Name = "Numeric";
-            Numeric.Size = new Size(89, 39);
+            Numeric.Size = new Size(89, 51);
             Numeric.StateCommon.Back.Color1 = Color.FromArgb(58, 71, 80);
             Numeric.StateCommon.Border.Color1 = Color.FromArgb(215, 35, 35);
             Numeric.StateCommon.Border.Color2 = Color.FromArgb(215, 35, 35);
             Numeric.StateCommon.Border.Rounding = 5F;
             Numeric.StateCommon.Content.Color1 = Color.FromArgb(252, 252, 252);
-            Numeric.StateCommon.Content.Font = new Font("Poppins", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Numeric.StateCommon.Content.Font = new Font("Poppins", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Numeric.StateCommon.Content.Padding = new Padding(10);
             Numeric.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             Numeric.TabIndex = 5;
@@ -166,12 +214,12 @@
             // 
             // kryptonLabel3
             // 
-            kryptonLabel3.Location = new Point(559, 27);
+            kryptonLabel3.Location = new Point(501, 24);
             kryptonLabel3.Name = "kryptonLabel3";
-            kryptonLabel3.Size = new Size(282, 37);
+            kryptonLabel3.Size = new Size(359, 47);
             kryptonLabel3.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             kryptonLabel3.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel3.StateCommon.ShortText.Font = new Font("Poppins", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel3.StateCommon.ShortText.Font = new Font("Poppins", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             kryptonLabel3.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel3.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel3.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
@@ -221,5 +269,8 @@
         private Krypton.Toolkit.KryptonButton GenerateBtn;
         private Krypton.Toolkit.KryptonLabel kryptonLabel3;
         private Krypton.Toolkit.KryptonButton ProceedBtn;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel4;
     }
 }

@@ -47,11 +47,10 @@ namespace SRTN_UI.Forms
 
             };
             this.FormClosing += OnFormClosing;
-
-            AboutBtn.Click += (s, e) =>
+            InfoBtn.Click += (s, e) =>
             {
-                AboutEvent?.Invoke(this, EventArgs.Empty);
-                //ShowPanel(AboutPanel);
+                InfoEvent?.Invoke(this, EventArgs.Empty);
+                ShowInfoView(MainPanelLoader);
             };
 
 
@@ -118,11 +117,7 @@ namespace SRTN_UI.Forms
             //panelContainer.Controls.Add((Control)infoView);
             //((Control)infoView).Dock = DockStyle.Fill;
         }
-        public void ShowMainView() { 
-
-        }
-
-        private void kryptonPanel4_Paint(object sender, PaintEventArgs e)
+        public void ShowMainView()
         {
 
         }

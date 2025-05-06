@@ -635,6 +635,135 @@ namespace SRTN_UI.Forms
 
         }
 
+        private async void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
+        {
+            _timeLineContainer.Controls.Clear();
+            _timeLineContainer.AutoScroll = true;
+
+            if (processBlocks == null || processBlocks.Count == 0) return;
+
+            int containerWidth = _timeLineContainer.Width - 50;
+            int minVisibleWidth = 50;
+            int minIdleBlockWidth = 15;
+
+            double scaleFactor = containerWidth / Math.Max(totalTime, 1);
+            if (shouldShrink)
+                scaleFactor *= 0.7;
+
+            int rowHeight = 70, timelineHeight = 50, margin = 11;
+
+            var ganttRowPanel = new Panel
+            {
+                Height = rowHeight,
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(238, 238, 238),
+                Padding = new Padding(0, 0, 0, margin),
+            };
+
+            var timelinePanel = new Panel
+            {
+                Height = timelineHeight,
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(238, 238, 238),
+            };
+
+            _timeLineContainer.Controls.Add(timelinePanel);
+            _timeLineContainer.Controls.Add(ganttRowPanel);
+
+            var timelineLabelTimes = new HashSet<double>();
+
+            int currentX = 20; // Start rendering from 20px offset
+
+            foreach (var block in processBlocks)
+            {
+                double duration = block.EndTime - block.StartTime;
+                int rawWidth = (int)(duration * scaleFactor);
+
+                int blockWidth = rawWidth;
+                bool forcedMinWidth = false;
+
+                if (block.ProcessId == -1)
+                {
+                    blockWidth = Math.Max(minIdleBlockWidth, rawWidth);
+                }
+                else
+                {
+                    if (rawWidth < minVisibleWidth)
+                    {
+                        blockWidth = minVisibleWidth;
+                        forcedMinWidth = true;
+                    }
+                }
+
+                if (blockWidth <= 0) continue;
+
+                int blockX = currentX;
+                currentX += blockWidth;
+
+                var blockPanel = new Panel
+                {
+                    BackColor = block.ProcessColor,
+                    Location = new Point(blockX, margin),
+                    Size = new Size(blockWidth, rowHeight - 2 * margin),
+                    Anchor = AnchorStyles.Left | AnchorStyles.Top,
+                    BorderStyle = BorderStyle.FixedSingle
+                };
+
+                var label = new Label
+                {
+                    Text = block.ProcessName,
+                    ForeColor = GetContrastColor(block.ProcessColor),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Poppins", 10, FontStyle.Bold)
+                };
+
+                blockPanel.Controls.Add(label);
+                ganttRowPanel.Controls.Add(blockPanel);
+                ganttRowPanel.Refresh();
+
+                foreach (var time in new[] { block.StartTime, block.EndTime })
+                {
+                    if (timelineLabelTimes.Contains(time)) continue;
+                    timelineLabelTimes.Add(time);
+
+                    int x;
+                    if (time == block.EndTime)
+                        x = blockX + blockWidth;
+                    else
+                        x = blockX;
+
+                    var line = new Panel
+                    {
+                        BackColor = Color.Black,
+                        Location = new Point(x, 0),
+                        Size = new Size(1, 15),
+                        Anchor = AnchorStyles.Top | AnchorStyles.Left
+                    };
+                    timelinePanel.Controls.Add(line);
+
+                    var timeLabel = new Label
+                    {
+                        Text = time.ToString("0.0"),
+                        Location = new Point(x - 5, line.Height + 10),
+                        AutoSize = true,
+                        Font = new Font("Poppins", 10, FontStyle.Bold)
+                    };
+                    timelinePanel.Controls.Add(timeLabel);
+                }
+
+                _timeLineContainer.Refresh();
+                await Task.Delay(1500);
+            }
+
+            ResultsDisplay?.Invoke();
+            _isResultsDisplayed = true;
+            ReplayBtn.Enabled = true;
+        }
+
+
+
+
         //private async void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
         //{
         //    _timeLineContainer.Controls.Clear();
@@ -643,18 +772,41 @@ namespace SRTN_UI.Forms
         //    if (processBlocks == null || processBlocks.Count == 0) return;
 
         //    // Constants
-        //    int containerWidth = _timeLineContainer.Width - 50; // Account for margins
-        //    int minVisibleWidth = 30;     // Minimum width for process blocks (px)
-        //    int maxVisibleWidth = 200;    // Maximum width for process blocks (px)
-        //    int minIdleBlockWidth = 30;   // Minimum width for idle blocks (px)
+        //    //int containerWidth = 1454;
+        //    //int maxBlockWidthPerTimeUnit = 25;  // Max width per 1ms
+        //    //int minBlockWidthPerTimeUnit = 15;  // Min width per 1ms
+        //    //int minVisibleWidth = 15;           // Absolute minimum width for any block
+        //    //int minIdleBlockWidth = 15;        // Minimum width for idle blocks
 
-        //    // Calculate scale factor
+        //    //// Calculate scale factor dynamically
+        //    //double scaleFactor = containerWidth / Math.Max(totalTime, 1);
+        //    //if (shouldShrink) scaleFactor *= 0.6;
+        //    // Per-block constraints
+        //    //int minVisibleWidth = 20;
+        //    //int maxVisibleWidth = 20;
+
+        //    // Clamp scale factor to enforce min/max block sizes
+        //    //scaleFactor = Math.Clamp(scaleFactor, minBlockWidthPerTimeUnit, maxBlockWidthPerTimeUnit);
+
+        //    int containerWidth = _timeLineContainer.Width - 50;
+        //    int maxBlockWidthPerTimeUnit = 25;
+        //    int minBlockWidthPerTimeUnit = 20;
+        //    int minIdleBlockWidth = 30; // Minimum width for idle blocks to ensure visibility
+        //    int minVisibleWidth = 30;           // Absolute minimum width for any block
+
         //    double scaleFactor = containerWidth / Math.Max(totalTime, 1);
-        //    if (shouldShrink) scaleFactor *= 0.7; // Shrink if needed
+        //    if (shouldShrink)
+        //    {
+        //        // Shrink if any process exceeded the maxAllowedTime
+        //        scaleFactor *= 0.7; // Example: Shrink by half if exceeding limit
+        //    }
+
+        //    //scaleFactor = Math.Min(scaleFactor, maxBlockWidthPerTimeUnit);
+        //    //scaleFactor = Math.Max(scaleFactor, minBlockWidthPerTimeUnit);
 
         //    int rowHeight = 70, timelineHeight = 50, margin = 11;
 
-        //    // Create panels
+        //    // Create panels for Gantt row and timeline
         //    var ganttRowPanel = new Panel
         //    {
         //        Height = rowHeight,
@@ -677,18 +829,34 @@ namespace SRTN_UI.Forms
 
         //    foreach (var block in processBlocks)
         //    {
+        //        // Calculate block width with scaling
+        //        //int blockWidth = (int)((block.EndTime - block.StartTime) * scaleFactor);
+
+        //        //// For Idle blocks, ensure a minimum width for visibility
+        //        //if (block.ProcessId == -1)
+        //        //{
+        //        //    blockWidth = Math.Max(minIdleBlockWidth, (int)((block.EndTime - block.StartTime) * scaleFactor));
+        //        //}
+        //        //else
+        //        //{
+        //        //    //blockWidth = Math.Max(minIdleBlockWidth, (int)((block.EndTime - block.StartTime) * scaleFactor));
+        //        //}
+
         //        double duration = block.EndTime - block.StartTime;
         //        int rawWidth = (int)(duration * scaleFactor);
 
-        //        // Apply size constraints
-        //        int blockWidth = block.ProcessId == -1
-        //            ? Math.Max(minIdleBlockWidth, rawWidth)  // Idle block
-        //            : Math.Clamp(rawWidth, minVisibleWidth, maxVisibleWidth); // Process block
+
+        //        int blockWidth = rawWidth;
+        //        if (block.ProcessId == -1)
+        //        {
+        //            // Idle block: enforce minimum width only
+        //            blockWidth = Math.Max(minIdleBlockWidth, rawWidth);
+        //        }
 
         //        if (blockWidth <= 0) continue;
 
-        //        // Render block
-        //        var blockPanel = new Panel
+        //        // === Render process block ===
+        //        Panel blockPanel = new Panel
         //        {
         //            BackColor = block.ProcessColor,
         //            Location = new Point((int)(block.StartTime * scaleFactor) + 20, margin),
@@ -697,7 +865,7 @@ namespace SRTN_UI.Forms
         //            BorderStyle = BorderStyle.FixedSingle
         //        };
 
-        //        var label = new Label
+        //        Label label = new Label
         //        {
         //            Text = block.ProcessName,
         //            ForeColor = GetContrastColor(block.ProcessColor),
@@ -708,8 +876,9 @@ namespace SRTN_UI.Forms
 
         //        blockPanel.Controls.Add(label);
         //        ganttRowPanel.Controls.Add(blockPanel);
+        //        ganttRowPanel.Refresh();
 
-        //        // Add timeline markers
+        //        // === Add timeline markers ===
         //        foreach (var time in new[] { block.StartTime, block.EndTime })
         //        {
         //            if (timelineLabelTimes.Contains(time)) continue;
@@ -737,170 +906,13 @@ namespace SRTN_UI.Forms
         //        }
 
         //        _timeLineContainer.Refresh();
-        //        await Task.Delay(1500); // Animation delay (optional)
+        //        await Task.Delay(1500); // Optional: Animation delay
         //    }
 
         //    ResultsDisplay?.Invoke();
         //    _isResultsDisplayed = true;
         //    ReplayBtn.Enabled = true;
         //}
-
-        private async void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)
-        {
-            _timeLineContainer.Controls.Clear();
-            _timeLineContainer.AutoScroll = true;
-
-            if (processBlocks == null || processBlocks.Count == 0) return;
-
-            // Constants
-            //int containerWidth = 1454;
-            //int maxBlockWidthPerTimeUnit = 25;  // Max width per 1ms
-            //int minBlockWidthPerTimeUnit = 15;  // Min width per 1ms
-            //int minVisibleWidth = 15;           // Absolute minimum width for any block
-            //int minIdleBlockWidth = 15;        // Minimum width for idle blocks
-
-            //// Calculate scale factor dynamically
-            //double scaleFactor = containerWidth / Math.Max(totalTime, 1);
-            //if (shouldShrink) scaleFactor *= 0.6;
-            // Per-block constraints
-            //int minVisibleWidth = 20;
-            //int maxVisibleWidth = 20;
-
-            // Clamp scale factor to enforce min/max block sizes
-            //scaleFactor = Math.Clamp(scaleFactor, minBlockWidthPerTimeUnit, maxBlockWidthPerTimeUnit);
-
-            int containerWidth = _timeLineContainer.Width - 50;
-            int maxBlockWidthPerTimeUnit = 25;
-            int minBlockWidthPerTimeUnit = 20;
-            int minIdleBlockWidth = 30; // Minimum width for idle blocks to ensure visibility
-            int minVisibleWidth = 30;           // Absolute minimum width for any block
-
-            double scaleFactor = containerWidth / Math.Max(totalTime, 1);
-            if (shouldShrink)
-            {
-                // Shrink if any process exceeded the maxAllowedTime
-                scaleFactor *= 0.7; // Example: Shrink by half if exceeding limit
-            }
-
-            //scaleFactor = Math.Min(scaleFactor, maxBlockWidthPerTimeUnit);
-            //scaleFactor = Math.Max(scaleFactor, minBlockWidthPerTimeUnit);
-
-            int rowHeight = 70, timelineHeight = 50, margin = 11;
-
-            // Create panels for Gantt row and timeline
-            var ganttRowPanel = new Panel
-            {
-                Height = rowHeight,
-                Dock = DockStyle.Top,
-                BackColor = Color.FromArgb(238, 238, 238),
-                Padding = new Padding(0, 0, 0, margin),
-            };
-
-            var timelinePanel = new Panel
-            {
-                Height = timelineHeight,
-                Dock = DockStyle.Top,
-                BackColor = Color.FromArgb(238, 238, 238),
-            };
-
-            _timeLineContainer.Controls.Add(timelinePanel);
-            _timeLineContainer.Controls.Add(ganttRowPanel);
-
-            var timelineLabelTimes = new HashSet<double>();
-
-            foreach (var block in processBlocks)
-            {
-                // Calculate block width with scaling
-                //int blockWidth = (int)((block.EndTime - block.StartTime) * scaleFactor);
-
-                //// For Idle blocks, ensure a minimum width for visibility
-                //if (block.ProcessId == -1)
-                //{
-                //    blockWidth = Math.Max(minIdleBlockWidth, (int)((block.EndTime - block.StartTime) * scaleFactor));
-                //}
-                //else
-                //{
-                //    //blockWidth = Math.Max(minIdleBlockWidth, (int)((block.EndTime - block.StartTime) * scaleFactor));
-                //}
-
-                double duration = block.EndTime - block.StartTime;
-                int rawWidth = (int)(duration * scaleFactor);
-
-                // Calculate raw width
-                //int rawWidth = (int)((block.EndTime - block.StartTime) * scaleFactor);
-
-                // Apply constraints
-                int blockWidth;
-                if (block.ProcessId == -1)
-                {
-                    // Idle block: enforce minimum width only
-                    blockWidth = Math.Max(minIdleBlockWidth, rawWidth);
-                }
-                else
-                {
-                    blockWidth = Math.Max(minVisibleWidth, rawWidth); // First, ensure minimum
-                }
-
-                if (blockWidth <= 0) continue;
-
-                // === Render process block ===
-                Panel blockPanel = new Panel
-                {
-                    BackColor = block.ProcessColor,
-                    Location = new Point((int)(block.StartTime * scaleFactor) + 20, margin),
-                    Size = new Size(blockWidth, rowHeight - 2 * margin),
-                    Anchor = AnchorStyles.Left | AnchorStyles.Top,
-                    BorderStyle = BorderStyle.FixedSingle
-                };
-
-                Label label = new Label
-                {
-                    Text = block.ProcessName,
-                    ForeColor = GetContrastColor(block.ProcessColor),
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Dock = DockStyle.Fill,
-                    Font = new Font("Poppins", 10, FontStyle.Bold)
-                };
-
-                blockPanel.Controls.Add(label);
-                ganttRowPanel.Controls.Add(blockPanel);
-                ganttRowPanel.Refresh();
-
-                // === Add timeline markers ===
-                foreach (var time in new[] { block.StartTime, block.EndTime })
-                {
-                    if (timelineLabelTimes.Contains(time)) continue;
-
-                    timelineLabelTimes.Add(time);
-                    int x = (int)(time * scaleFactor) + 20;
-
-                    var line = new Panel
-                    {
-                        BackColor = Color.Black,
-                        Location = new Point(x, 0),
-                        Size = new Size(1, 15),
-                        Anchor = AnchorStyles.Top | AnchorStyles.Left
-                    };
-                    timelinePanel.Controls.Add(line);
-
-                    var timeLabel = new Label
-                    {
-                        Text = time.ToString("0.0"),
-                        Location = new Point(x - 5, line.Height + 10),
-                        AutoSize = true,
-                        Font = new Font("Poppins", 10, FontStyle.Bold)
-                    };
-                    timelinePanel.Controls.Add(timeLabel);
-                }
-
-                _timeLineContainer.Refresh();
-                await Task.Delay(1500); // Optional: Animation delay
-            }
-
-            ResultsDisplay?.Invoke();
-            _isResultsDisplayed = true;
-            ReplayBtn.Enabled = true;
-        }
 
 
         //private async void RenderGanttChart(List<ProcessBlock> processBlocks, double totalTime, bool shouldShrink)

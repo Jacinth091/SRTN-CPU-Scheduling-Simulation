@@ -32,8 +32,8 @@
             MainTitlePanel = new Krypton.Toolkit.KryptonPanel();
             MainScreenPanel = new Krypton.Toolkit.KryptonPanel();
             kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
-            AboutBtn = new Krypton.Toolkit.KryptonButton();
             InfoBtn = new Krypton.Toolkit.KryptonButton();
+            picturebox = new Krypton.Toolkit.KryptonPictureBox();
             ContinueBtn = new Krypton.Toolkit.KryptonButton();
             TitleLabel = new Krypton.Toolkit.KryptonLabel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
@@ -46,6 +46,7 @@
             MainScreenPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).BeginInit();
             kryptonPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picturebox).BeginInit();
             SuspendLayout();
             // 
             // MainPanelLoader
@@ -82,9 +83,9 @@
             // 
             // kryptonPanel4
             // 
-            kryptonPanel4.Controls.Add(AboutBtn);
             kryptonPanel4.Controls.Add(InfoBtn);
             kryptonPanel4.Controls.Add(ContinueBtn);
+            kryptonPanel4.Controls.Add(picturebox);
             kryptonPanel4.Controls.Add(TitleLabel);
             kryptonPanel4.Controls.Add(kryptonLabel1);
             kryptonPanel4.Controls.Add(kryptonLabel2);
@@ -95,129 +96,135 @@
             kryptonPanel4.StateCommon.Color1 = Color.Transparent;
             kryptonPanel4.StateCommon.Color2 = Color.Transparent;
             kryptonPanel4.TabIndex = 5;
-            kryptonPanel4.Paint += kryptonPanel4_Paint;
-            // 
-            // AboutBtn
-            // 
-            AboutBtn.Anchor = AnchorStyles.None;
-            AboutBtn.Location = new Point(798, 664);
-            AboutBtn.Name = "AboutBtn";
-            AboutBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
-            AboutBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
-            AboutBtn.OverrideDefault.Border.Rounding = 10F;
-            AboutBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            AboutBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            AboutBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AboutBtn.Size = new Size(127, 100);
-            AboutBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
-            AboutBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
-            AboutBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
-            AboutBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 73, 87);
-            AboutBtn.StateCommon.Border.Rounding = 10F;
-            AboutBtn.StateCommon.Border.Width = 2;
-            AboutBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            AboutBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            AboutBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AboutBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 200, 200);
-            AboutBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 200, 200);
-            AboutBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 50, 70);
-            AboutBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 50, 70);
-            AboutBtn.StatePressed.Border.Rounding = 10F;
-            AboutBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(40, 80, 100);
-            AboutBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(40, 80, 100);
-            AboutBtn.StateTracking.Back.Color1 = Color.FromArgb(230, 230, 230);
-            AboutBtn.StateTracking.Back.Color2 = Color.FromArgb(230, 230, 230);
-            AboutBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 100, 120);
-            AboutBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 100, 120);
-            AboutBtn.StateTracking.Border.Rounding = 10F;
-            AboutBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(80, 120, 140);
-            AboutBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(80, 120, 140);
-            AboutBtn.TabIndex = 9;
-            AboutBtn.Values.DropDownArrowColor = Color.Empty;
-            AboutBtn.Values.Text = "About";
             // 
             // InfoBtn
             // 
             InfoBtn.Anchor = AnchorStyles.None;
-            InfoBtn.Location = new Point(532, 664);
+            InfoBtn.Location = new Point(594, 664);
             InfoBtn.Name = "InfoBtn";
-            InfoBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
-            InfoBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
+            InfoBtn.OverrideDefault.Back.Color1 = Color.FromArgb(230, 245, 255);
+            InfoBtn.OverrideDefault.Back.Color2 = Color.FromArgb(230, 245, 255);
             InfoBtn.OverrideDefault.Border.Rounding = 10F;
-            InfoBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            InfoBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            InfoBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            InfoBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(30, 80, 130);
+            InfoBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(30, 80, 130);
+            InfoBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold);
+            InfoBtn.OverrideDefault.Content.AdjacentGap = 10;
+
             InfoBtn.Size = new Size(127, 100);
-            InfoBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
-            InfoBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
-            InfoBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
-            InfoBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 73, 87);
+            InfoBtn.StateCommon.Back.Color1 = Color.FromArgb(230, 245, 255);
+            InfoBtn.StateCommon.Back.Color2 = Color.FromArgb(230, 245, 255);
+            InfoBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 100, 160);
+            InfoBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 100, 160);
             InfoBtn.StateCommon.Border.Rounding = 10F;
             InfoBtn.StateCommon.Border.Width = 2;
-            InfoBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            InfoBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            InfoBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            InfoBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 200, 200);
-            InfoBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 200, 200);
-            InfoBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 50, 70);
-            InfoBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 50, 70);
+            InfoBtn.StateCommon.Content.AdjacentGap = 10;
+            InfoBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(30, 80, 130);
+            InfoBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(30, 80, 130);
+            InfoBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold);
+            InfoBtn.StateDisabled.Back.Color1 = Color.FromArgb(240, 240, 240);
+            InfoBtn.StateDisabled.Back.Color2 = Color.FromArgb(240, 240, 240);
+            InfoBtn.StateDisabled.Border.Color1 = Color.Gray;
+            InfoBtn.StateDisabled.Border.Color2 = Color.Gray;
+            InfoBtn.StateDisabled.Border.Rounding = 10F;
+            InfoBtn.StateDisabled.Content.ShortText.Color1 = Color.Gray;
+            InfoBtn.StateDisabled.Content.ShortText.Color2 = Color.Gray;
+            InfoBtn.StateDisabled.Content.AdjacentGap = 10;
+
+            InfoBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 230, 255);
+            InfoBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 230, 255);
+            InfoBtn.StatePressed.Border.Color1 = Color.FromArgb(25, 70, 120);
+            InfoBtn.StatePressed.Border.Color2 = Color.FromArgb(25, 70, 120);
             InfoBtn.StatePressed.Border.Rounding = 10F;
-            InfoBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(40, 80, 100);
-            InfoBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(40, 80, 100);
-            InfoBtn.StateTracking.Back.Color1 = Color.FromArgb(230, 230, 230);
-            InfoBtn.StateTracking.Back.Color2 = Color.FromArgb(230, 230, 230);
-            InfoBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 100, 120);
-            InfoBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 100, 120);
+            InfoBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(20, 60, 100);
+            InfoBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(20, 60, 100);
+            InfoBtn.StatePressed.Content.AdjacentGap = 10;
+
+            InfoBtn.StateTracking.Back.Color1 = Color.FromArgb(245, 250, 255);
+            InfoBtn.StateTracking.Back.Color2 = Color.FromArgb(245, 250, 255);
+            InfoBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 120, 180);
+            InfoBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 120, 180);
             InfoBtn.StateTracking.Border.Rounding = 10F;
-            InfoBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(80, 120, 140);
-            InfoBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(80, 120, 140);
+            InfoBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(50, 90, 150);
+            InfoBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(50, 90, 150);
+            InfoBtn.StateTracking.Content.AdjacentGap = 10;
+
             InfoBtn.TabIndex = 8;
             InfoBtn.Values.DropDownArrowColor = Color.Empty;
+            InfoBtn.Values.Image = Properties.Resources.info_button__1_;
             InfoBtn.Values.Text = "Info";
+            // 
+            // picturebox
+            // 
+            picturebox.BackgroundImage = Properties.Resources.mainViewPic__4_;
+            picturebox.BackgroundImageLayout = ImageLayout.Center;
+            picturebox.Location = new Point(812, 172);
+            picturebox.Name = "picturebox";
+            picturebox.Size = new Size(597, 552);
+            picturebox.TabIndex = 12;
+            picturebox.TabStop = false;
             // 
             // ContinueBtn
             // 
             ContinueBtn.Anchor = AnchorStyles.None;
-            ContinueBtn.Location = new Point(665, 664);
+            ContinueBtn.Location = new Point(727, 664);
             ContinueBtn.Name = "ContinueBtn";
-            ContinueBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
-            ContinueBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
+            ContinueBtn.OverrideDefault.Back.Color1 = Color.FromArgb(220, 255, 225);
+            ContinueBtn.OverrideDefault.Back.Color2 = Color.FromArgb(220, 255, 225);
             ContinueBtn.OverrideDefault.Border.Rounding = 10F;
-            ContinueBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            ContinueBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            ContinueBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ContinueBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(20, 100, 40);
+            ContinueBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(20, 100, 40);
+            ContinueBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold);
+            ContinueBtn.OverrideDefault.Content.AdjacentGap = 10;
+
             ContinueBtn.Size = new Size(127, 100);
-            ContinueBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
-            ContinueBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
-            ContinueBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
-            ContinueBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 73, 87);
+            ContinueBtn.StateCommon.Back.Color1 = Color.FromArgb(220, 255, 225);
+            ContinueBtn.StateCommon.Back.Color2 = Color.FromArgb(220, 255, 225);
+            ContinueBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 160, 80);
+            ContinueBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 160, 80);
             ContinueBtn.StateCommon.Border.Rounding = 10F;
             ContinueBtn.StateCommon.Border.Width = 2;
-            ContinueBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            ContinueBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            ContinueBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ContinueBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 200, 200);
-            ContinueBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 200, 200);
-            ContinueBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 50, 70);
-            ContinueBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 50, 70);
+            ContinueBtn.StateCommon.Content.AdjacentGap = 10;
+            ContinueBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(20, 100, 40);
+            ContinueBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(20, 100, 40);
+            ContinueBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold);
+            ContinueBtn.StateCommon.Content.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ContinueBtn.StateCommon.Content.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            ContinueBtn.StateDisabled.Back.Color1 = Color.FromArgb(240, 240, 240);
+            ContinueBtn.StateDisabled.Back.Color2 = Color.FromArgb(240, 240, 240);
+            ContinueBtn.StateDisabled.Border.Color1 = Color.Gray;
+            ContinueBtn.StateDisabled.Border.Color2 = Color.Gray;
+            ContinueBtn.StateDisabled.Border.Rounding = 10F;
+            ContinueBtn.StateDisabled.Content.ShortText.Color1 = Color.Gray;
+            ContinueBtn.StateDisabled.Content.ShortText.Color2 = Color.Gray;
+            ContinueBtn.StateDisabled.Content.AdjacentGap = 10;
+
+            ContinueBtn.StatePressed.Back.Color1 = Color.FromArgb(170, 230, 180);
+            ContinueBtn.StatePressed.Back.Color2 = Color.FromArgb(170, 230, 180);
+            ContinueBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 130, 60);
+            ContinueBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 130, 60);
             ContinueBtn.StatePressed.Border.Rounding = 10F;
-            ContinueBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(40, 80, 100);
-            ContinueBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(40, 80, 100);
-            ContinueBtn.StateTracking.Back.Color1 = Color.FromArgb(230, 230, 230);
-            ContinueBtn.StateTracking.Back.Color2 = Color.FromArgb(230, 230, 230);
-            ContinueBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 100, 120);
-            ContinueBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 100, 120);
+            ContinueBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(10, 80, 30);
+            ContinueBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(10, 80, 30);
+            ContinueBtn.StatePressed.Content.AdjacentGap = 10;
+
+            ContinueBtn.StateTracking.Back.Color1 = Color.FromArgb(240, 255, 240);
+            ContinueBtn.StateTracking.Back.Color2 = Color.FromArgb(240, 255, 240);
+            ContinueBtn.StateTracking.Border.Color1 = Color.FromArgb(50, 180, 90);
+            ContinueBtn.StateTracking.Border.Color2 = Color.FromArgb(50, 180, 90);
             ContinueBtn.StateTracking.Border.Rounding = 10F;
-            ContinueBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(80, 120, 140);
-            ContinueBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(80, 120, 140);
+            ContinueBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(30, 130, 60);
+            ContinueBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(30, 130, 60);
+            ContinueBtn.StateTracking.Content.AdjacentGap = 10;
+
             ContinueBtn.TabIndex = 3;
             ContinueBtn.Values.DropDownArrowColor = Color.Empty;
+            ContinueBtn.Values.Image = Properties.Resources.play_button__1_;
             ContinueBtn.Values.Text = "Play";
             // 
             // TitleLabel
             // 
             TitleLabel.AutoSize = false;
-            TitleLabel.Location = new Point(275, 110);
+            TitleLabel.Location = new Point(282, 24);
             TitleLabel.Name = "TitleLabel";
             TitleLabel.Size = new Size(852, 177);
             TitleLabel.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
@@ -231,7 +238,7 @@
             // 
             // kryptonLabel1
             // 
-            kryptonLabel1.Location = new Point(394, 293);
+            kryptonLabel1.Location = new Point(208, 324);
             kryptonLabel1.Name = "kryptonLabel1";
             kryptonLabel1.Size = new Size(292, 37);
             kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
@@ -244,17 +251,16 @@
             // 
             // kryptonLabel2
             // 
-            kryptonLabel2.Location = new Point(394, 388);
+            kryptonLabel2.Location = new Point(208, 415);
             kryptonLabel2.Name = "kryptonLabel2";
             kryptonLabel2.Size = new Size(369, 209);
             kryptonLabel2.StateCommon.Padding = new Padding(1, 1, 70, 1);
             kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
             kryptonLabel2.StateCommon.ShortText.Font = new Font("Poppins", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel2.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Far;
+            kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             kryptonLabel2.TabIndex = 2;
-            kryptonLabel2.Values.Text = "Members:\r\n\r\nBarral, Jacinth Cedric C.\r\nTorrepalma, Alber\r\nNuguid, Ronjay\r\nOtadoy, ";
+            kryptonLabel2.Values.Text = "Members:\r\n\r\nBarral, Jacinth Cedric C.\r\nTorrepalma, Alber\r\nNuguid, Ronjay\r\nOtadoy, Evitha Louise C.";
             // 
             // MainView
             // 
@@ -294,6 +300,7 @@
             ((System.ComponentModel.ISupportInitialize)kryptonPanel4).EndInit();
             kryptonPanel4.ResumeLayout(false);
             kryptonPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picturebox).EndInit();
             ResumeLayout(false);
         }
 
@@ -302,12 +309,12 @@
         private Krypton.Toolkit.KryptonPanel MainPanelLoader;
         private Krypton.Toolkit.KryptonPanel MainTitlePanel;
         private Krypton.Toolkit.KryptonPanel MainScreenPanel;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private Krypton.Toolkit.KryptonLabel TitleLabel;
         private Krypton.Toolkit.KryptonPanel kryptonPanel4;
         private Krypton.Toolkit.KryptonButton ContinueBtn;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private Krypton.Toolkit.KryptonButton AboutBtn;
         private Krypton.Toolkit.KryptonButton InfoBtn;
+        private Krypton.Toolkit.KryptonLabel TitleLabel;
+        private Krypton.Toolkit.KryptonPictureBox picturebox;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
     }
 }
