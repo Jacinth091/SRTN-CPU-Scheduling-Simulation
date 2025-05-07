@@ -117,7 +117,57 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="kryptonLabel1.Values.Text" xml:space="preserve">
+    <value>SRTN (Shortest Remaining Time Next)
+     - is a preemptive CPU scheduling algorithm 
+        that selects for execution the process with 
+        the smallest remaining burst time. 
+        It's considered optimal for minimizing 
+        average waiting time among all 
+        scheduling algorithms.</value>
+  </data>
   <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="kryptonLabel3.Values.Text" xml:space="preserve">
+    <value>Preemptive version of SJF: 
+        -Unlike regular Shortest Job First (SJF) 
+         which is non-preemptive, 
+         SRTN can interrupt a running process if a  
+         new process arrives with a
+         shorter remaining time
+
+Dynamic priorities: 
+         -Process priorities change as their 
+           remaining execution times change
+
+Optimal for waiting time: 
+          No other scheduling algorithm can provide
+          better average waiting time for processes</value>
+  </data>
+  <data name="kryptonLabel8.Values.Text" xml:space="preserve">
+    <value>Note:
+Non-preemptive completes each process uninterrupted,while 
+preemptive (SRTN) interrupts running processes if a shorter one arrives.
+
+The non-preemptive example shows fixed execution order with idle time, 
+whereas preemptive dynamically reorders tasks to minimize waiting.</value>
+  </data>
+  <data name="kryptonLabel9.Values.Text" xml:space="preserve">
+    <value>The user is first prompted to enter 
+the number of processes (max: 5, min: 2), INTEGERS ONLY HERE.
+
+For each process:
+   	- Enter the Burst Time (must be  ≥ 2 and ≤ 15 msec).
+  	- Enter the Arrival Time (must be  ≥ 0 and ≤ 15 msec).
+
+(Both Integers and Decimal are Allowed)
+
+The program validates all inputs before processing.
+
+SRTN algorithm is applied to determine execution order.
+
+Final Gantt chart and process timings are displayed.
+</value>
+  </data>
 </root>

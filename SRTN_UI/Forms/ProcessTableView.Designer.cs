@@ -30,9 +30,8 @@
         {
             MainContainer = new Krypton.Toolkit.KryptonPanel();
             InputContainer = new Krypton.Toolkit.KryptonPanel();
-            kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
-            kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
+            GoBackBtn = new Krypton.Toolkit.KryptonButton();
             ProceedBtn = new Krypton.Toolkit.KryptonButton();
             Numeric = new Krypton.Toolkit.KryptonNumericUpDown();
             GenerateBtn = new Krypton.Toolkit.KryptonButton();
@@ -58,66 +57,91 @@
             // 
             // InputContainer
             // 
-            InputContainer.Controls.Add(kryptonLabel4);
-            InputContainer.Controls.Add(kryptonLabel2);
             InputContainer.Controls.Add(kryptonLabel1);
+            InputContainer.Controls.Add(GoBackBtn);
             InputContainer.Controls.Add(ProceedBtn);
             InputContainer.Controls.Add(Numeric);
             InputContainer.Controls.Add(GenerateBtn);
             InputContainer.Controls.Add(kryptonLabel3);
-            InputContainer.Location = new Point(-25, 350);
+            InputContainer.Location = new Point(3, 334);
             InputContainer.Name = "InputContainer";
             InputContainer.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.PanelAlternate;
-            InputContainer.Size = new Size(1486, 159);
+            InputContainer.Size = new Size(1481, 157);
             InputContainer.StateCommon.Color1 = Color.Transparent;
             InputContainer.StateCommon.Color2 = Color.Transparent;
             InputContainer.TabIndex = 1;
             // 
-            // kryptonLabel4
-            // 
-            kryptonLabel4.Location = new Point(1235, 4);
-            kryptonLabel4.Name = "kryptonLabel4";
-            kryptonLabel4.Size = new Size(218, 155);
-            kryptonLabel4.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            kryptonLabel4.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel4.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel4.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonLabel4.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonLabel4.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonLabel4.TabIndex = 9;
-            kryptonLabel4.Values.Text = "Note: \r\nArrival Time \r\n(Integers & Decimal)\r\nMinimum = 0\r\nMaximum = 15";
-            // 
-            // kryptonLabel2
-            // 
-            kryptonLabel2.Location = new Point(1011, 4);
-            kryptonLabel2.Name = "kryptonLabel2";
-            kryptonLabel2.Size = new Size(218, 155);
-            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
-            kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel2.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel2.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonLabel2.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            kryptonLabel2.TabIndex = 8;
-            kryptonLabel2.Values.Text = "Note: \r\nBurst Time \r\n(Integers & Decimal)\r\nMinimum = 2\r\nMaximum = 15";
-            // 
             // kryptonLabel1
             // 
-            kryptonLabel1.Location = new Point(296, 19);
+            kryptonLabel1.Location = new Point(961, 30);
             kryptonLabel1.Name = "kryptonLabel1";
-            kryptonLabel1.Size = new Size(158, 125);
+            kryptonLabel1.Size = new Size(303, 35);
             kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
             kryptonLabel1.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
-            kryptonLabel1.StateCommon.ShortText.Font = new Font("Poppins", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            kryptonLabel1.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            kryptonLabel1.StateCommon.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel1.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel1.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             kryptonLabel1.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
-            kryptonLabel1.TabIndex = 7;
-            kryptonLabel1.Values.Text = "Note: \r\nProcesses\r\nMinimum = 2\r\nMaximum = 5";
+            kryptonLabel1.TabIndex = 11;
+            kryptonLabel1.Values.Text = "Max 5, Min 2, Integers Only";
+            // 
+            // GoBackBtn
+            // 
+            GoBackBtn.Anchor = AnchorStyles.None;
+            GoBackBtn.Location = new Point(541, 76);
+            GoBackBtn.Name = "GoBackBtn";
+            GoBackBtn.OverrideDefault.Back.Color1 = Color.FromArgb(220, 255, 225);
+            GoBackBtn.OverrideDefault.Back.Color2 = Color.FromArgb(220, 255, 225);
+            GoBackBtn.OverrideDefault.Border.Rounding = 10F;
+            GoBackBtn.OverrideDefault.Content.AdjacentGap = 10;
+            GoBackBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(20, 100, 40);
+            GoBackBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(20, 100, 40);
+            GoBackBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold);
+            GoBackBtn.Size = new Size(88, 67);
+            GoBackBtn.StateCommon.Back.Color1 = Color.FromArgb(220, 255, 225);
+            GoBackBtn.StateCommon.Back.Color2 = Color.FromArgb(220, 255, 225);
+            GoBackBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 160, 80);
+            GoBackBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 160, 80);
+            GoBackBtn.StateCommon.Border.Rounding = 10F;
+            GoBackBtn.StateCommon.Border.Width = 2;
+            GoBackBtn.StateCommon.Content.AdjacentGap = 10;
+            GoBackBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(20, 100, 40);
+            GoBackBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(20, 100, 40);
+            GoBackBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold);
+            GoBackBtn.StateCommon.Content.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            GoBackBtn.StateCommon.Content.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            GoBackBtn.StateDisabled.Back.Color1 = Color.FromArgb(240, 240, 240);
+            GoBackBtn.StateDisabled.Back.Color2 = Color.FromArgb(240, 240, 240);
+            GoBackBtn.StateDisabled.Border.Color1 = Color.Gray;
+            GoBackBtn.StateDisabled.Border.Color2 = Color.Gray;
+            GoBackBtn.StateDisabled.Border.Rounding = 10F;
+            GoBackBtn.StateDisabled.Content.AdjacentGap = 10;
+            GoBackBtn.StateDisabled.Content.ShortText.Color1 = Color.Gray;
+            GoBackBtn.StateDisabled.Content.ShortText.Color2 = Color.Gray;
+            GoBackBtn.StatePressed.Back.Color1 = Color.FromArgb(170, 230, 180);
+            GoBackBtn.StatePressed.Back.Color2 = Color.FromArgb(170, 230, 180);
+            GoBackBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 130, 60);
+            GoBackBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 130, 60);
+            GoBackBtn.StatePressed.Border.Rounding = 10F;
+            GoBackBtn.StatePressed.Content.AdjacentGap = 10;
+            GoBackBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(10, 80, 30);
+            GoBackBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(10, 80, 30);
+            GoBackBtn.StateTracking.Back.Color1 = Color.FromArgb(240, 255, 240);
+            GoBackBtn.StateTracking.Back.Color2 = Color.FromArgb(240, 255, 240);
+            GoBackBtn.StateTracking.Border.Color1 = Color.FromArgb(50, 180, 90);
+            GoBackBtn.StateTracking.Border.Color2 = Color.FromArgb(50, 180, 90);
+            GoBackBtn.StateTracking.Border.Rounding = 10F;
+            GoBackBtn.StateTracking.Content.AdjacentGap = 10;
+            GoBackBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(30, 130, 60);
+            GoBackBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(30, 130, 60);
+            GoBackBtn.TabIndex = 10;
+            GoBackBtn.Values.DropDownArrowColor = Color.Empty;
+            GoBackBtn.Values.Image = Properties.Resources.home;
+            GoBackBtn.Values.Text = "";
             // 
             // ProceedBtn
             // 
-            ProceedBtn.Location = new Point(795, 87);
+            ProceedBtn.Location = new Point(792, 76);
             ProceedBtn.Name = "ProceedBtn";
             ProceedBtn.OverrideDefault.Back.Color1 = Color.FromArgb(6, 208, 1);
             ProceedBtn.OverrideDefault.Back.Color2 = Color.FromArgb(6, 208, 1);
@@ -128,7 +152,7 @@
             ProceedBtn.OverrideDefault.Content.ShortText.Color1 = Color.White;
             ProceedBtn.OverrideDefault.Content.ShortText.Color2 = Color.White;
             ProceedBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold);
-            ProceedBtn.Size = new Size(160, 45);
+            ProceedBtn.Size = new Size(137, 67);
             ProceedBtn.StateCommon.Back.Color1 = Color.FromArgb(6, 208, 1);
             ProceedBtn.StateCommon.Back.Color2 = Color.FromArgb(6, 208, 1);
             ProceedBtn.StateCommon.Border.Color1 = Color.White;
@@ -157,17 +181,17 @@
             // Numeric
             // 
             Numeric.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-            Numeric.Location = new Point(882, 19);
+            Numeric.Location = new Point(866, 19);
             Numeric.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
             Numeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             Numeric.Name = "Numeric";
-            Numeric.Size = new Size(89, 51);
+            Numeric.Size = new Size(89, 46);
             Numeric.StateCommon.Back.Color1 = Color.FromArgb(58, 71, 80);
             Numeric.StateCommon.Border.Color1 = Color.FromArgb(215, 35, 35);
             Numeric.StateCommon.Border.Color2 = Color.FromArgb(215, 35, 35);
             Numeric.StateCommon.Border.Rounding = 5F;
             Numeric.StateCommon.Content.Color1 = Color.FromArgb(252, 252, 252);
-            Numeric.StateCommon.Content.Font = new Font("Poppins", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Numeric.StateCommon.Content.Font = new Font("Poppins", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Numeric.StateCommon.Content.Padding = new Padding(10);
             Numeric.StateCommon.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
             Numeric.TabIndex = 5;
@@ -176,7 +200,7 @@
             // 
             // GenerateBtn
             // 
-            GenerateBtn.Location = new Point(572, 87);
+            GenerateBtn.Location = new Point(635, 77);
             GenerateBtn.Name = "GenerateBtn";
             GenerateBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
             GenerateBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
@@ -184,7 +208,7 @@
             GenerateBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
             GenerateBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
             GenerateBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            GenerateBtn.Size = new Size(217, 45);
+            GenerateBtn.Size = new Size(151, 67);
             GenerateBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
             GenerateBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
             GenerateBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
@@ -214,7 +238,7 @@
             // 
             // kryptonLabel3
             // 
-            kryptonLabel3.Location = new Point(501, 24);
+            kryptonLabel3.Location = new Point(501, 18);
             kryptonLabel3.Name = "kryptonLabel3";
             kryptonLabel3.Size = new Size(359, 47);
             kryptonLabel3.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
@@ -269,8 +293,7 @@
         private Krypton.Toolkit.KryptonButton GenerateBtn;
         private Krypton.Toolkit.KryptonLabel kryptonLabel3;
         private Krypton.Toolkit.KryptonButton ProceedBtn;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private Krypton.Toolkit.KryptonButton GoBackBtn;
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private Krypton.Toolkit.KryptonLabel kryptonLabel4;
     }
 }

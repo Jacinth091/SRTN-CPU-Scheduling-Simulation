@@ -31,5 +31,35 @@ namespace SRTN_UI.Forms
         {
 
         }
+
+        private void TitleLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kryptonLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kryptonLabel3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kryptonPictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kryptonLabel8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

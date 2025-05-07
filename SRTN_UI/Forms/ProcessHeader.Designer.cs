@@ -32,12 +32,16 @@
             kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             kryptonLabel3 = new Krypton.Toolkit.KryptonLabel();
+            kryptonLabel4 = new Krypton.Toolkit.KryptonLabel();
+            kryptonLabel5 = new Krypton.Toolkit.KryptonLabel();
             ((System.ComponentModel.ISupportInitialize)HeaderContainer).BeginInit();
             HeaderContainer.SuspendLayout();
             SuspendLayout();
             // 
             // HeaderContainer
             // 
+            HeaderContainer.Controls.Add(kryptonLabel5);
+            HeaderContainer.Controls.Add(kryptonLabel4);
             HeaderContainer.Controls.Add(kryptonLabel2);
             HeaderContainer.Controls.Add(kryptonLabel1);
             HeaderContainer.Controls.Add(kryptonLabel3);
@@ -94,6 +98,34 @@
             kryptonLabel3.TabIndex = 3;
             kryptonLabel3.Values.Text = "Process Id";
             // 
+            // kryptonLabel4
+            // 
+            kryptonLabel4.Location = new Point(359, 54);
+            kryptonLabel4.Name = "kryptonLabel4";
+            kryptonLabel4.Size = new Size(203, 22);
+            kryptonLabel4.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            kryptonLabel4.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            kryptonLabel4.StateCommon.ShortText.Font = new Font("Poppins Medium", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel4.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel4.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel4.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel4.TabIndex = 6;
+            kryptonLabel4.Values.Text = "2 to 15 (Integers Or Decimal)";
+            // 
+            // kryptonLabel5
+            // 
+            kryptonLabel5.Location = new Point(734, 54);
+            kryptonLabel5.Name = "kryptonLabel5";
+            kryptonLabel5.Size = new Size(203, 22);
+            kryptonLabel5.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            kryptonLabel5.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            kryptonLabel5.StateCommon.ShortText.Font = new Font("Poppins Medium", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel5.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel5.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel5.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel5.TabIndex = 7;
+            kryptonLabel5.Values.Text = "0 to 15 (Integers Or Decimal)";
+            // 
             // ProcessHeader
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -115,5 +147,7 @@
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private Krypton.Toolkit.KryptonLabel kryptonLabel3;
         private Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel5;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel4;
     }
 }

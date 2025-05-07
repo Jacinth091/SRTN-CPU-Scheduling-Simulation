@@ -21,6 +21,7 @@ namespace SRTN_UI.Forms
         private bool _isProcessExecuted = false;
 
         public static ProcessTableView Instance;
+        private MainView _mainView;
 
         public event EventHandler GenerateTableEvent;
         public event EventHandler TableAppearEvent;
@@ -50,12 +51,15 @@ namespace SRTN_UI.Forms
         {
             InitializeComponent();
             InitializeEvents();
-            this.Resize += (s, e) => CenterTableContainer();
+            //this.Resize += (s, e) => CenterTableContainer();
+
         }
 
         private void InitializeEvents()
         {
+
             this.Shown += (s, e) => ProceedBtn.Enabled = false;
+            this.MouseClick += MouseClickEvent;
 
             GenerateBtn.Click += async (s, e) =>
             {
@@ -81,7 +85,67 @@ namespace SRTN_UI.Forms
                     ProceedBtn.Enabled = true;
                 }
             };
+
+            GoBackBtn.Click += (s, e) =>
+            {
+                if (_mainView != null)
+                {
+                    var result = MessageBox.Show("Are you sure you want to go back?",
+                    "Go Back", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        _mainView.ShowPanel(_mainView.MainScreen);
+                    }
+                }
+            };
+
+            Numeric.ValueChanged += (s, e) => ValidateNumericInput();
+            Numeric.KeyUp += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    ValidateNumericInput();
+                }
+            };
         }
+
+        private void MouseClickEvent(object? sender, MouseEventArgs e)
+        {
+            CheckAllTextBoxesFilled();
+        }
+
+        private void ValidateNumericInput()
+        {
+            decimal value = Numeric.Value;
+
+            // Check if value is below minimum (2)
+            if (value < Numeric.Minimum)
+            {
+                MessageBox.Show($"Value cannot be less than {Numeric.Minimum}.", "Invalid Input",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Numeric.Value = Numeric.Minimum;
+                return;
+            }
+
+            // Check if value is above maximum (5)
+            if (value > Numeric.Maximum)
+            {
+                MessageBox.Show($"Value cannot be greater than {Numeric.Maximum}.", "Invalid Input",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Numeric.Value = Numeric.Maximum;
+                return;
+            }
+
+            // Check for negative values (though your min is 2, this is redundant but included per your request)
+            if (value < 0)
+            {
+                MessageBox.Show("Negative values are not allowed.", "Invalid Input",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Numeric.Value = Numeric.Minimum;
+                return;
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -261,7 +325,7 @@ namespace SRTN_UI.Forms
                 BorderStyle = BorderStyle.None,
                 FlowDirection = FlowDirection.TopDown,
                 WrapContents = false,
-                BackColor = Color.FromArgb(48, 56, 65), 
+                BackColor = Color.FromArgb(48, 56, 65),
                 Padding = new Padding(3, 5, 0, 5)
             };
 
@@ -346,12 +410,20 @@ namespace SRTN_UI.Forms
 
         private void SetupTextBoxEvents(KryptonTextBox textBox, int index, bool isBurstTime)
         {
+            // TextChanged handler - disable proceed button on any change
+            textBox.TextChanged += (s, e) =>
+            {
+                // Delay check in case of race conditions (optional)
+                BeginInvoke((Action)(() => CheckAllTextBoxesFilled()));
+            };
+
+            // Existing Enter handler
             textBox.Enter += (s, e) =>
             {
-                CheckAllTextBoxesFilled();
                 textBox.Text = CleanTimeText(textBox.Text);
             };
 
+            // Modified Leave handler - checks ALL fields
             textBox.Leave += (s, e) =>
             {
                 string cleanText = CleanTimeText(textBox.Text);
@@ -363,8 +435,8 @@ namespace SRTN_UI.Forms
                         return;
                     }
                 }
-                CheckAllTextBoxesFilled();
                 FormatTimeTextBox(textBox);
+                CheckAllTextBoxesFilled(); // Check ALL fields whenever any field loses focus
             };
 
             textBox.KeyDown += (s, e) =>
@@ -376,6 +448,8 @@ namespace SRTN_UI.Forms
                     HandleEnterKeyPress(textBox, index, isBurstTime);
                 }
             };
+
+
         }
 
         private void FormatTimeTextBox(KryptonTextBox textBox)
@@ -398,6 +472,7 @@ namespace SRTN_UI.Forms
             }
 
             textBox.Text = cleanText;
+            FormatTimeTextBox(textBox);
 
             if (isBurstTime)
             {
@@ -408,7 +483,7 @@ namespace SRTN_UI.Forms
                 HandleArrivalTimeNavigation(index);
             }
 
-            FormatTimeTextBox(textBox);
+            // Check ALL fields after navigation
             CheckAllTextBoxesFilled();
         }
 
@@ -444,7 +519,7 @@ namespace SRTN_UI.Forms
 
         private void CheckAllTextBoxesFilled()
         {
-            bool allFilled = true;
+            bool allValid = true;
 
             for (int i = 0; i < _processCount; i++)
             {
@@ -454,16 +529,12 @@ namespace SRTN_UI.Forms
                 if (string.IsNullOrWhiteSpace(burstText) || !double.TryParse(burstText, out _) ||
                     string.IsNullOrWhiteSpace(arrivalText) || !double.TryParse(arrivalText, out _))
                 {
-                    allFilled = false;
+                    allValid = false;
                     break;
                 }
             }
 
-            ProceedBtn.Enabled = allFilled;
-            if (allFilled)
-            {
-                ProceedEvent?.Invoke(this, EventArgs.Empty);
-            }
+            ProceedBtn.Enabled = allValid;
         }
 
         private void HandleBurstTimeNavigation(int currentIndex)
@@ -506,13 +577,11 @@ namespace SRTN_UI.Forms
             else
             {
                 _tableRowTextBoxes[currentIndex, 1].StateCommon.Back.Color1 = Color.LightGreen;
-
-                await Task.Delay(300); // Simpler async/await instead of ContinueWith
+                await Task.Delay(300);
 
                 this.Invoke(() =>
                 {
-                    ActiveControl = null;
-
+                    // Enable all textboxes
                     foreach (var textBox in _tableRowTextBoxes)
                     {
                         textBox.Enabled = true;
@@ -520,15 +589,22 @@ namespace SRTN_UI.Forms
                             textBox.StateCommon.Back.Color1 = Color.FromArgb(251, 251, 251);
                     }
 
+                    // Final validation of ALL fields
                     CheckAllTextBoxesFilled();
-                    if (!_isProcessExecuted) 
-                    {
-                    }
-                    ProceedBtn.Focus();
 
+                    // Focus proceed button only if enabled
+                    if (ProceedBtn.Enabled)
+                    {
+                        ProceedBtn.Focus();
+                    }
                 });
             }
         }
         #endregion
+        public void setMainView(MainView mainView)
+        {
+            _mainView = mainView;
+        }
+
     }
 }

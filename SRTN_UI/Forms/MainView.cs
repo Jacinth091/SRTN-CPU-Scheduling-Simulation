@@ -80,7 +80,7 @@ namespace SRTN_UI.Forms
         public void ShowProcessTableView(KryptonPanel panelContainer)
         {
             ProcessTableView processTable = ProcessTableView.GetInstance(panelContainer);
-
+            processTable.setMainView(this); // 👈 Pass reference here
             panelContainer.Controls.Clear();
             panelContainer.Controls.Add((Control)processTable);
             ((Control)processTable).Dock = DockStyle.Fill;
@@ -112,10 +112,12 @@ namespace SRTN_UI.Forms
         }
         public void ShowInfoView(KryptonPanel panelContainer)
         {
-            //InfoView infoView = InfoView.GetInstance(panelContainer);
-            //panelContainer.Controls.Clear();
-            //panelContainer.Controls.Add((Control)infoView);
-            //((Control)infoView).Dock = DockStyle.Fill;
+            InfoView infoView = InfoView.GetInstance(panelContainer);
+            //ganttChartView.SetProcessData(processedData);
+            infoView.SetMainView(this); // 👈 Pass reference here
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(infoView);
+            infoView.Dock = DockStyle.Fill;
         }
         public void ShowMainView()
         {

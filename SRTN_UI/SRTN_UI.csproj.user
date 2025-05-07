@@ -8,6 +8,9 @@
     <Compile Update="Forms\DesignArea.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Forms\InfoView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\MainView.cs">
       <SubType>Form</SubType>
     </Compile>
