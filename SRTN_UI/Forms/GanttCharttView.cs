@@ -1084,9 +1084,12 @@ namespace SRTN_UI.Forms
                 return;
             }
 
-            string waitingTimeExp = "";
-            string turnAroundTimeExp = "";
-            string completionTimeExp = "";
+            MessageBox.Show($"Completed Count: {_completed.Count}");
+
+            StringBuilder waitingTimeExp = new StringBuilder();
+            StringBuilder turnAroundTimeExp = new StringBuilder();
+            StringBuilder completionTimeExp = new StringBuilder();
+            StringBuilder fullExplanation = new StringBuilder();
 
             double totalWaitingTime = 0;
             double totalTurnAroundTime = 0;
@@ -1094,39 +1097,79 @@ namespace SRTN_UI.Forms
 
             for (int i = 0; i < _completed.Count; i++)
             {
-                var p = _completed[i];
+                Process proc = _completed[i];
 
-                waitingTimeExp += p.WaitingTime.ToString();
-                turnAroundTimeExp += p.TurnAroundTime.ToString();
-                completionTimeExp += p.CompletionTime.ToString();
+                // --- Completion Time ---
+                double completionTime = Math.Round(proc.CompletionTime, 2);
+
+                // --- Turnaround Time ---
+                double turnAroundTime = Math.Round(proc.CompletionTime - proc.ArrivalTime, 2);
+                proc.TurnAroundTime = turnAroundTime;
+
+                // --- Waiting Time ---
+                double startTime = proc.FirstStartTime ?? proc.ArrivalTime;
+                if (startTime < proc.ArrivalTime)
+                {
+                    startTime = proc.ArrivalTime; // Prevent negative
+                }
+                double waiting = startTime - proc.ArrivalTime;
+
+                var preemptionBreakdown = new StringBuilder();
+                double preemptSum = 0;
+
+                if (proc.PreemptionPairs != null)
+                {
+                    foreach (var pair in proc.PreemptionPairs
+                        .Where(pr => pr.ResumeTime > pr.PreemptTime)
+                        .OrderBy(pr => pr.PreemptTime))
+                    {
+                        double diff = Math.Max(0, pair.ResumeTime - pair.PreemptTime);
+                        preemptSum += diff;
+                        preemptionBreakdown.Append($" + ({pair.ResumeTime} - {pair.PreemptTime})");
+                    }
+                }
+
+                waiting += preemptSum;
+                proc.WaitingTime = Math.Max(0, Math.Round(waiting, 2)); // Ensure non-negative
+
+                // --- Expression building ---
+                waitingTimeExp.Append(proc.WaitingTime);
+                turnAroundTimeExp.Append(proc.TurnAroundTime);
+                completionTimeExp.Append(proc.CompletionTime);
 
                 if (i != _completed.Count - 1)
                 {
-                    waitingTimeExp += " + ";
-                    turnAroundTimeExp += " + ";
-                    completionTimeExp += " + ";
+                    waitingTimeExp.Append(" + ");
+                    turnAroundTimeExp.Append(" + ");
+                    completionTimeExp.Append(" + ");
                 }
 
-                totalWaitingTime += p.WaitingTime;
-                totalTurnAroundTime += p.TurnAroundTime;
-                totalCompletionTime += p.CompletionTime;
+                totalWaitingTime += proc.WaitingTime;
+                totalTurnAroundTime += proc.TurnAroundTime;
+                totalCompletionTime += proc.CompletionTime;
+
+                // --- Detailed breakdown per process ---
+                fullExplanation.AppendLine($"{proc.ProcessName}:");
+                string waitFormula = $"({proc.FirstStartTime ?? proc.ArrivalTime} - {proc.ArrivalTime}){preemptionBreakdown}";
+                fullExplanation.AppendLine($"  WT  = {waitFormula} = {proc.WaitingTime} msec.");
+                fullExplanation.AppendLine($"  CT  = {proc.CompletionTime} msec.");
+                fullExplanation.AppendLine($"  TAT = ({proc.CompletionTime} - {proc.ArrivalTime}) = {proc.TurnAroundTime} msec.\n");
             }
 
-            double avgWT = Math.Round(totalWaitingTime / _completed.Count, 2);
-            double avgTAT = Math.Round(totalTurnAroundTime / _completed.Count, 2);
-            double avgCT = Math.Round(totalCompletionTime / _completed.Count, 2);
+            double averageWaitingTime = Math.Round(totalWaitingTime / _completed.Count, 2);
+            double averageTurnAroundTime = Math.Round(totalTurnAroundTime / _completed.Count, 2);
+            double averageCompletionTime = Math.Round(totalCompletionTime / _completed.Count, 2);
 
-            string avgWaitStr = $"= ({waitingTimeExp}) / {_completed.Count} = {avgWT} + {" msec."}\n\n";
-            string avgTATStr = $" = ({turnAroundTimeExp}) / {_completed.Count} = {avgTAT} + {" msec."}\n\n";
-            string avgCTStr = $" = ({completionTimeExp}) / {_completed.Count} = {avgCT} + {" msec."}";
-            //$"Average Turnaround Time = ({turnAroundTimeExp}) / {_completed.Count} = {avgTAT}\n\n" +
-            //    $"Average Completion Time = ({completionTimeExp}) / {_completed.Count} = {avgCT}";
+            string avgWaitStr = $"= ({waitingTimeExp}) / {_completed.Count} = {averageWaitingTime} msec.\n\n";
+            string avgTATStr = $"= ({turnAroundTimeExp}) / {_completed.Count} = {averageTurnAroundTime} msec.\n\n";
+            string avgCTStr = $"= ({completionTimeExp}) / {_completed.Count} = {averageCompletionTime} msec.";
 
+            // Combine everything to show
             ComputationForm compForm = new ComputationForm();
-            compForm.SetData(avgWaitStr, avgCTStr, avgTATStr);
-            //detailsForm.Controls.Add(displayBox);
+            compForm.SetData(avgWaitStr, avgCTStr, avgTATStr, fullExplanation.ToString());
             compForm.ShowDialog();
         }
+
 
 
         // Logic

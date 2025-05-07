@@ -30,6 +30,7 @@
         {
             MainContainer = new Krypton.Toolkit.KryptonPanel();
             InputContainer = new Krypton.Toolkit.KryptonPanel();
+            kryptonLabel2 = new Krypton.Toolkit.KryptonLabel();
             kryptonLabel1 = new Krypton.Toolkit.KryptonLabel();
             GoBackBtn = new Krypton.Toolkit.KryptonButton();
             ProceedBtn = new Krypton.Toolkit.KryptonButton();
@@ -57,6 +58,7 @@
             // 
             // InputContainer
             // 
+            InputContainer.Controls.Add(kryptonLabel2);
             InputContainer.Controls.Add(kryptonLabel1);
             InputContainer.Controls.Add(GoBackBtn);
             InputContainer.Controls.Add(ProceedBtn);
@@ -71,9 +73,23 @@
             InputContainer.StateCommon.Color2 = Color.Transparent;
             InputContainer.TabIndex = 1;
             // 
+            // kryptonLabel2
+            // 
+            kryptonLabel2.Location = new Point(935, 75);
+            kryptonLabel2.Name = "kryptonLabel2";
+            kryptonLabel2.Size = new Size(369, 68);
+            kryptonLabel2.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
+            kryptonLabel2.StateCommon.ShortText.Color2 = Color.FromArgb(238, 238, 238);
+            kryptonLabel2.StateCommon.ShortText.Font = new Font("Poppins SemiBold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            kryptonLabel2.StateCommon.ShortText.MultiLineH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel2.StateCommon.ShortText.TextH = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel2.StateCommon.ShortText.TextV = Krypton.Toolkit.PaletteRelativeAlign.Center;
+            kryptonLabel2.TabIndex = 12;
+            kryptonLabel2.Values.Text = "Press Enter To \r\nNavigate Through the Textboxes";
+            // 
             // kryptonLabel1
             // 
-            kryptonLabel1.Location = new Point(961, 30);
+            kryptonLabel1.Location = new Point(976, 30);
             kryptonLabel1.Name = "kryptonLabel1";
             kryptonLabel1.Size = new Size(303, 35);
             kryptonLabel1.StateCommon.ShortText.Color1 = Color.FromArgb(238, 238, 238);
@@ -182,8 +198,8 @@
             // 
             Numeric.Increment = new decimal(new int[] { 1, 0, 0, 0 });
             Numeric.Location = new Point(866, 19);
-            Numeric.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
-            Numeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            Numeric.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            Numeric.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             Numeric.Name = "Numeric";
             Numeric.Size = new Size(89, 46);
             Numeric.StateCommon.Back.Color1 = Color.FromArgb(58, 71, 80);
@@ -202,36 +218,43 @@
             // 
             GenerateBtn.Location = new Point(635, 77);
             GenerateBtn.Name = "GenerateBtn";
-            GenerateBtn.OverrideDefault.Back.Color1 = Color.FromArgb(251, 252, 252);
-            GenerateBtn.OverrideDefault.Back.Color2 = Color.FromArgb(251, 252, 252);
+            GenerateBtn.OverrideDefault.Back.Color1 = Color.FromArgb(235, 245, 255);
+            GenerateBtn.OverrideDefault.Back.Color2 = Color.FromArgb(235, 245, 255);
             GenerateBtn.OverrideDefault.Border.Rounding = 10F;
-            GenerateBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            GenerateBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            GenerateBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            GenerateBtn.OverrideDefault.Content.ShortText.Color1 = Color.FromArgb(30, 80, 130);
+            GenerateBtn.OverrideDefault.Content.ShortText.Color2 = Color.FromArgb(30, 80, 130);
+            GenerateBtn.OverrideDefault.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold);
             GenerateBtn.Size = new Size(151, 67);
-            GenerateBtn.StateCommon.Back.Color1 = Color.FromArgb(251, 252, 252);
-            GenerateBtn.StateCommon.Back.Color2 = Color.FromArgb(251, 252, 252);
-            GenerateBtn.StateCommon.Border.Color1 = Color.FromArgb(40, 73, 87);
-            GenerateBtn.StateCommon.Border.Color2 = Color.FromArgb(40, 73, 87);
+            GenerateBtn.StateCommon.Back.Color1 = Color.FromArgb(235, 245, 255);
+            GenerateBtn.StateCommon.Back.Color2 = Color.FromArgb(235, 245, 255);
+            GenerateBtn.StateCommon.Border.Color1 = Color.FromArgb(50, 130, 200);
+            GenerateBtn.StateCommon.Border.Color2 = Color.FromArgb(50, 130, 200);
             GenerateBtn.StateCommon.Border.Rounding = 10F;
             GenerateBtn.StateCommon.Border.Width = 2;
-            GenerateBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(58, 94, 116);
-            GenerateBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(58, 94, 116);
-            GenerateBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            GenerateBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 200, 200);
-            GenerateBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 200, 200);
-            GenerateBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 50, 70);
-            GenerateBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 50, 70);
+            GenerateBtn.StateCommon.Content.ShortText.Color1 = Color.FromArgb(30, 80, 130);
+            GenerateBtn.StateCommon.Content.ShortText.Color2 = Color.FromArgb(30, 80, 130);
+            GenerateBtn.StateCommon.Content.ShortText.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold);
+            GenerateBtn.StateDisabled.Back.Color1 = Color.FromArgb(240, 240, 240);
+            GenerateBtn.StateDisabled.Back.Color2 = Color.FromArgb(240, 240, 240);
+            GenerateBtn.StateDisabled.Border.Color1 = Color.Gray;
+            GenerateBtn.StateDisabled.Border.Color2 = Color.Gray;
+            GenerateBtn.StateDisabled.Border.Rounding = 10F;
+            GenerateBtn.StateDisabled.Content.ShortText.Color1 = Color.Gray;
+            GenerateBtn.StateDisabled.Content.ShortText.Color2 = Color.Gray;
+            GenerateBtn.StatePressed.Back.Color1 = Color.FromArgb(200, 230, 255);
+            GenerateBtn.StatePressed.Back.Color2 = Color.FromArgb(200, 230, 255);
+            GenerateBtn.StatePressed.Border.Color1 = Color.FromArgb(30, 100, 170);
+            GenerateBtn.StatePressed.Border.Color2 = Color.FromArgb(30, 100, 170);
             GenerateBtn.StatePressed.Border.Rounding = 10F;
-            GenerateBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(40, 80, 100);
-            GenerateBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(40, 80, 100);
-            GenerateBtn.StateTracking.Back.Color1 = Color.FromArgb(230, 230, 230);
-            GenerateBtn.StateTracking.Back.Color2 = Color.FromArgb(230, 230, 230);
-            GenerateBtn.StateTracking.Border.Color1 = Color.FromArgb(60, 100, 120);
-            GenerateBtn.StateTracking.Border.Color2 = Color.FromArgb(60, 100, 120);
+            GenerateBtn.StatePressed.Content.ShortText.Color1 = Color.FromArgb(20, 70, 120);
+            GenerateBtn.StatePressed.Content.ShortText.Color2 = Color.FromArgb(20, 70, 120);
+            GenerateBtn.StateTracking.Back.Color1 = Color.FromArgb(245, 250, 255);
+            GenerateBtn.StateTracking.Back.Color2 = Color.FromArgb(245, 250, 255);
+            GenerateBtn.StateTracking.Border.Color1 = Color.FromArgb(70, 160, 220);
+            GenerateBtn.StateTracking.Border.Color2 = Color.FromArgb(70, 160, 220);
             GenerateBtn.StateTracking.Border.Rounding = 10F;
-            GenerateBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(80, 120, 140);
-            GenerateBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(80, 120, 140);
+            GenerateBtn.StateTracking.Content.ShortText.Color1 = Color.FromArgb(40, 100, 150);
+            GenerateBtn.StateTracking.Content.ShortText.Color2 = Color.FromArgb(40, 100, 150);
             GenerateBtn.TabIndex = 4;
             GenerateBtn.Values.DropDownArrowColor = Color.Empty;
             GenerateBtn.Values.Text = "Generate Table";
@@ -295,5 +318,6 @@
         private Krypton.Toolkit.KryptonButton ProceedBtn;
         private Krypton.Toolkit.KryptonButton GoBackBtn;
         private Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private Krypton.Toolkit.KryptonLabel kryptonLabel2;
     }
 }

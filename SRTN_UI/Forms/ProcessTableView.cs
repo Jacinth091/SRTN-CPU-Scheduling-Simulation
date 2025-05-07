@@ -63,9 +63,14 @@ namespace SRTN_UI.Forms
 
             GenerateBtn.Click += async (s, e) =>
             {
+                if (!ValidateNumericInput())
+                {
+                    return; // Stop if validation fails
+                }
                 if (_isAnimating) return;
                 await GenerateEventAnimationAsync();
                 TableAppearEvent?.Invoke(this, EventArgs.Empty);
+                GenerateBtn.Enabled = false;
             };
 
             ProceedBtn.Click += (s, e) =>
@@ -99,7 +104,16 @@ namespace SRTN_UI.Forms
                 }
             };
 
-            Numeric.ValueChanged += (s, e) => ValidateNumericInput();
+            Numeric.ValueChanged += (s, e) =>
+            {
+                // Re-enable Generate button only if value has changed from current table
+                if (!GenerateBtn.Enabled)
+                {
+                    GenerateBtn.Enabled = true;
+                }
+            };
+
+            // Optional: Validate on Enter key press
             Numeric.KeyUp += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
@@ -114,36 +128,46 @@ namespace SRTN_UI.Forms
             CheckAllTextBoxesFilled();
         }
 
-        private void ValidateNumericInput()
+        private bool ValidateNumericInput()
         {
             decimal value = Numeric.Value;
 
-            // Check if value is below minimum (2)
-            if (value < Numeric.Minimum)
-            {
-                MessageBox.Show($"Value cannot be less than {Numeric.Minimum}.", "Invalid Input",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Numeric.Value = Numeric.Minimum;
-                return;
-            }
-
-            // Check if value is above maximum (5)
-            if (value > Numeric.Maximum)
-            {
-                MessageBox.Show($"Value cannot be greater than {Numeric.Maximum}.", "Invalid Input",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Numeric.Value = Numeric.Maximum;
-                return;
-            }
-
-            // Check for negative values (though your min is 2, this is redundant but included per your request)
             if (value < 0)
             {
-                MessageBox.Show("Negative values are not allowed.", "Invalid Input",
-                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Numeric.Value = Numeric.Minimum;
-                return;
+                MessageBox.Show("Negative values are not allowed.",
+                               "Invalid Input",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                Numeric.Value = 2;
+                Numeric.Focus();
+                return false;
             }
+
+            if (value < 2)
+            {
+                MessageBox.Show($"Value cannot be less than {2}.",
+                               "Invalid Input",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                Numeric.Value = 2;
+                Numeric.Focus();
+                return false;
+            }
+
+            if (value > 5)
+            {
+                MessageBox.Show($"Value cannot be greater than {5}.",
+                               "Invalid Input",
+                               MessageBoxButtons.OK,
+                               MessageBoxIcon.Warning);
+                Numeric.Value = 5;
+                Numeric.Focus();
+                return false;
+            }
+
+            //GenerateBtn.Enabled = true;
+            return true;
+
         }
 
         #endregion
@@ -605,6 +629,5 @@ namespace SRTN_UI.Forms
         {
             _mainView = mainView;
         }
-
     }
 }

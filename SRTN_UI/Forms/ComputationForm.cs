@@ -17,11 +17,13 @@ namespace SRTN_UI.Forms
         {
             InitializeComponent();
         }
-        public void SetData(string wt, string ct, string tat)
+        public void SetData(string wt, string ct, string tat, string fullExplanation)
         {
+            PerProcessData.Text = fullExplanation.ToString();
             avgWait.Text = wt.ToString();
             avgComp.Text = ct.ToString();
             avgTurn.Text = tat.ToString();
         }
+
     }
 }
